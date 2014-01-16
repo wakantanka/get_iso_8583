@@ -1,0 +1,13 @@
+mvn install:install-file -Dfile=je-4.1.10.jar -DgroupId=com.sleepycat -DartifactId=je -Dversion=4.1.10 -Dpackaging=jar
+
+http://dev.mapfish.org/maven/repository/repository/com/sleepycat/je/4.1.10/
+
+http://jimmod.com/blog/2011/07/jimmys-blog-iso-8583-tutorial-build-and-parse-iso-message-using-jpos-library/
+
+http://j8583.sourceforge.net/
+
+
+http://memo.tv/archive/node/646
+
+
+http://stackoverflow.com/questions/11726906/nibble-hex-from-java-to-php
