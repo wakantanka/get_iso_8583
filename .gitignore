@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+
+# mvn Files
+target/
+
+# priv Files
+resources/testdata.ac
