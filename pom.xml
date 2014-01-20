@@ -15,11 +15,11 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>net.sf.j8583</groupId>
-			<artifactId>j8583</artifactId>
-			<version>1.9.1</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>net.sf.j8583</groupId> -->
+<!-- 			<artifactId>j8583</artifactId> -->
+<!-- 			<version>1.9.1</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.jpos</groupId>
 			<artifactId>jpos</artifactId>
