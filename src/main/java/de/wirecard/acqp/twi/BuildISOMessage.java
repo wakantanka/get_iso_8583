@@ -29,6 +29,7 @@ public class BuildISOMessage {
 		isoMsg.set(41, "a0001470");
 		isoMsg.set(42, "1001a0001470");
 		isoMsg.set(43, "GoetheonMainJohannesburg DE");
+		isoMsg.set(48, "fsdgdsfgsdfgsdfgsdg");
 		isoMsg.set(49, "978");
 		isoMsg.set(60, "0900000005");
  
