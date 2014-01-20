@@ -49,12 +49,8 @@ public class ReadAcHexDataTest {
 	@Test
 	public void testReadACFromRecources() throws IOException,
 			FileNotFoundException, UnsupportedEncodingException, DecoderException {
-		
 
 
-		
-		Hex hex = new Hex();
-		
 		
 		System.out.println(testdata);
 		System.out.println();

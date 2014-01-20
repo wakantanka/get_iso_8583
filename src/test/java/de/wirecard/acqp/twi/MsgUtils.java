@@ -11,9 +11,15 @@ public final class MsgUtils {
 		return stripFs(input.substring(0, 8));
 	}
 
-	public static String GetBitMap(String input) {
+	public static 	String GetBitMap(String input) {
 		// System.out.println(ISOUtil.trimf(testdata.substring(8, 24)));
 		return input.substring(8, 24);
+	}
+	
+
+	public static String GetData(String input) {
+//		return (input.substring(24, 226));
+		return stripFs(input.substring(24, 226));
 	}
 
 	private static byte[] decodeNibbleHex(String input) {
@@ -29,7 +35,7 @@ public final class MsgUtils {
 		return baos.toByteArray();
 	}
 
-	private static String stripFs(String input) {
+	 static String stripFs(String input) {
 		StringBuilder result = new StringBuilder();
 		for (int i = 0; i < input.length(); i++) {
 			if (input.charAt(i) != 'F' && i % 2 == 1)
@@ -57,4 +63,5 @@ public final class MsgUtils {
 		String Bin = Integer.toBinaryString(i);
 		return LeftPadder.ZERO_PADDER.pad(Bin, 8);
 	}
+
 }

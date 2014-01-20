@@ -10,7 +10,7 @@ import org.jpos.iso.packager.GenericPackager;
 
 
 /**
- * @author jan.wahler
+ * @author jan
  *
  */
 	public class ParseISOMessage {
@@ -20,8 +20,9 @@ import org.jpos.iso.packager.GenericPackager;
 			GenericPackager packager = new GenericPackager("basic.xml");
 	 
 			// Print Input Data
-			String data = "0200B2200000001000000000000000800000201234000000010000011072218012345606A5DFGR021ABCDEFGHIJ 1234567890";
-		
+//			String data = "0200B2200000001000000000000000800000201234000000010000011072218012345606A5DFGR021ABCDEFGHIJ 1234567890";
+			String data = "01003224648108E080100000000000001100300120112051588321151007422761205906466255402011588321a00014701001a0001470   GoetheonMainJohannesburg DE             9780100900000005 1234567890";
+
 			System.out.println("DATA : " + data);
 	 
 			// Create ISO Message
