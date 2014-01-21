@@ -39,11 +39,22 @@ public final class MsgUtils {
 	static String stripFs(String input) {
 		StringBuilder result = new StringBuilder();
 		for (int i = 0; i < input.length(); i++) {
-
+			
 			if (i % 2 == 0 && input.charAt(i) != 'F')
 				throw new NumberFormatException("Wrong Format for F-Nibbles");
-
+			
 			if (i % 2 == 1) {
+				result.append(input.charAt(i));
+			}
+		}
+		return result.toString();
+	}
+	
+	static String stripAllFs(String input) {
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < input.length(); i++) {
+
+			if ( input.charAt(i) != 'F') {
 				result.append(input.charAt(i));
 			}
 		}

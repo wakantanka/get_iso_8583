@@ -17,3 +17,12 @@ http://stackoverflow.com/questions/11726906/nibble-hex-from-java-to-php
 http://jpos.org/doc/javadoc/org/jpos/iso/HexNibblesPrefixer.html
 http://jpos.org/doc/javadoc/org/jpos/iso/AsciiPrefixer.html
 http://jpos.org/doc/javadoc/org/jpos/iso/AsciiHexInterpreter.html
+
+
+--21.1.
+jpos/src/dist/cfg/packager/base1.xml
+//			82 --> 62
+//			http://en.wikipedia.org/wiki/EBCDIC
+ 
+//			BCDInterpreter.LEFT_PADDED_F
+ 
