@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
@@ -140,12 +141,40 @@ public class SplitMsgPartsTest {
 	}
 
 	@Test
-	public void testAuslesenFeld43Struk() {
-		 System.out.println(MsgUtils.hextoASCII("001404040C3C3C240E3F140E28899A340D581948"));
-
-		 
-	}
-
+	public void testAuslesenFeld43Struk() throws DecoderException {
+//		 System.out.println(MsgUtils.hextoASCII("001404040C3C3C240E3F140E28899A340D581948"));
+//		 System.out.println(MsgUtils.hextoASCII("1D9C5E3D3"));
+		 byte[] bytes = Hex.decodeHex("D9C5E3D3".toCharArray());
+//		 /52:45:54:4c
+		 StringBuffer result = new StringBuffer();
+		 for (byte b : bytes) {
+		     result.append((char) b + 12);
+		     result.append(" "); // delimiter
+		 }
+		 System.out.println("result " + result.toString() );
+		 System.out.println(new String(bytes));
 	
+			byte [] byteArray = {0x41,0x42,0x43,0x62,0x47};
+			
+			System.out.println("ASCII Equivalent of Values in Byte Array:\n");
+
+			System.out.println(new String(byteArray));
+			
+			
+			String string  = "11011100010000010001000000000000";
+			String string1 = "00000000010000110000100000101100";
+
+			System.out.println(new BigInteger(string1, 2).toString(16));
+			System.out.println(new BigInteger(string, 2).toString(16));
+			System.out.println(Long.toHexString(Long.parseLong(string1,2)));
+			System.out.println(Long.toHexString(Long.parseLong(string,2)));
+			
+			
+//			82 --> 62
+//			http://en.wikipedia.org/wiki/EBCDIC
+			System.out.println();
+			System.out.println((char) 62);
+			System.out.println((char) 129);
+		    }
 	
 }

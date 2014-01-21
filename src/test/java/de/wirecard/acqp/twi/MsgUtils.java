@@ -105,7 +105,7 @@ public final class MsgUtils {
 	        String str = hex.substring(i, i+2);
 	        
 	        System.out.println(str);
-	        output.append((char) (Integer.parseInt(str, 16)+55));
+	        output.append((char) (Integer.parseInt(str, 16)));
 	    }
 	    
 		return output.toString();
