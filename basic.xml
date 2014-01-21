@@ -221,6 +221,7 @@
       length="40"
       name="CARD ACCEPTOR NAME/LOCATION"
       class="org.jpos.iso.IF_CHAR"/>
+  
   <isofield
       id="44"
       length="25"

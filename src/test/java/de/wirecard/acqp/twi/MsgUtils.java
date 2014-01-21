@@ -23,7 +23,7 @@ public final class MsgUtils {
 		return stripFs(input.substring(24, 226));
 	}
 
-	private static byte[] decodeNibbleHex(String input) {
+	public static byte[] decodeNibbleHex(String input) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		char[] chars = input.toCharArray();
 		for (int i = 0; i < chars.length - 1; i += 2) {
@@ -97,5 +97,18 @@ public final class MsgUtils {
 
 		System.out.println(sb.toString());
 		return sb.toString();
+	}
+
+	public static String hextoASCII(String hex) {
+	    StringBuilder output = new StringBuilder();
+	    for (int i = 0; i < hex.length(); i+=2) {
+	        String str = hex.substring(i, i+2);
+	        
+	        System.out.println(str);
+	        output.append((char) (Integer.parseInt(str, 16)+55));
+	    }
+	    
+		return output.toString();
+		
 	}
 }
