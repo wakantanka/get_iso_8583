@@ -86,8 +86,8 @@ public class ParseISOMessageMockGenericPackagerTest {
 			}
 
 			// RandomAccess
-			String field43 = msg.getString("43.3");
-			System.out.println("43.3=" + field43);
+			String field48 = msg.getString("48.43");
+			System.out.println("48.43=" + field48);
 
 		} catch (ISOException e) {
 			e.printStackTrace();

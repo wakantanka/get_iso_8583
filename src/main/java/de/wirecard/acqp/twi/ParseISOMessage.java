@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
-import org.jpos.iso.ISOPackager;
 import org.jpos.iso.packager.GenericPackager;
 import org.jpos.util.LogSource;
 import org.jpos.util.Logger;
