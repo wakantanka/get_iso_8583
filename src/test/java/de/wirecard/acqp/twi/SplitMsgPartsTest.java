@@ -189,6 +189,7 @@ public class SplitMsgPartsTest {
 	public void testDecodeEBCDIC() throws UnsupportedEncodingException {
 //		82F0F0F0F0F0F0F1
 //		820000001
+//		http://stackoverflow.com/questions/368603/convert-string-from-ascii-to-ebcdic-in-java
 		
 		
 //		System.out.println(new String(MsgUtils.decodeNibbleHex("820000001") ,  0,  4,  "Cp1047"));

@@ -208,7 +208,7 @@
       class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="41"
-      length="9"
+      length="8"
       name="CARD ACCEPTOR TERMINAL IDENTIFICACION"
       class="org.jpos.iso.IF_CHAR"/>
   <isofield

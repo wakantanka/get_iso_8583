@@ -19,7 +19,7 @@ import org.jpos.util.SimpleLogListener;
  */
 public class ParseISOMessage {
 
-	public static void main(String[] args) throws IOException, ISOException {
+	public static void main(String[] args) throws IOException, ISOException  {
 		// Create Packager based on XML that contain DE type
 		GenericPackager packager = new GenericPackager("basic.xml");
 //		ISOPackager packager = new GenericPackager("basic.xml");
