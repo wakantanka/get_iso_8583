@@ -16,11 +16,29 @@
       length="19"
       name="PAN - PRIMARY ACCOUNT NUMBER"
       class="org.jpos.iso.IFA_LLNUM"/>
-  <isofield
+  <isofieldpackager
       id="3"
       length="6"
       name="PROCESSING CODE"
-      class="org.jpos.iso.IFA_NUMERIC"/>
+      class="org.jpos.iso.IFA_NUMERIC"
+      packager="org.jpos.iso.packager.GenericSubFieldPackager"
+      emitBitmap="false"> 
+		<isofield 
+	          id="1" 
+	          length="2" 
+	          name="Transaction Code" 
+	          class="org.jpos.iso.IFA_NUMERIC"/> 
+		<isofield 
+	          id="2" 
+	          length="2" 
+	          name="From account type" 
+	          class="org.jpos.iso.IFA_NUMERIC"/> 
+		<isofield 
+	          id="3" 
+	          length="2" 
+	          name="To account type" 
+	          class="org.jpos.iso.IFA_NUMERIC"/> 
+  </isofieldpackager>
   <isofield
       id="4"
       length="12"
@@ -269,11 +287,48 @@
       length="999"
       name="ADITIONAL DATA - NATIONAL"
       class="org.jpos.iso.IFA_LLLCHAR"/>
-  <isofield
+   <isofieldpackager 
       id="48"
       length="999"
       name="ADITIONAL DATA - PRIVATE"
-      class="org.jpos.iso.IFA_LLLCHAR"/>
+      class="org.jpos.iso.IFA_LLLCHAR"
+      packager="org.jpos.iso.packager.GenericSubFieldPackager"
+      emitBitmap="false"> 
+		<isofield 
+	          id="1" 
+	          length="1" 
+	          name="PDS 1" 
+	          class="org.jpos.iso.IF_CHAR"/> 
+		<!--	 cpi spec        no id 1 --> 
+		<isofield 
+	          id="42" 
+	          length="7" 
+	          name="PDS 42" 
+	          class="org.jpos.iso.IF_CHAR"/>
+		<!--	 cpi spec        n-7 -->  
+		<isofield 
+	          id="43" 
+	          length="32" 
+	          name="PDS 43" 
+	          class="org.jpos.iso.IF_CHAR"/> 
+		<!--	 cpi spec          class="org.jpos.iso.IFA_LLLCHAR"/ --> 
+		<isofield 
+	          id="61" 
+	          length="5" 
+	          name="PDS 61" 
+	          class="org.jpos.iso.IF_CHAR"/> 
+		<!--	 cpi spec        n-5, IFA_NUMERIC? -->  
+		<isofield 
+	          id="92" 
+	          length="3" 
+	          name="PDS 92" 
+	          class="org.jpos.iso.IF_CHAR"/> 
+		<!--	 cpi spec        n-3, IFA_NUMERIC? -->  
+</isofieldpackager>
+	          
+  
+
+
   <isofield
       id="49"
       length="3"
