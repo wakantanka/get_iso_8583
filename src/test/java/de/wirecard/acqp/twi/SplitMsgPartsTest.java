@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 
 import org.apache.commons.codec.DecoderException;
@@ -183,5 +184,18 @@ public class SplitMsgPartsTest {
 			
 //			BCDInterpreter.LEFT_PADDED_F
 		    }
+	
+	@Test
+	public void testDecodeEBCDIC() throws UnsupportedEncodingException {
+//		82F0F0F0F0F0F0F1
+//		820000001
+		
+		
+//		System.out.println(new String(MsgUtils.decodeNibbleHex("820000001") ,  0,  4,  "Cp1047"));
+		System.out.println(new String(MsgUtils.decodeNibbleHex("82F0F0F0F0F0F0F1") ,   "Cp1047"));
+		System.out.println(new String(MsgUtils.decodeNibbleHex("820000001") ,   "Cp1047"));
+		System.out.println(new String(MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1") ,   "Cp1047")); //RETLb0000001
+		}	
+	
 	
 }

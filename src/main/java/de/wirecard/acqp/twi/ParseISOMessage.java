@@ -4,9 +4,14 @@
 package de.wirecard.acqp.twi;
 
 import java.io.IOException;
+
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
+import org.jpos.iso.ISOPackager;
 import org.jpos.iso.packager.GenericPackager;
+import org.jpos.util.LogSource;
+import org.jpos.util.Logger;
+import org.jpos.util.SimpleLogListener;
 
 /**
  * @author jan
@@ -17,6 +22,7 @@ public class ParseISOMessage {
 	public static void main(String[] args) throws IOException, ISOException {
 		// Create Packager based on XML that contain DE type
 		GenericPackager packager = new GenericPackager("basic.xml");
+//		ISOPackager packager = new GenericPackager("basic.xml");
 //		GenericPackager packager = new GenericPackager("base1.xml");
 
 		// Print Input Data
@@ -45,7 +51,15 @@ public class ParseISOMessage {
 		ISOMsg isoMsg = new ISOMsg();
 		isoMsg.setPackager(packager);
 		isoMsg.unpack(data.getBytes());
-
+		
+//		 Logger logger = new Logger();
+//		 logger.addListener (new SimpleLogListener(System.out));
+//		 ((LogSource)packager).setLogger(logger, "debug");
+		
+		 Logger logger = new Logger(); 
+		 logger.addListener (new SimpleLogListener (System.out)); 
+		  ((LogSource)packager).setLogger(logger, "debug"); 
+		 
 		// print the DE list
 		logISOMsg(isoMsg);
 	}
