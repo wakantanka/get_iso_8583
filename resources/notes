@@ -27,10 +27,39 @@ jpos/src/dist/cfg/packager/base1.xml
 //			BCDInterpreter.LEFT_PADDED_F
 
 
-http://www.codeproject.com/Articles/100084/Introduction-to-ISO-8583
+http://www.codeproject.com/Articles/100084/Introduction-to-ISO-8583 
 
-
+DERHinweis
+http://stackoverflow.com/questions/368603/convert-string-from-ascii-to-ebcdic-in-java
 
 
 http://jpos.org/doc/proguide-draft.pdf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JMeter - Ingtegration
+
+http://jmeter-plugins.org/wiki/PluginInstall/
+
+ http://jmeter-plugins.org/wiki/DeveloperGuide/
+ http://jmeter-plugins.org/wiki/ExtrasSet/
  
+ 
+https://github.com/undera/jmeter-plugins/tree/master/extras/src/kg/apc/jmeter/dbmon

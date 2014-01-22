@@ -221,8 +221,8 @@
       length="40"
       name="CARD ACCEPTOR NAME/LOCATION"
       class="org.jpos.iso.IF_CHAR"
-   packager="org.jpos.iso.packager.GenericSubFieldPackager"
-emitBitmap="false"> 
+      packager="org.jpos.iso.packager.GenericSubFieldPackager"
+      emitBitmap="false"> 
 		<isofield 
 	          id="1" 
 	          length="22" 

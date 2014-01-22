@@ -35,11 +35,12 @@ public class ParseISOMessageMockGenericPackagerTest {
 		sb.append(bitmap);
 		sb.append(dataPart);
 
-		// Logger logger = new Logger();
-		// logger.addListener (new SimpleLogListener (System.out));
-		// ((LogSource)packager).setLogger(logger, "debug");
+		 Logger logger = new Logger();
+		 logger.addListener (new SimpleLogListener (System.out));
+		 ((LogSource)packager).setLogger(logger, "debug");
 
 		String data = sb.toString();
+		System.out.println("TWOInput : " + twoInput);
 		System.out.println("DATA : " + data);
 
 		// Create ISO Message
@@ -62,7 +63,12 @@ public class ParseISOMessageMockGenericPackagerTest {
 //							+ "\t\t     value : "
 //							+ msg.getComponent(i).getBytes());
 					// "\t\t     Children? : " +
-					// msg.getComponent(i).getChildren().size()
+				for (int j = 1; j < msg.getComponent(i).getMaxField()+1; j++) {
+					ISOMsg isoSubMsg =	(ISOMsg) msg.getComponent(i)	;
+						System.out.println( "        Sub-" + (isoSubMsg.getComponent(j).getKey().toString() + " : "
+								+ isoSubMsg.getComponent(j).getValue().toString()));
+						
+					}
 				}
 
 			}
@@ -79,5 +85,4 @@ public class ParseISOMessageMockGenericPackagerTest {
 		}
 
 	}
-
 }

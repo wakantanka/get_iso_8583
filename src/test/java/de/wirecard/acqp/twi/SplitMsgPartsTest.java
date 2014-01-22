@@ -187,15 +187,13 @@ public class SplitMsgPartsTest {
 	
 	@Test
 	public void testDecodeEBCDIC() throws UnsupportedEncodingException {
-//		82F0F0F0F0F0F0F1
-//		820000001
-//		http://stackoverflow.com/questions/368603/convert-string-from-ascii-to-ebcdic-in-java
 		
-		
-//		System.out.println(new String(MsgUtils.decodeNibbleHex("820000001") ,  0,  4,  "Cp1047"));
-		System.out.println(new String(MsgUtils.decodeNibbleHex("82F0F0F0F0F0F0F1") ,   "Cp1047"));
-		System.out.println(new String(MsgUtils.decodeNibbleHex("820000001") ,   "Cp1047"));
-		System.out.println(new String(MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1") ,   "Cp1047")); //RETLb0000001
+//		System.out.println(new String(MsgUtils.decodeNibbleHex("820000001") ,   "Cp1047"));
+//		System.out.println(new String(MsgUtils.decodeNibbleHex("82F0F0F0F0F0F0F1") ,   "Cp1047"));
+		assertEquals(new String(MsgUtils.decodeNibbleHex("82F0F0F0F0F0F0F1"),   "Cp1047"), "b0000001");
+
+//		System.out.println(new String(MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1") ,   "Cp1047")); //RETLb0000001
+		assertEquals(new String(MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1"),   "Cp1047"), "RETLb0000001");
 		}	
 	
 	
