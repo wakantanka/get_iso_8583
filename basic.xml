@@ -216,12 +216,39 @@
       length="15"
       name="CARD ACCEPTOR IDENTIFICATION CODE"
       class="org.jpos.iso.IF_CHAR"/>
-  <isofield
+  <isofieldpackager 
       id="43"
       length="40"
       name="CARD ACCEPTOR NAME/LOCATION"
-      class="org.jpos.iso.IF_CHAR"/>
-  
+      class="org.jpos.iso.IF_CHAR"
+   packager="org.jpos.iso.packager.GenericSubFieldPackager"
+emitBitmap="false"> 
+		<isofield 
+	          id="1" 
+	          length="22" 
+	          name="Merchant Name" 
+	          class="org.jpos.iso.IF_CHAR"/> 
+		<isofield 
+	          id="2" 
+	          length="1" 
+	          name="Space" 
+	          class="org.jpos.iso.IF_CHAR"/> 
+		<isofield 
+	          id="3" 
+	          length="13" 
+	          name="Merchant City" 
+	          class="org.jpos.iso.IF_CHAR"/> 
+		<isofield 
+	          id="4" 
+	          length="1" 
+	          name="Space" 
+	          class="org.jpos.iso.IF_CHAR"/> 
+		<isofield 
+	          id="5" 
+	          length="3" 
+	          name="Merchant State" 
+	          class="org.jpos.iso.IF_CHAR"/> 
+		</isofieldpackager>
   <isofield
       id="44"
       length="25"
