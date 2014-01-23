@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jpos.iso.ISOException;
+import org.jpos.iso.ISOMsg;
 import org.jpos.iso.LeftPadder;
 
 public final class MsgUtils {
@@ -121,5 +122,41 @@ public final class MsgUtils {
 	    
 		return output.toString();
 		
+	}
+
+	// TODO move toUTils?
+	static void logISOMsg(ISOMsg msg) {
+		System.out.println("----ISO MESSAGE-----");
+		try {
+			System.out.println("  MTI : " + msg.getMTI());
+			for (int i = 1; i <= msg.getMaxField(); i++) {
+				if (msg.hasField(i)) {
+					System.out.println("    Field-"
+							+ msg.getComponent(i).getKey().toString() + " : \""
+							+ msg.getComponent(i).getValue().toString() + "\"");
+	
+					if (msg.getComponent(i).getMaxField() > 0) {
+	
+						for (int j = 1; j < msg.getComponent(i).getMaxField() + 1; j++) {
+							ISOMsg isoSubMsg = (ISOMsg) msg.getComponent(i);
+							if (isoSubMsg.hasField(j)) {
+	
+								System.out.println("        SubField-"
+										+ (isoSubMsg.getComponent(j).getKey()
+												.toString()
+												+ " : \"" + isoSubMsg
+												.getComponent(j).getValue()
+												.toString()) + "\"");
+							}
+						}
+					}
+				}
+			}
+		} catch (ISOException e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println("--------------------");
+		}
+	
 	}
 }
