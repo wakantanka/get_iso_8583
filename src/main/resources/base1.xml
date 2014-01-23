@@ -220,7 +220,7 @@
       length="37"
       name="TRACK 2 DATA"
       pad="true"
-      class="org.jpos.iso.IFB_LLHNUM"/-->
+      class="org.jpos.iso.IFB_LLHNUM"/ -->
   <isofield
       id="35"
       length="48"

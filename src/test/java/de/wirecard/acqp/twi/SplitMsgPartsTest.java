@@ -191,9 +191,19 @@ public class SplitMsgPartsTest {
 //		System.out.println(new String(MsgUtils.decodeNibbleHex("820000001") ,   "Cp1047"));
 //		System.out.println(new String(MsgUtils.decodeNibbleHex("82F0F0F0F0F0F0F1") ,   "Cp1047"));
 		assertEquals(new String(MsgUtils.decodeNibbleHex("82F0F0F0F0F0F0F1"),   "Cp1047"), "b0000001");
-
+		
 //		System.out.println(new String(MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1") ,   "Cp1047")); //RETLb0000001
 		assertEquals(new String(MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1"),   "Cp1047"), "RETLb0000001");
+	}	
+	
+	@Test
+	public void testDecodeVisaEBCDIC() throws UnsupportedEncodingException {
+		
+		System.out.println(new String(MsgUtils.decodeNibbleHex("16010200B7000000") ,   "Cp1047"));
+//		assertEquals(new String(MsgUtils.decodeNibbleHex("82F0F0F0F0F0F0F1"),   "Cp1047"), "b0000001");
+
+//		System.out.println(new String(MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1") ,   "Cp1047")); //RETLb0000001
+//		assertEquals(new String(MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1"),   "Cp1047"), "RETLb0000001");
 		}	
 	
 	

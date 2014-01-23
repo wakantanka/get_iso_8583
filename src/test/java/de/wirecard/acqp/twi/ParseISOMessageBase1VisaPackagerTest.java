@@ -18,26 +18,59 @@ public class ParseISOMessageBase1VisaPackagerTest {
 
 	@Test
 	public void testParseAuthRequest() throws ISOException,
-			UnsupportedEncodingException {
-		GenericPackager packager = new GenericPackager("src/main/resources/basic.xml");
+			UnsupportedEncodingException 
+			{
+		GenericPackager packager = new GenericPackager(
+				"src/main/resources/base1.xml");
+//				Base1Packager packager = new Base1Packager();
 
-		String twoInput = "F0F1F0F0723C440188E18008F1F9F5F4F0F5F6F2F0F0F0F0F0F0F0F0F0F0F0F1F4F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F5F0F5F0F1F2F0F1F3F0F3F0F9F5F8F9F2F7F8F1F3F0F3F0F9F0F1F2F0F1F5F1F1F5F4F1F1F8F1F2F0F6F0F1F3F4F0F1F0F6F2F0F0F3F5F0F0F1F2F0F1F4F5F4F9F3F5F482F0F0F0F0F0F0F1D9C5E3D382F0F0F0F0F0F0F1404040C3C3C240E3F140E28899A340D581948540404040404040C3C3C240E3F140E28899A340D340D7C1D5F0F6F0E3F6F1F0F5F0F0F0F0F1F9F2F0F35C5C5CF4F2F0F7F0F1F0F3F2F1F2F4F3F2F891C982A884F6E38581889492C1C2C5C1C1C1C699D894A8E7A694F07EF9F7F8F0F2F1F1F0F2F5F1F0F0F0F0F6F0F0F0F5F9F1D7C1D5F1F2";
+		// TranID 18842255
+		String twoInput = "16010200B300000079542500000000000000000000000100F224648108E08012000000000000000410412435FFFFFF0019000000000000033333012308265160121415111711035601200006450476F4F0F2F3F0F8F6F0F1F2F1F485F0F0F0F0F0F0F1F1F0F0F585F0F0F0F0F0F0F1404040C9D6C240E2889699A340D58194854040404040404040404040C9D6C240E2889699A340D39683C9D5097801090580000000000E0040000000000000F1F140C6C6C6";
 
-		String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
-				8)), "Cp1047");
-		String bitmap = new String(MsgUtils.GetBitMap(twoInput));
+		String mti = new String(twoInput.substring(44, 48));
+		System.out.println(" #################################### " + mti);
+
+		// TODO Header
+		String bitmap = new String(twoInput.substring(48, 64));
+		System.out.println(" #################################### " + bitmap);
+		System.out.println(" #################################### " + bitmap);
+		
+		// String dataPart = new String(twoInput.substring(64,
+		// twoInput.length()));
+//		String preDataPart = new String(twoInput.substring(64, 158));
+//		ohne secondary bitmap
+		String preDataPart = new String(twoInput.substring(82, 158));
+		System.out.println("preDataPart #################################### " + preDataPart);
 
 		String dataPart = new String(MsgUtils.decodeNibbleHex(twoInput
-				.substring(24, twoInput.length())), "Cp1047");
+				.substring(158, 194)), "Cp1047");
+		System.out.println("dataPart #################################### " + dataPart);
+		
+		String dataPart2 = new String(MsgUtils.decodeNibbleHex(twoInput
+				.substring(194, 308)), "Cp1047");
+		System.out.println("dataPart2 #################################### " + dataPart2);
+		
+		String dataPart3 = new String(twoInput.substring(308, 346));
+		System.out.println("dataPart3 #################################### " + dataPart3);
+		
+		String dataPart4 = new String(MsgUtils.decodeNibbleHex(twoInput
+				.substring(346, twoInput.length())), "Cp1047");
+		System.out.println("dataPart4 #################################### " + dataPart4);
+		
+		
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(mti);
 		sb.append(bitmap);
+		sb.append(preDataPart);
 		sb.append(dataPart);
+		sb.append(dataPart2);
+		sb.append(dataPart3);
+		sb.append(dataPart4);
 
-		// Logger logger = new Logger();
-		// logger.addListener(new SimpleLogListener(System.out));
-		// ((LogSource) packager).setLogger(logger, "debug");
+		Logger logger = new Logger();
+		logger.addListener(new SimpleLogListener(System.out));
+		((LogSource) packager).setLogger(logger, "debug");
 
 		String data = sb.toString();
 		System.out.println("TWOInput : " + twoInput);
@@ -53,12 +86,13 @@ public class ParseISOMessageBase1VisaPackagerTest {
 		// RandomAccess
 		// String field48 = isoMsg.getString("48.43");
 		// System.out.println("48.43=" + field48);
-		assertEquals("SubField 48.43 not read correct",
-				"jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
-
-		// read PAN
-		assertEquals("Field 2 not read correct", "5405620000000000014", isoMsg
-				.getComponent(2).getValue().toString());
+		// assertEquals("SubField 48.43 not read correct",
+		// "jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
+		//
+		// // read PAN
+		// assertEquals("Field 2 not read correct", "5405620000000000014",
+		// isoMsg
+		// .getComponent(2).getValue().toString());
 
 	}
 }
