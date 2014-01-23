@@ -26,7 +26,7 @@ public class SplitMsgPartsTest {
 	public static void setUpBeforeClass() throws Exception {
 		StringBuilder sb = new StringBuilder();
 
-		File testdataFile = new File("./resources/testdata.ac");
+		File testdataFile = new File("./src/test/resources/testdata.ac");
 		FileInputStream in = new FileInputStream(testdataFile);
 		InputStreamReader iSr = new InputStreamReader(in, "UTF-8");
 
