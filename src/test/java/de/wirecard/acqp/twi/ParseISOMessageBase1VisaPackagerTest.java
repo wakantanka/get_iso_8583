@@ -1,13 +1,13 @@
 package de.wirecard.acqp.twi;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
-import java.util.Map;
 
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
+import org.jpos.iso.header.BASE1Header;
+import org.jpos.iso.packager.Base1Packager;
 import org.jpos.iso.packager.GenericPackager;
 import org.jpos.util.LogSource;
 import org.jpos.util.Logger;
@@ -17,53 +17,76 @@ import org.junit.Test;
 public class ParseISOMessageBase1VisaPackagerTest {
 
 	@Test
-	public void testParseAuthRequest() throws ISOException,
-			UnsupportedEncodingException 
-			{
-		GenericPackager packager = new GenericPackager(
-				"src/main/resources/base1.xml");
-//				Base1Packager packager = new Base1Packager();
+	public void testParseAuthRequest() throws 
+			UnsupportedEncodingException {
+		GenericPackager packager = null;
+		try {
+		 packager = new GenericPackager(
+//				"src/main/resources/WDTbase1.xml");
+//			packager = new GenericPackager(
+					"src/main/resources/base1.xml");
+		
+//		 Base1Packager packager2 = new Base1Packager();
 
 		// TranID 18842255
 		String twoInput = "16010200B300000079542500000000000000000000000100F224648108E08012000000000000000410412435FFFFFF0019000000000000033333012308265160121415111711035601200006450476F4F0F2F3F0F8F6F0F1F2F1F485F0F0F0F0F0F0F1F1F0F0F585F0F0F0F0F0F0F1404040C9D6C240E2889699A340D58194854040404040404040404040C9D6C240E2889699A340D39683C9D5097801090580000000000E0040000000000000F1F140C6C6C6";
 
+		String header = new String(twoInput.substring(0, 44));
+		System.out.println("header #################################### "
+				+ header);
+		header = header + "00000000"; // spec says 52 Bytes
+
+		
 		String mti = new String(twoInput.substring(44, 48));
 		System.out.println(" #################################### " + mti);
 
 		// TODO Header
-		String bitmap = new String(twoInput.substring(48, 64));
-		System.out.println(" #################################### " + bitmap);
-		System.out.println(" #################################### " + bitmap);
-		
+		String bitmap1 = new String(twoInput.substring(48, 64));
+		String bitmap2 = new String(twoInput.substring(64, 80));
+		System.out.println(" #################################### " + bitmap1);
+		System.out
+				.println("second Bitmap #################################### "
+						+ bitmap2);
+
 		// String dataPart = new String(twoInput.substring(64,
 		// twoInput.length()));
-//		String preDataPart = new String(twoInput.substring(64, 158));
-//		ohne secondary bitmap
-		String preDataPart = new String(twoInput.substring(82, 158));
-		System.out.println("preDataPart #################################### " + preDataPart);
+		// String preDataPart = new String(twoInput.substring(64, 158));
+		// ohne secondary bitmap
+		String dataPart0 = new String(twoInput.substring(80, 158));
+		System.out.println("preDataPart #################################### "
+				+ dataPart0);
 
-		String dataPart = new String(MsgUtils.decodeNibbleHex(twoInput
+		String dataPart1 = new String(MsgUtils.decodeNibbleHex(twoInput
 				.substring(158, 194)), "Cp1047");
-		System.out.println("dataPart #################################### " + dataPart);
-		
+		System.out.println("dataPart #################################### "
+				+ dataPart1);
+
 		String dataPart2 = new String(MsgUtils.decodeNibbleHex(twoInput
 				.substring(194, 308)), "Cp1047");
-		System.out.println("dataPart2 #################################### " + dataPart2);
-		
+		System.out.println("dataPart2 #################################### "
+				+ dataPart2);
+
 		String dataPart3 = new String(twoInput.substring(308, 346));
-		System.out.println("dataPart3 #################################### " + dataPart3);
-		
+		System.out.println("dataPart3 #################################### "
+				+ dataPart3);
+
 		String dataPart4 = new String(MsgUtils.decodeNibbleHex(twoInput
 				.substring(346, twoInput.length())), "Cp1047");
-		System.out.println("dataPart4 #################################### " + dataPart4);
-		
-		
+		System.out.println("dataPart4 #################################### "
+				+ dataPart4);
 
+		
+		
+		String dataPartAtlernativ = new String(twoInput.substring(44, twoInput.length()));
+		System.out.println("dataPartAtlernativ #################################### "
+				+ dataPartAtlernativ);
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append(mti);
-		sb.append(bitmap);
-		sb.append(preDataPart);
-		sb.append(dataPart);
+		sb.append(bitmap1);
+		sb.append(bitmap2);
+		sb.append(dataPart0);
+		sb.append(dataPart1);
 		sb.append(dataPart2);
 		sb.append(dataPart3);
 		sb.append(dataPart4);
@@ -71,21 +94,30 @@ public class ParseISOMessageBase1VisaPackagerTest {
 		Logger logger = new Logger();
 		logger.addListener(new SimpleLogListener(System.out));
 		((LogSource) packager).setLogger(logger, "debug");
+//		((LogSource) packager2).setLogger(logger, "debug");
 
 		String data = sb.toString();
 		System.out.println("TWOInput : " + twoInput);
 		System.out.println("DATA : " + data);
 
+//		BASE1Header bASE1Header = new BASE1Header();
+//		bASE1Header.unpack(header.getBytes());
+
 		// Create ISO Message
 		ISOMsg isoMsg = new ISOMsg();
+//		isoMsg.setPackager(packager2);
 		isoMsg.setPackager(packager);
-		isoMsg.unpack(data.getBytes());
-
+//		isoMsg.unpack(data.getBytes());
+//		isoMsg.unpack(dataPartAtlernativ.getBytes("Cp1047"));
+//		isoMsg.unpack(dataPartAtlernativ.getBytes());
+		isoMsg.unpack(twoInput.getBytes());
+		
+//		MsgUtils.logISOHeader(bASE1Header);
 		MsgUtils.logISOMsg(isoMsg);
-
-		// RandomAccess
-		// String field48 = isoMsg.getString("48.43");
-		// System.out.println("48.43=" + field48);
+		
+//		 RandomAccess
+		 String field = isoMsg.getMTI();
+		 System.out.println("48.43=" + field.toString());
 		// assertEquals("SubField 48.43 not read correct",
 		// "jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
 		//
@@ -93,6 +125,9 @@ public class ParseISOMessageBase1VisaPackagerTest {
 		// assertEquals("Field 2 not read correct", "5405620000000000014",
 		// isoMsg
 		// .getComponent(2).getValue().toString());
-
+		} catch (ISOException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 }

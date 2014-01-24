@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.LeftPadder;
+import org.jpos.iso.header.BASE1Header;
 
 public final class MsgUtils {
 
@@ -158,5 +159,18 @@ public final class MsgUtils {
 			System.out.println("--------------------");
 		}
 	
+	}
+
+	public static void logISOHeader(BASE1Header bASE1Header) {
+		System.out.println("----ISO HEADER-----");
+		try {
+//			for (int i = 1; i <= bASE1Header.getLength(); i++) {
+					System.out.println("    format-"
+							+ bASE1Header.toString());
+							
+//			}
+				} finally {
+					System.out.println("--------------------");
+				};		
 	}
 }

@@ -36,9 +36,9 @@ public class ParseISOMessageBasicMCPackagerTest {
 		sb.append(bitmap);
 		sb.append(dataPart);
 
-		// Logger logger = new Logger();
-		// logger.addListener(new SimpleLogListener(System.out));
-		// ((LogSource) packager).setLogger(logger, "debug");
+		 Logger logger = new Logger();
+		 logger.addListener(new SimpleLogListener(System.out));
+		 ((LogSource) packager).setLogger(logger, "debug");
 
 		String data = sb.toString();
 		System.out.println("TWOInput : " + twoInput);
@@ -47,6 +47,7 @@ public class ParseISOMessageBasicMCPackagerTest {
 		// Create ISO Message
 		ISOMsg isoMsg = new ISOMsg();
 		isoMsg.setPackager(packager);
+//		isoMsg.unpack(data.getBytes());
 		isoMsg.unpack(data.getBytes());
 
 		MsgUtils.logISOMsg(isoMsg);
