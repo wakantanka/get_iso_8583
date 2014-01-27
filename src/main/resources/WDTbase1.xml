@@ -235,37 +235,37 @@
       id="37"
       length="12"
       name="RETRIEVAL REFERENCE NUMBER"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="38"
       length="6"
       name="AUTHORIZATION IDENTIFICATION RESPONSE"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="39"
       length="2"
       name="RESPONSE CODE"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="40"
       length="3"
       name="SERVICE RESTRICTION CODE"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="41"
       length="8"
       name="CARD ACCEPTOR TERMINAL IDENTIFICACION"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="42"
       length="15"
       name="CARD ACCEPTOR IDENTIFICATION CODE"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="43"
       length="40"
       name="CARD ACCEPTOR NAME/LOCATION"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="44"
       length="25"
@@ -535,27 +535,27 @@
       id="91"
       length="1"
       name="FILE UPDATE CODE"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="92"
       length="2"
       name="FILE SECURITY CODE"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="93"
       length="5"
       name="RESPONSE INDICATOR"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="94"
       length="7"
       name="SERVICE INDICATOR"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="95"
       length="42"
       name="REPLACEMENT AMOUNTS"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="96"
       length="8"
@@ -571,7 +571,7 @@
       id="98"
       length="25"
       name="PAYEE"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="99"
       length="11"

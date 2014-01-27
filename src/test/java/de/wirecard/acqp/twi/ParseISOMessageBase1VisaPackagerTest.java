@@ -31,9 +31,7 @@ public class ParseISOMessageBase1VisaPackagerTest {
 //		 Base1Packager packager2 = new Base1Packager();
 
 		// TranID 18842255
-		 String twoInput = "16010200B300000079542500000000000000000000000100F224648108E08012000000000000000416412435FFFFFF0019000000000000033333012308265160121415111711035601200006450476F4F0F2F3F0F8F6F0F1F2F1F485F0F0F0F0F0F0F1F1F0F0F585F0F0F0F0F0F0F1404040C9D6C240E2889699A340D58194854040404040404040404040C9D6C240E2889699A340D39683C9D5097801090580000000000E0040000000000000F1F140C6C6C6";
-//		String twoInput = "F1F6F0F1F0F2F0F0C2F3F0F0F0F0F0F0F7F9F5F4F2F5F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F1F0F0C6F2F2F4F6F4F8F1F0F8C5F0F8F0F1F2F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F4F1F0F4F1F2F4F3F5C6C6C6C6C6C6F0F0F1F9F0F0F0F0F0F0F0F0F0F0F0F0F0F3F3F3F3F3F0F1F2F3F0F8F2F6F5F1F6F0F1F2F1F4F1F5F1F1F1F7F1F1F0F3F5F6F0F1F2F0F0F0F0F6F4F5F0F4F7F6C6F4C6F0C6F2C6F3C6F0C6F8C6F6C6F0C6F1C6F2C6F1C6F4F8F5C6F0C6F0C6F0C6F0C6F0C6F0C6F1C6F1C6F0C6F0C6F5F8F5C6F0C6F0C6F0C6F0C6F0C6F0C6F1F4F0F4F0F4F0C3F9C4F6C3F2F4F0C5F2F8F8F9F6F9F9C1F3F4F0C4F5F8F1F9F4F8F5F4F0F4F0F4F0F4F0F4F0F4F0F4F0F4F0F4F0F4F0F4F0C3F9C4F6C3F2F4F0C5F2F8F8F9F6F9F9C1F3F4F0C4F3F9F6F8F3C3F9C4F5F0F9F7F8F0F1F0F9F0F5F8F0F0F0F0F0F0F0F0F0F0C5F0F0F4F0F0F0F0F0F0F0F0F0F0F0F0F0C6F1C6F1F4F0C3F6C3F6C3F6";
-//		String decodedTwoInput = new String(MsgUtils.decodeNibbleHex(twoInput), "Cp1047");
+		 String twoInput = "16010200B300000079542500000000000000000000000100F224648108E08012000000000000000410412435FFFFFF0019000000000000033333012308265160121415111711035601200006450476F4F0F2F3F0F8F6F0F1F2F1F485F0F0F0F0F0F0F1F1F0F0F585F0F0F0F0F0F0F1404040C9D6C240E2889699A340D58194854040404040404040404040C9D6C240E2889699A340D39683C9D5097801090580000000000E0040000000000000F1F140C6C6C6";
 		
 		String header = new String(twoInput.substring(0, 44));
 		System.out.println("header #################################### "
@@ -41,21 +39,6 @@ public class ParseISOMessageBase1VisaPackagerTest {
 		header = header + "00000000"; // spec says 52 Bytes
 
 		
-		String mti = new String(twoInput.substring(44, 48));
-		System.out.println(" #################################### " + mti);
-
-		// TODO Header
-		String bitmap1 = new String(twoInput.substring(48, 64));
-		String bitmap2 = new String(twoInput.substring(64, 80));
-		System.out.println(" #################################### " + bitmap1);
-		System.out
-				.println("second Bitmap #################################### "
-						+ bitmap2);
-
-		// String dataPart = new String(twoInput.substring(64,
-		// twoInput.length()));
-		// String preDataPart = new String(twoInput.substring(64, 158));
-		// ohne secondary bitmap
 		String dataPart0 = new String(twoInput.substring(80, 158));
 		System.out.println("preDataPart #################################### "
 				+ dataPart0);
@@ -86,9 +69,6 @@ public class ParseISOMessageBase1VisaPackagerTest {
 				+ dataPartAtlernativ);
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append(mti);
-		sb.append(bitmap1);
-		sb.append(bitmap2);
 		sb.append(dataPart0);
 		sb.append(dataPart1);
 		sb.append(dataPart2);
@@ -99,9 +79,7 @@ public class ParseISOMessageBase1VisaPackagerTest {
 		logger.addListener(new SimpleLogListener(System.out));
 		((LogSource) packager).setLogger(logger, "debug");
 
-//		String data = sb.toString();
 		System.out.println("TWOInput : " + twoInput);
-//		System.out.println("DATA : " + data);
 
 //		BASE1Header bASE1Header = new BASE1Header();
 //		bASE1Header.unpack(header.getBytes());
@@ -114,16 +92,16 @@ public class ParseISOMessageBase1VisaPackagerTest {
 //		isoMsg.unpack(twoInput.getBytes());
 //		isoMsg.unpack(dataPartAtlernativ.getBytes("Cp1047"));
 //		isoMsg.unpack(dataPartAtlernativ.getBytes());
-//		isoMsg.unpack(decodedTwoInput.getBytes("Cp1047"));
-//		isoMsg.unpack(twoInput.getBytes("US-ASCII"));
-		isoMsg.unpack(dataPartAtlernativ.getBytes());
+		String dataPartAtlernativDecoded = new String(MsgUtils.stripAllFs(dataPartAtlernativ,20));
+		System.out.println("dataPartAtlernativ_stripped #################################### " + dataPartAtlernativDecoded);
+		isoMsg.unpack(dataPartAtlernativDecoded.getBytes());
 		
 //		MsgUtils.logISOHeader(bASE1Header);
 		MsgUtils.logISOMsg(isoMsg);
 		
 //		 RandomAccess
 		 String field = isoMsg.getMTI();
-		 System.out.println("48.43=" + field.toString());
+//		 System.out.println("48.43=" + field.toString());
 		// assertEquals("SubField 48.43 not read correct",
 		// "jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
 		//

@@ -9,6 +9,8 @@ import org.jpos.iso.ISOMsg;
 import org.jpos.iso.LeftPadder;
 import org.jpos.iso.header.BASE1Header;
 
+import com.sleepycat.je.cleaner.OffsetList;
+
 public final class MsgUtils {
 
 	public static String GetMTI(String input) {
@@ -53,8 +55,13 @@ public final class MsgUtils {
 	}
 	
 	static String stripAllFs(String input) {
+		return stripAllFs(input, 0);
+	}
+	
+	static String stripAllFs(String input, int offset) {
 		StringBuilder result = new StringBuilder();
-		for (int i = 0; i < input.length(); i++) {
+		result.append(input.substring(0, offset));
+		for (int i = offset; i < input.length(); i++) {
 
 			if ( input.charAt(i) != 'F') {
 				result.append(input.charAt(i));
