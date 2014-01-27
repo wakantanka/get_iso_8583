@@ -119,7 +119,7 @@
       class="org.jpos.iso.IFA_NUMERIC"/>
   <isofield
       id="19"
-      length="3"
+      length="4"
       name="ACQUIRING INSTITUTION COUNTRY CODE"
       pad="true"
       class="org.jpos.iso.IFA_NUMERIC"/>
