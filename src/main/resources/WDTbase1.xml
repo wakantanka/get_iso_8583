@@ -213,12 +213,6 @@
       name="PAN EXTENDED"
       pad="true"
       class="org.jpos.iso.IFA_LLNUM"/>
-  <!--isofield
-      id="35"
-      length="37"
-      name="TRACK 2 DATA"
-      pad="true"
-      class="org.jpos.iso.IFA_LLNUM"/ -->
   <isofield
       id="35"
       length="48"
@@ -261,11 +255,12 @@
       length="14"
       name="CARD ACCEPTOR IDENTIFICATION CODE"
       class="org.jpos.iso.IF_CHAR"/>
+  <!-- TODO 43  orig Lenght 40, IFB_LLCHAR nich ganz verkeht--> 
   <isofield
       id="43"
-      length="40"
+      length="85"
       name="CARD ACCEPTOR NAME/LOCATION"
-      class="org.jpos.iso.IFE_LLCHAR"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="44"
       length="25"
@@ -293,7 +288,7 @@
       class="org.jpos.iso.IFB_LLHBINARY"/>
   <isofield
       id="49"
-      length="3"
+      length="4"
       name="CURRENCY CODE, TRANSACTION"
       pad="true"
       class="org.jpos.iso.IFA_NUMERIC"/>
@@ -352,9 +347,9 @@
       class="org.jpos.iso.IFB_LLHECHAR"/>
   <isofield
       id="60"
-      length="6"
-      name="RESERVED PRIVATE"
-      class="org.jpos.iso.IFB_LLHBINARY"/>
+      length="4"
+      name="ADDITIONAL POS INFORMATION"
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="61"
       length="36"
@@ -368,9 +363,9 @@
       class="org.jpos.iso.IFB_LLHBINARY"/>
   <isofield
       id="63"
-      length="255"
+      length="13"
       name="SMS PRIVATE-USE FIELDS"
-      class="org.jpos.iso.IFB_LLHBINARY"/>
+      class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="64"
       length="8"
@@ -710,8 +705,13 @@
       length="99"
       name="SUPPORTING INFORMATION"
       class="org.jpos.iso.IFA_LLCHAR"/>
+  <isofield
+      id="126"
+      length="27"
+      name="FIELD 126"
+      class="org.jpos.iso.IF_CHAR"/>
 
-  <isofieldpackager
+  <!--isofieldpackager
       id="126"  
       length="255"
       name="FIELD 126"
@@ -776,7 +776,7 @@
           length="6"
           name="CVV2 Request Data"
           class="org.jpos.iso.IFE_CHAR"/>
-  </isofieldpackager>
+  </isofieldpackager -->
 
   <isofieldpackager
       id="127"  
