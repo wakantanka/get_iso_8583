@@ -253,19 +253,19 @@
       class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="41"
-      length="8"
+      length="9"
       name="CARD ACCEPTOR TERMINAL IDENTIFICACION"
       class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="42"
-      length="15"
+      length="14"
       name="CARD ACCEPTOR IDENTIFICATION CODE"
       class="org.jpos.iso.IF_CHAR"/>
   <isofield
       id="43"
       length="40"
       name="CARD ACCEPTOR NAME/LOCATION"
-      class="org.jpos.iso.IF_CHAR"/>
+      class="org.jpos.iso.IFE_LLCHAR"/>
   <isofield
       id="44"
       length="25"
