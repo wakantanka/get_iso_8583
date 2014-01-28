@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.io.UnsupportedEncodingException;
 
+import org.jpos.iso.AsciiHexInterpreter;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.header.BASE1Header;
@@ -16,7 +17,7 @@ import org.junit.Test;
 
 import com.sleepycat.je.utilint.BitMap;
 
-public class ParseISOMessageBase1VisaPackagerTest {
+public class ParseISOMessageBase1VisaBinTest {
 
 	@Test
 	public void testParseAuthRequest() throws 
@@ -24,9 +25,8 @@ public class ParseISOMessageBase1VisaPackagerTest {
 		GenericPackager packager = null;
 		try {
 		 packager = new GenericPackager(
-				"src/main/resources/WDTbase1.xml");
-//			packager = new GenericPackager(
-//					"src/main/resources/base1.xml");
+//				"src/main/resources/WDTbase1.xml");
+					"src/main/resources/base1.xml");
 		
 //		 Base1Packager packager2 = new Base1Packager();
 
@@ -94,10 +94,9 @@ public class ParseISOMessageBase1VisaPackagerTest {
 		isoMsg.setHeader(("16010200B300000079542500000000000000000000000").getBytes());
 //		isoMsg.unpack(twoInput.getBytes());
 //		isoMsg.unpack(dataPartAtlernativ.getBytes("Cp1047"));
-//		isoMsg.unpack(dataPartAtlernativ.getBytes());
-		String dataPartAtlernativDecoded = new String(MsgUtils.stripAllFs(dataPartAtlernativ,20));
-		System.out.println("dataPartAtlernativ_stripped #################################### " + dataPartAtlernativDecoded);
-		isoMsg.unpack(dataPartAtlernativDecoded.getBytes());
+		AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
+		byte[] dataPartAtlernativBin = asciiIn.uninterpret(dataPartAtlernativ.getBytes(), 0, 80);
+		isoMsg.unpack(dataPartAtlernativBin);
 		
 //		MsgUtils.logISOHeader(bASE1Header);
 		MsgUtils.logISOMsg(isoMsg);
