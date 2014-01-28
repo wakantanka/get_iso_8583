@@ -47,20 +47,20 @@ public class ParseISOMessageBasicMCPackagerTest {
 		// Create ISO Message
 		ISOMsg isoMsg = new ISOMsg();
 		isoMsg.setPackager(packager);
-//		isoMsg.unpack(data.getBytes());
 		isoMsg.unpack(data.getBytes());
 
 		MsgUtils.logISOMsg(isoMsg);
 
 		// RandomAccess
-		// String field48 = isoMsg.getString("48.43");
-		// System.out.println("48.43=" + field48);
-//		assertEquals("SubField 48.43 not read correct",
-//				"jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
+		assertEquals("SubField 48.43 not read correct",
+				"jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
 
 		// read PAN
-		assertEquals("Field 2 not read correct", "5405620000000000014", isoMsg
+		assertEquals("could not read Field 2", "5405620000000000014", isoMsg
 				.getComponent(2).getValue().toString());
+		
+		assertEquals("could not read Field 61", "1025100006000591PAN12", isoMsg
+				.getComponent(61).getValue().toString());
 
 	}
 
