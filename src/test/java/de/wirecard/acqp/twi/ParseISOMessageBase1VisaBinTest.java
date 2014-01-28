@@ -95,7 +95,7 @@ public class ParseISOMessageBase1VisaBinTest {
 //		isoMsg.unpack(twoInput.getBytes());
 //		isoMsg.unpack(dataPartAtlernativ.getBytes("Cp1047"));
 		AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
-		byte[] dataPartAtlernativBin = asciiIn.uninterpret(dataPartAtlernativ.getBytes(), 0, 80);
+		byte[] dataPartAtlernativBin = asciiIn.uninterpret(dataPartAtlernativ.getBytes(), 0, dataPartAtlernativ.length()/2);
 		isoMsg.unpack(dataPartAtlernativBin);
 		
 //		MsgUtils.logISOHeader(bASE1Header);
