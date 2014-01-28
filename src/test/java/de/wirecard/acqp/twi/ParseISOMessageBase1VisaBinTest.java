@@ -1,21 +1,19 @@
 package de.wirecard.acqp.twi;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.codec.binary.Hex;
 import org.jpos.iso.AsciiHexInterpreter;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
-import org.jpos.iso.header.BASE1Header;
-import org.jpos.iso.packager.Base1Packager;
 import org.jpos.iso.packager.GenericPackager;
 import org.jpos.util.LogSource;
 import org.jpos.util.Logger;
 import org.jpos.util.SimpleLogListener;
 import org.junit.Test;
-
-import com.sleepycat.je.utilint.BitMap;
 
 public class ParseISOMessageBase1VisaBinTest {
 
@@ -104,13 +102,19 @@ public class ParseISOMessageBase1VisaBinTest {
 //		 RandomAccess
 		 String field = isoMsg.getMTI();
 		 System.out.println("MTI=" + field.toString());
-		// assertEquals("SubField 48.43 not read correct",
-		// "jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
-		//
-		// // read PAN
-		// assertEquals("Field 2 not read correct", "5405620000000000014",
-		// isoMsg
-		// .getComponent(2).getValue().toString());
+		 assertEquals("SubField 126.10 not read correct",
+		 "11 FFF", isoMsg.getString("126.10"));
+		 
+		 
+		 byte [] field60 =(byte [])  isoMsg.getValue(60);
+		 System.out.println(	 Hex.encodeHexString( field60));
+		 assertEquals("Field 60 not read correct",
+				 "09",  Hex.encodeHexString( field60));
+		 
+//		 byte [] field63 =(byte [])  isoMsg.getValue(60);
+//		 System.out.println(	 Hex.encodeHexString( field60));
+		 
+		 
 		} catch (ISOException e) {
 			e.printStackTrace();
 			fail();
