@@ -4,12 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.codec.binary.Hex;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
+import org.jpos.iso.ISOUtil;
 import org.jpos.iso.LeftPadder;
 import org.jpos.iso.header.BASE1Header;
-
-import com.sleepycat.je.cleaner.OffsetList;
 
 public final class MsgUtils {
 
@@ -43,27 +43,27 @@ public final class MsgUtils {
 	static String stripFs(String input) {
 		StringBuilder result = new StringBuilder();
 		for (int i = 0; i < input.length(); i++) {
-			
+
 			if (i % 2 == 0 && input.charAt(i) != 'F')
 				throw new NumberFormatException("Wrong Format for F-Nibbles");
-			
+
 			if (i % 2 == 1) {
 				result.append(input.charAt(i));
 			}
 		}
 		return result.toString();
 	}
-	
+
 	static String stripAllFs(String input) {
 		return stripAllFs(input, 0);
 	}
-	
+
 	static String stripAllFs(String input, int offset) {
 		StringBuilder result = new StringBuilder();
 		result.append(input.substring(0, offset));
 		for (int i = offset; i < input.length(); i++) {
 
-			if ( input.charAt(i) != 'F') {
+			if (input.charAt(i) != 'F') {
 				result.append(input.charAt(i));
 			}
 		}
@@ -102,10 +102,11 @@ public final class MsgUtils {
 					matcher.start(), matcher.end());
 
 			if (tempBegin < matcher.start()) {
-				System.out.println("noFs " + hexMsg.substring(tempBegin, matcher.start()));
+				System.out.println("noFs "
+						+ hexMsg.substring(tempBegin, matcher.start()));
 				sb.append(hexMsg.substring(tempBegin, matcher.start()));
 			}
-			
+
 			part = hexMsg.substring(matcher.start(), matcher.end()).replace(
 					"F", "");
 			System.out.println("counter: " + couter + " " + part);
@@ -120,16 +121,16 @@ public final class MsgUtils {
 	}
 
 	public static String hextoASCII(String hex) {
-	    StringBuilder output = new StringBuilder();
-	    for (int i = 0; i < hex.length(); i+=2) {
-	        String str = hex.substring(i, i+2);
-	        
-	        System.out.println(str);
-	        output.append((char) (Integer.parseInt(str, 16)));
-	    }
-	    
+		StringBuilder output = new StringBuilder();
+		for (int i = 0; i < hex.length(); i += 2) {
+			String str = hex.substring(i, i + 2);
+
+			System.out.println(str);
+			output.append((char) (Integer.parseInt(str, 16)));
+		}
+
 		return output.toString();
-		
+
 	}
 
 	// TODO move toUTils?
@@ -139,9 +140,14 @@ public final class MsgUtils {
 			System.out.println("  MTI : " + msg.getMTI());
 			for (int i = 1; i <= msg.getMaxField(); i++) {
 				if (msg.hasField(i)) {
-					System.out.println("    Field-"
-							+ msg.getComponent(i).getKey().toString() + " : \""
-							+ msg.getComponent(i).getValue().toString() + "\"");
+					System.out.print("    Field-"
+							+ msg.getComponent(i).getKey().toString() + " : \"" );
+							 if ( msg.getComponent(i).getValue() instanceof byte[]) {
+								 System.out.print( 	 Hex.encodeHexString((byte[]) msg.getComponent(i).getValue()).toString() + "\"\n" );
+							}
+							 else {
+								 System.out.print( msg.getComponent(i).getValue().toString() + "\"\n" );
+							}
 	
 					if (msg.getComponent(i).getMaxField() > 0) {
 	
@@ -171,13 +177,52 @@ public final class MsgUtils {
 	public static void logISOHeader(BASE1Header bASE1Header) {
 		System.out.println("----ISO HEADER-----");
 		try {
-//			for (int i = 1; i <= bASE1Header.getLength(); i++) {
-					System.out.println("    format-"
-							+ bASE1Header.toString());
-							
-//			}
-				} finally {
-					System.out.println("--------------------");
-				};		
+			String header = ISOUtil.hexString(bASE1Header.pack());
+
+			String lf = System.getProperty("line.separator");
+			StringBuffer d = new StringBuffer();
+			d.append(lf);
+			d.append("[H 01] ");
+			d.append(header.substring(0, 2));
+			d.append(lf);
+			d.append("[H 02] ");
+			d.append(header.substring(2, 4));
+			d.append(lf);
+			d.append("[H 03] ");
+			d.append(header.substring(4, 6));
+			d.append(lf);
+			d.append("[H 04] ");
+			d.append(header.substring(6, 10));
+			d.append(lf);
+			d.append("[H 05] ");
+			d.append(header.substring(10, 16));
+			d.append(lf);
+			d.append("[H 06] ");
+			d.append(header.substring(16, 22));
+			d.append(lf);
+			d.append("[H 07] ");
+			d.append(header.substring(22, 24));
+			d.append(lf);
+			d.append("[H 08] ");
+			d.append(header.substring(24, 28));
+			d.append(lf);
+			d.append("[H 09] ");
+			d.append(header.substring(28, 34));
+			d.append(lf);
+			d.append("[H 10] ");
+			d.append(header.substring(34, 36));
+			d.append(lf);
+			d.append("[H 11] ");
+			d.append(header.substring(36, 42));
+			d.append(lf);
+			d.append("[H 12] ");
+			d.append(header.substring(42, 44));
+			d.append(lf);
+			System.out.println(d.toString());
+
+		} finally {
+			System.out.println("--------------------");
+		}
+		;
 	}
 }

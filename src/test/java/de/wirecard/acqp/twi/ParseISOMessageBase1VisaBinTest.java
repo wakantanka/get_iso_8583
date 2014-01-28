@@ -48,11 +48,12 @@ public class ParseISOMessageBase1VisaBinTest {
 
 		System.out.println("TWOInput : " + twoInput);
 
-		
+		// pharse ISO Header
 		BASE1Header bASE1Header = new BASE1Header();
 		bASE1Header.unpack(header.getBytes());
+//		MsgUtils.logISOHeader(bASE1Header);
 
-		// Create ISO Message
+		// pharse ISO Message
 		ISOMsg isoMsg = new ISOMsg();
 //		isoMsg.setPackager(packager2);
 		isoMsg.setPackager(packager);
@@ -61,7 +62,6 @@ public class ParseISOMessageBase1VisaBinTest {
 		byte[] dataPartAtlernativBin = asciiIn.uninterpret(dataPartAtlernativ.getBytes(), 0, dataPartAtlernativ.length()/2);
 		isoMsg.unpack(dataPartAtlernativBin);
 		
-//		MsgUtils.logISOHeader(bASE1Header);
 		MsgUtils.logISOMsg(isoMsg);
 		
 //		 RandomAccess
@@ -74,7 +74,7 @@ public class ParseISOMessageBase1VisaBinTest {
 		 byte [] field60 =(byte [])  isoMsg.getValue(60);
 		 System.out.println(	 Hex.encodeHexString( field60));
 		 assertEquals("Field 60 not read correct",
-				 "09",  Hex.encodeHexString( field60));
+				 "09",   Hex.encodeHexString( field60));
 		 
 //		 byte [] field63 =(byte [])  isoMsg.getValue(60);
 //		 System.out.println(	 Hex.encodeHexString( field60));
