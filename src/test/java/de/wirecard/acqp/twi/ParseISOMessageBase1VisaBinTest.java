@@ -9,6 +9,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.jpos.iso.AsciiHexInterpreter;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
+import org.jpos.iso.header.BASE1Header;
 import org.jpos.iso.packager.GenericPackager;
 import org.jpos.util.LogSource;
 import org.jpos.util.Logger;
@@ -34,31 +35,6 @@ public class ParseISOMessageBase1VisaBinTest {
 		String header = new String(twoInput.substring(0, 44));
 		System.out.println("header #################################### "
 				+ header);
-		header = header + "00000000"; // spec says 52 Bytes
-
-		
-		String dataPart0 = new String(twoInput.substring(80, 158));
-		System.out.println("preDataPart #################################### "
-				+ dataPart0);
-
-		String dataPart1 = new String(MsgUtils.decodeNibbleHex(twoInput
-				.substring(158, 194)), "Cp1047");
-		System.out.println("dataPart #################################### "
-				+ dataPart1);
-
-		String dataPart2 = new String(MsgUtils.decodeNibbleHex(twoInput
-				.substring(194, 308)), "Cp1047");
-		System.out.println("dataPart2 #################################### "
-				+ dataPart2);
-
-		String dataPart3 = new String(twoInput.substring(308, 346));
-		System.out.println("dataPart3 #################################### "
-				+ dataPart3);
-
-		String dataPart4 = new String(MsgUtils.decodeNibbleHex(twoInput
-				.substring(346, twoInput.length())), "Cp1047");
-		System.out.println("dataPart4 #################################### "
-				+ dataPart4);
 
 		
 		
@@ -66,13 +42,6 @@ public class ParseISOMessageBase1VisaBinTest {
 		System.out.println("dataPartAtlernativ #################################### "
 				+ dataPartAtlernativ);
 		
-		StringBuilder sb = new StringBuilder();
-		sb.append(dataPart0);
-		sb.append(dataPart1);
-		sb.append(dataPart2);
-		sb.append(dataPart3);
-		sb.append(dataPart4);
-
 		Logger logger = new Logger();
 		logger.addListener(new SimpleLogListener(System.out));
 		((LogSource) packager).setLogger(logger, "debug");
@@ -80,18 +49,14 @@ public class ParseISOMessageBase1VisaBinTest {
 		System.out.println("TWOInput : " + twoInput);
 
 		
-		
-		
-//		BASE1Header bASE1Header = new BASE1Header();
-//		bASE1Header.unpack(header.getBytes());
+		BASE1Header bASE1Header = new BASE1Header();
+		bASE1Header.unpack(header.getBytes());
 
 		// Create ISO Message
 		ISOMsg isoMsg = new ISOMsg();
 //		isoMsg.setPackager(packager2);
 		isoMsg.setPackager(packager);
-		isoMsg.setHeader(("16010200B300000079542500000000000000000000000").getBytes());
-//		isoMsg.unpack(twoInput.getBytes());
-//		isoMsg.unpack(dataPartAtlernativ.getBytes("Cp1047"));
+		isoMsg.setHeader(header.getBytes());
 		AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
 		byte[] dataPartAtlernativBin = asciiIn.uninterpret(dataPartAtlernativ.getBytes(), 0, dataPartAtlernativ.length()/2);
 		isoMsg.unpack(dataPartAtlernativBin);

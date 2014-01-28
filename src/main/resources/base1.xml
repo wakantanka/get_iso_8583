@@ -368,11 +368,23 @@
       length="59"
       name="PAYMENT SERVICE FIELDS"
       class="org.jpos.iso.IFB_LLHBINARY"/>
-  <isofield
+  <isofieldpackager
       id="63"
       length="255"
       name="SMS PRIVATE-USE FIELDS"
-      class="org.jpos.iso.IFB_LLHBINARY"/>
+      class="org.jpos.iso.IFB_LLHBINARY"
+      packager="org.jpos.iso.packager.Base1SubFieldPackager">
+      <isofield
+          id="0"
+          length="3"
+          name="Bit Map"
+          class="org.jpos.iso.IFB_BITMAP"/>
+      <isofield
+          id="1"
+          length="4"
+          name="Network Identification Code"
+          class="org.jpos.iso.IFB_NUMERIC"/>
+  </isofieldpackager>  
   <isofield
       id="64"
       length="8"
