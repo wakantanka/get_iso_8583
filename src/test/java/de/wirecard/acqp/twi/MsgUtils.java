@@ -174,13 +174,15 @@ public final class MsgUtils {
 	
 	}
 
-	public static void logISOHeader(BASE1Header bASE1Header) {
+//	public static void logISOHeader(BASE1Header bASE1Header) {
+	public static void logISOHeader(String bASE1Header) {
 		System.out.println("----ISO HEADER-----");
 		try {
-			String header = ISOUtil.hexString(bASE1Header.pack());
-
+//			String header = ISOUtil.hexString(bASE1Header.pack());
+			StringBuilder header = new StringBuilder();
 			String lf = System.getProperty("line.separator");
 			StringBuffer d = new StringBuffer();
+			
 			d.append(lf);
 			d.append("[H 01] ");
 			d.append(header.substring(0, 2));

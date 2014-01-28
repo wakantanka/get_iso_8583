@@ -8,7 +8,9 @@ import java.io.UnsupportedEncodingException;
 import org.apache.commons.codec.binary.Hex;
 import org.jpos.iso.AsciiHexInterpreter;
 import org.jpos.iso.ISOException;
+import org.jpos.iso.ISOHeader;
 import org.jpos.iso.ISOMsg;
+import org.jpos.iso.ISOUtil;
 import org.jpos.iso.header.BASE1Header;
 import org.jpos.iso.packager.GenericPackager;
 import org.jpos.util.LogSource;
@@ -48,19 +50,25 @@ public class ParseISOMessageBase1VisaBinTest {
 
 		System.out.println("TWOInput : " + twoInput);
 
-		// pharse ISO Header
+		AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
+		// ISO Header
 		BASE1Header bASE1Header = new BASE1Header();
-		bASE1Header.unpack(header.getBytes());
-//		MsgUtils.logISOHeader(bASE1Header);
+		bASE1Header.unpack(asciiIn.uninterpret(header.getBytes(), 0, header.length()/2));
 
 		// pharse ISO Message
 		ISOMsg isoMsg = new ISOMsg();
-//		isoMsg.setPackager(packager2);
+		
+		isoMsg.setHeader(bASE1Header);
+		
 		isoMsg.setPackager(packager);
-		isoMsg.setHeader(header.getBytes());
-		AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
 		byte[] dataPartAtlernativBin = asciiIn.uninterpret(dataPartAtlernativ.getBytes(), 0, dataPartAtlernativ.length()/2);
 		isoMsg.unpack(dataPartAtlernativBin);
+		
+//		MsgUtils.logISOHeader(bASE1Header);
+		ISOHeader isoHeader = isoMsg.getISOHeader();
+		String headerDump = ISOUtil.hexString(isoHeader.pack());
+		System.out.println(("request header " + headerDump));
+//		MsgUtils.logISOHeader(headerDump);
 		
 		MsgUtils.logISOMsg(isoMsg);
 		
