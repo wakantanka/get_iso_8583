@@ -33,7 +33,7 @@
 			<groupId>com.sleepycat</groupId>
 			<version>4.1.10</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/src/main/resources/je-4.1.10.jar</systemPath>
+			<systemPath>${basedir}/lib/je-4.1.10.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -42,5 +42,32 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+
+
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>${basedir}/resources/assemblyDist.xml</descriptor>
+					</descriptors>
+					<finalName>${project.artifactId}</finalName>
+					<outputDirectory>target/distribution</outputDirectory>
+					<workDirectory>target/assembly/work</workDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-dist</id>
+						<phase>package</phase>
+						<goals>
+							<goal>assembly</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
