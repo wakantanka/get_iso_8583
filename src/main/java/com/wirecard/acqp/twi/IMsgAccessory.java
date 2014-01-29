@@ -3,6 +3,8 @@
  */
 package com.wirecard.acqp.twi;
 
+import java.io.UnsupportedEncodingException;
+
 import org.jpos.iso.ISOException;
 
 /**
@@ -18,10 +20,11 @@ public interface IMsgAccessory {
 	 * @param scheme	the CardScheme allowed Values VISA, MASTERCARD, JCB
 	 * @param fieldNo	requested FieldPath e. g. 30, could include Subfields e. g. 62.2	
 	 * @return 			the requested fieldvalue as String
-	 * @throws			ISOException, IllegalArgumentException
-	 * {@link ISOException}
-	 * {@link IllegalArgumentException} 
+	 * @throws			ISOException
+	 * @throws			IllegalArgumentException
+	 * @throws			IllegalStateException
+	 * @throws 			UnsupportedEncodingException 
 	 */
-	public String getFieldValue(String msg, CardScheme scheme, String fieldNo) throws ISOException;
+	public String getFieldValue(String msg, String cardScheme, String fieldNo) throws ISOException, IllegalStateException, IllegalArgumentException, UnsupportedEncodingException;
 
 }

@@ -53,13 +53,13 @@ public class ParseISOMessageBasicMCPackagerTest {
 
 		MsgUtils.logISOMsg(isoMsg);
 
-		// RandomAccess
-		assertEquals("SubField 48.43 not read correct",
-				"jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
-
 		// read PAN
 		assertEquals("could not read Field 2", "5405620000000000014", isoMsg
 				.getComponent(2).getValue().toString());
+
+		// RandomAccess
+		assertEquals("SubField 48.43 not read correct",
+				"jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
 		
 		assertEquals("could not read Field 61", "1025100006000591PAN12", isoMsg
 				.getComponent(61).getValue().toString());
