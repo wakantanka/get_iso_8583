@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.wirecard.acqp.twi;
+package com.wirecard.acqp.twi;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.wirecard.acqp.twi.CardScheme;
+import com.wirecard.acqp.twi.IMsgAccessory;
+import com.wirecard.acqp.twi.MsgAccessoryImpl;
 
 /**
  * @author jan.wahler

@@ -1,7 +1,8 @@
-package de.wirecard.acqp.twi;
+package com.wirecard.acqp.twi;
 
 /**
  * @author jan.wahler
+ * Copyright Wirecard AG (c) 2014. All rights reserved.
  * @link http://en.wikipedia.org/wiki/Card_schemes
  */
 public enum CardScheme {

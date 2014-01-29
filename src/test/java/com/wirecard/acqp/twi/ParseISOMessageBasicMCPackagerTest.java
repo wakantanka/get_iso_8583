@@ -1,4 +1,4 @@
-package de.wirecard.acqp.twi;
+package com.wirecard.acqp.twi;
 
 import static org.junit.Assert.*;
 
@@ -13,6 +13,8 @@ import org.jpos.util.LogSource;
 import org.jpos.util.Logger;
 import org.jpos.util.SimpleLogListener;
 import org.junit.Test;
+
+import com.wirecard.acqp.twi.MsgUtils;
 
 public class ParseISOMessageBasicMCPackagerTest {
 

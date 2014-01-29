@@ -1,4 +1,4 @@
-package de.wirecard.acqp.twi;
+package com.wirecard.acqp.twi;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -18,7 +18,9 @@ import org.jpos.util.Logger;
 import org.jpos.util.SimpleLogListener;
 import org.junit.Test;
 
-public class ParseISOMessageBase1VisaBinTest {
+import com.wirecard.acqp.twi.MsgUtils;
+
+public class ParseISOMessageBase1VisaPackerTest {
 
 	@Test
 	public void testParseAuthRequest() throws 
@@ -26,10 +28,8 @@ public class ParseISOMessageBase1VisaBinTest {
 		GenericPackager packager = null;
 		try {
 		 packager = new GenericPackager(
-//				"src/main/resources/WDTbase1.xml");
 					"src/main/resources/base1.xml");
 		
-//		 Base1Packager packager2 = new Base1Packager();
 
 		// TranID 18842255
 		 String twoInput = "16010200B300000079542500000000000000000000000100F224648108E08012000000000000000410412435FFFFFF0019000000000000033333012308265160121415111711035601200006450476F4F0F2F3F0F8F6F0F1F2F1F485F0F0F0F0F0F0F1F1F0F0F585F0F0F0F0F0F0F1404040C9D6C240E2889699A340D58194854040404040404040404040C9D6C240E2889699A340D39683C9D5097801090580000000000E0040000000000000F1F140C6C6C6";
@@ -38,7 +38,6 @@ public class ParseISOMessageBase1VisaBinTest {
 		System.out.println("header #################################### "
 				+ header);
 
-		
 		
 		String dataPartAtlernativ = new String(twoInput.substring(44, twoInput.length()));
 		System.out.println("dataPartAtlernativ #################################### "

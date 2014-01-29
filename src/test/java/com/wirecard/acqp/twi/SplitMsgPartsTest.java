@@ -1,4 +1,4 @@
-package de.wirecard.acqp.twi;
+package com.wirecard.acqp.twi;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,6 +21,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.wirecard.acqp.twi.MsgUtils;
 
 public class SplitMsgPartsTest {
 

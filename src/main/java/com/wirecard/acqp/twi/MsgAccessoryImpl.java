@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.wirecard.acqp.twi;
+package com.wirecard.acqp.twi;
 
 import org.apache.commons.codec.binary.Hex;
 import org.jpos.iso.AsciiHexInterpreter;

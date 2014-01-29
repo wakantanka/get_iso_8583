@@ -1,4 +1,4 @@
-package de.wirecard.acqp.twi;
+package com.wirecard.acqp.twi;
 
 import static org.junit.Assert.*;
 
