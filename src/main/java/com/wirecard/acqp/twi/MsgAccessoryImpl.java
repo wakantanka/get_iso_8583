@@ -40,9 +40,9 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			throws ISOException {
 		packager = new GenericPackager(scheme.getPath());
 		
-		Logger logger = new Logger();
-		logger.addListener(new SimpleLogListener(System.out));
-		((LogSource) packager).setLogger(logger, "debug");
+//		Logger logger = new Logger();
+//		logger.addListener(new SimpleLogListener(System.out));
+//		((LogSource) packager).setLogger(logger, "debug");
 
 
 		ISOMsg isoMsg = new ISOMsg();

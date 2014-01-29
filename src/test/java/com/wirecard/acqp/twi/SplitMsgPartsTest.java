@@ -138,7 +138,7 @@ public class SplitMsgPartsTest {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < bytes.length; i++) {
 			// Charbytes[i]
-			System.out.println(i + " = " + bytes[i]);
+//			System.out.println(i + " = " + bytes[i]);
 			// sb.append(String.format("%02X", bytes[i]));
 		}
 		Hex hexer = new Hex();

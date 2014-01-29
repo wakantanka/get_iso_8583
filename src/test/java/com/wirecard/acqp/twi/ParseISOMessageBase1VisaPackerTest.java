@@ -43,9 +43,9 @@ public class ParseISOMessageBase1VisaPackerTest {
 		System.out.println("dataPartAtlernativ #################################### "
 				+ dataPartAtlernativ);
 		
-		Logger logger = new Logger();
-		logger.addListener(new SimpleLogListener(System.out));
-		((LogSource) packager).setLogger(logger, "debug");
+//		Logger logger = new Logger();
+//		logger.addListener(new SimpleLogListener(System.out));
+//		((LogSource) packager).setLogger(logger, "debug");
 
 		System.out.println("TWOInput : " + twoInput);
 
