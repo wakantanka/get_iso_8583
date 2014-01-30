@@ -1,20 +1,13 @@
 package com.wirecard.acqp.twi;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
-import java.util.Map;
 
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.packager.GenericPackager;
-import org.jpos.util.LogSource;
-import org.jpos.util.Logger;
-import org.jpos.util.SimpleLogListener;
 import org.junit.Test;
-
-import com.wirecard.acqp.twi.MsgUtils;
 
 public class ParseISOMessageBasicMCPackagerTest {
 

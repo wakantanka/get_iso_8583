@@ -15,4 +15,4 @@ resources/testdata.ac
 .classpath
 .project
 .settings/
-
+bin/

@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.wirecard.acqp.twi.CardScheme;
 import com.wirecard.acqp.twi.IMsgAccessory;
 import com.wirecard.acqp.twi.MsgAccessoryImpl;
 
@@ -75,8 +74,16 @@ public class MsgAccessoryMasterCardACTest {
 
 	@Test (expected = IllegalArgumentException.class)
 	public void testGetFieldValueWrongInputParamater() throws IllegalArgumentException, ISOException, IllegalStateException, UnsupportedEncodingException {
-
+		
+		@SuppressWarnings("unused")
 		String fieldValue = msgAccessory.getFieldValue("nil",
 				"MeiSTERkARD", "2");
+	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void testGetFieldValueWithoutTwoData() throws IllegalArgumentException, ISOException, IllegalStateException, UnsupportedEncodingException {
+
+		@SuppressWarnings("unused")
+		String fieldValue = msgAccessory.getFieldValue("2");
 	}
 }

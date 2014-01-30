@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.wirecard.acqp.twi.CardScheme;
 import com.wirecard.acqp.twi.IMsgAccessory;
 import com.wirecard.acqp.twi.MsgAccessoryImpl;
 

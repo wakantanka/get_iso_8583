@@ -13,12 +13,7 @@ import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOUtil;
 import org.jpos.iso.header.BASE1Header;
 import org.jpos.iso.packager.GenericPackager;
-import org.jpos.util.LogSource;
-import org.jpos.util.Logger;
-import org.jpos.util.SimpleLogListener;
 import org.junit.Test;
-
-import com.wirecard.acqp.twi.MsgUtils;
 
 public class ParseISOMessageBase1VisaPackerTest {
 
