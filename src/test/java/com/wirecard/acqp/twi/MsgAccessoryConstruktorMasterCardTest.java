@@ -53,21 +53,6 @@ public class MsgAccessoryConstruktorMasterCardTest {
 	}
 
 	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	/**
 	 * @throws ISOException
 	 * @throws UnsupportedEncodingException
 	 * @throws IllegalArgumentException
@@ -97,11 +82,10 @@ public class MsgAccessoryConstruktorMasterCardTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetFieldValueWrongInputParamater()
+	public void testGetFieldValueWrongCardSchemeParamater()
 			throws IllegalArgumentException, ISOException,
 			IllegalStateException, UnsupportedEncodingException {
 		msgAccessory = new MsgAccessoryImpl("nil", "MeiSTERkARD");
-		// String fieldValue = msgAccessory.getFieldValue("nil",
-		// "MeiSTERkARD", "2");
 	}
+
 }

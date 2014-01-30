@@ -41,10 +41,13 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 	}
 
 	public String getFieldValue(String fieldPath) throws ISOException,
-			UnsupportedEncodingException, IllegalStateException {
+			UnsupportedEncodingException, IllegalStateException, NotYetImpementedException {
 		if(twoInput==null)
 			throw new IllegalStateException(
 					"Called Method without TWOInputData. Use right constructor or utiltyMethod");
+		else if (twoInput.length()< 200) {
+			throw new IllegalArgumentException("TwoInput to short");
+		}
 		
 		ISOMsg isoMsg = new ISOMsg();
 
@@ -74,6 +77,8 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			isoMsg.unpack(data.getBytes());
 
 			break;
+		case JCB:
+			 throw new NotYetImpementedException();
 		default:
 			throw new IllegalStateException(
 					"Can't dertemine CardScheme. You schould never see this. ");

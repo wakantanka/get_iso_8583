@@ -22,6 +22,7 @@ import com.wirecard.acqp.twi.MsgAccessoryImpl;
  * 
  */
 public class MsgAccessoryMasterCardACTest {
+	private IMsgAccessory msgAccessory;
 
 	/**
 	 * @throws java.lang.Exception
@@ -30,7 +31,6 @@ public class MsgAccessoryMasterCardACTest {
 	public static void setUpBeforeClass() throws Exception {
 	}
 
-	private IMsgAccessory msgAccessory;
 
 	/**
 	 * @throws java.lang.Exception
@@ -38,13 +38,6 @@ public class MsgAccessoryMasterCardACTest {
 	@Before
 	public void setUp() throws Exception {
 		msgAccessory = new MsgAccessoryImpl();
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	/**
@@ -62,14 +55,6 @@ public class MsgAccessoryMasterCardACTest {
 		assertEquals("PAN (Field 2) was not read correctly.",
 				"5405620000000000014", fieldValue);
 
-		// RandomAccess
-		// assertEquals("SubField 48.43 not read correct",
-		// "jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
-		//
-		// assertEquals("could not read Field 61", "1025100006000591PAN12",
-		// isoMsg
-		// .getComponent(61).getValue().toString());
-
 	}
 
 	@Test (expected = IllegalArgumentException.class)
@@ -85,5 +70,20 @@ public class MsgAccessoryMasterCardACTest {
 
 		@SuppressWarnings("unused")
 		String fieldValue = msgAccessory.getFieldValue("2");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void testGetFieldValueWithoutTwoInputParamater()
+			throws IllegalArgumentException, ISOException,
+			IllegalStateException, UnsupportedEncodingException {
+		@SuppressWarnings("unused")
+		String fieldValue = msgAccessory.getFieldValue(null, "VISA", "2");
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetFieldValueToShortTwoInputParamater()
+			throws IllegalArgumentException, ISOException,
+			IllegalStateException, UnsupportedEncodingException {
+		@SuppressWarnings("unused")
+		String fieldValue = msgAccessory.getFieldValue("0F1F0F0723C440188E18008F1F9F5F4F0F5F6F2F0F0F0F0F0F0F0F0F0F0F0F1F4F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F5F0F5F0F1F2F0F1F3F0F3F0F9F5F8F9F2F7F8F1F3F0F3F0F9F0F1F", "VISA", "2");
 	}
 }

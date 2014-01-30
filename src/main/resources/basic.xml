@@ -129,11 +129,24 @@
       length="3"
       name="FORWARDING INSTITUTION COUNTRY CODE"
       class="org.jpos.iso.IFA_NUMERIC"/>
-  <isofield
+  <isofieldpackager
       id="22"
       length="3"
       name="POINT OF SERVICE ENTRY MODE"
-      class="org.jpos.iso.IFA_NUMERIC"/>
+      class="org.jpos.iso.IFA_NUMERIC"
+      packager="org.jpos.iso.packager.GenericSubFieldPackager"
+      emitBitmap="false"> 
+		<isofield 
+	          id="1" 
+	          length="2" 
+	          name="POS Terminal PAN Entry Mode" 
+	          class="org.jpos.iso.IFA_NUMERIC"/> 
+		<isofield 
+	          id="2" 
+	          length="1" 
+	          name="POS Terminal PIN Entry Mode" 
+	          class="org.jpos.iso.IFA_NUMERIC"/> 
+</isofieldpackager>
   <isofield
       id="23"
       length="3"
@@ -313,12 +326,12 @@
 		<isofield 
 	          id="4" 
 	          length="7" 
-	          name="PDS 42" 
+	          name="PDS 42 Electronic Commerce Indicators" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/>
 		<isofield 
 	          id="5" 
 	          length="32" 
-	          name="PDS 43" 
+	          name="PDS 43 Universal Cardholder Authentication Field (UCAF)" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 </isofieldpackager>
 	          
@@ -375,21 +388,97 @@
       length="999"
       name="RESERVED NATIONAL"
       class="org.jpos.iso.IFA_LLLCHAR"/>
-  <isofield
+    <isofield
       id="59"
       length="999"
       name="RESERVED NATIONAL"
       class="org.jpos.iso.IFA_LLLCHAR"/>
-  <isofield
+   <isofield
       id="60"
       length="999"
       name="RESERVED PRIVATE"
       class="org.jpos.iso.IFA_LLLCHAR"/>
-  <isofield
+   
+<isofieldpackager 
       id="61"
       length="999"
-      name="RESERVED PRIVATE"
-      class="org.jpos.iso.IFA_LLLCHAR"/>
+      name="Point-of-Service (POS) Data"
+      class="org.jpos.iso.IFA_LLLCHAR"
+      packager="org.jpos.iso.packager.GenericSubFieldPackager"
+      emitBitmap="false"> 
+  <isofield
+      id="1"
+      length="1"
+      name="POS Terminal Attendance"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+  <isofield
+      id="2"
+      length="1"
+      name="Reserved for Future Use"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+  <isofield
+      id="3"
+      length="1"
+      name="POS Terminal Location"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+  <isofield
+      id="4"
+      length="1"
+      name="POS Cardholder Presence"
+      class="org.jpos.iso.IF_CHAR"/>
+  <isofield
+      id="5"
+      length="1"
+      name="POS Card Presence"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+  <isofield
+      id="6"
+      length="1"
+      name="POS Card Capture Capabilities"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+      <isofield
+      id="7"
+      length="1"
+      name="POS Transaction Status"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+      <isofield
+      id="8"
+      length="1"
+      name="POS Transaction Security"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+      <isofield
+      id="9"
+      length="1"
+      name="Reserved for Future Use"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+      <isofield
+      id="10"
+      length="1"
+      name="Cardholder-Activated Terminal Level"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+      <isofield
+      id="11"
+      length="1"
+      name="POS Card Data Terminal Input Capability Indicator"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+      <isofield
+      id="12"
+      length="2"
+      name="POS Authorization Life Cycle"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+   <isofield
+      id="13"
+      length="3"
+      name="POS Country Code"
+      class="org.jpos.iso.IFA_NUMERIC"/>
+ <isofield
+      id="14"
+      length="5"
+      name="POS Postal Code"
+      class="org.jpos.iso.IF_CHAR"/>
+      <!-- ans..15 class="org.jpos.iso.IF_CHAR"/  ?? --> 
+</isofieldpackager>
+
   <isofield
       id="62"
       length="999"
