@@ -471,12 +471,12 @@
       length="3"
       name="POS Country Code"
       class="org.jpos.iso.IFA_NUMERIC"/>
- <isofield
+  <!-- due to hardening, no read  <isofield
       id="14"
       length="5"
       name="POS Postal Code"
       class="org.jpos.iso.IF_CHAR"/>
-      <!-- ans..15 class="org.jpos.iso.IF_CHAR"/  ?? --> 
+    ans..15 class="org.jpos.iso.IF_CHAR"/  ?? --> 
 </isofieldpackager>
 
   <isofield

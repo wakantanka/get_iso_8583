@@ -54,8 +54,7 @@ public class ParseISOMessageBasicMCPackagerTest {
 		assertEquals("SubField 48.43 not read correct",
 				"jIbyd6TeahmkABEAAAFrQmyXwm0=", isoMsg.getString("48.43"));
 		
-		assertEquals("could not read Field 61", "1025100006000591PAN12", isoMsg
-				.getComponent(61).getValue().toString());
+		assertEquals("could not read Field 61.4", "5", isoMsg.getString("61.4"));
 
 	}
 
