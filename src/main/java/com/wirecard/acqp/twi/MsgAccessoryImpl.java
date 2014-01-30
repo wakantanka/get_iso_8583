@@ -86,7 +86,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 		}
 		//@TODO sysout 
 		System.out.println("TWOInput : " + twoInput);
-		MsgUtils.logISOMsg(isoMsg);
+		MsgUtils.logISOMsgPlainText(isoMsg);
 
 		if (isoMsg.getValue(fieldPath) instanceof byte[]) {
 			return Hex.encodeHexString(

@@ -1,15 +1,28 @@
 package com.wirecard.acqp.twi;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.codec.binary.Hex;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
-import org.jpos.iso.ISOUtil;
 import org.jpos.iso.LeftPadder;
-import org.jpos.iso.header.BASE1Header;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public final class MsgUtils {
 
@@ -133,7 +146,7 @@ public final class MsgUtils {
 	}
 
 	// TODO refactor
-	static void logISOMsg(ISOMsg msg) {
+	static void logISOMsgPlainText(ISOMsg msg) {
 		System.out.println("----ISO MESSAGE-----");
 		try {
 			System.out.println("  MTI : " + msg.getMTI());
@@ -225,4 +238,50 @@ public final class MsgUtils {
 		}
 		;
 	}
+
+	public static String logISOMsgXml() {
+
+
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+	 
+			// root elements
+			Document doc = docBuilder.newDocument();
+			Element rootElement = doc.createElement("ISOMsg");
+			rootElement.setAttribute("mti", "0100");
+			doc.appendChild(rootElement);
+	 
+			Element field1 = doc.createElement("field-1");
+			rootElement.appendChild(field1);
+			
+			Element field2 = doc.createElement("field-2");
+	  
+			Element subfield21 = doc.createElement("SubField-1");
+//			field2.appendChild(doc.createTextNode("yong"));
+			field2.appendChild(subfield21);
+	 
+			rootElement.appendChild(field2);
+			// write the content into xml file
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+	 
+			// Output to console for testing
+			 StreamResult result = new StreamResult(System.out);
+
+			 transformer.transform(source, result);
+			 
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "<Field-3></Field-3>";
+	}
+	
+	
+
 }

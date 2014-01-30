@@ -64,7 +64,7 @@ public class ParseISOMessageBase1VisaPackerTest {
 		System.out.println(("request header " + headerDump));
 //		MsgUtils.logISOHeader(headerDump);
 		
-		MsgUtils.logISOMsg(isoMsg);
+		MsgUtils.logISOMsgPlainText(isoMsg);
 		
 //		 RandomAccess
 		 String field = isoMsg.getMTI();

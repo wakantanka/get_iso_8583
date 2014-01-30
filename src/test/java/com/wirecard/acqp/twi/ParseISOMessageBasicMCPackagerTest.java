@@ -44,7 +44,7 @@ public class ParseISOMessageBasicMCPackagerTest {
 		isoMsg.setPackager(packager);
 		isoMsg.unpack(data.getBytes());
 
-		MsgUtils.logISOMsg(isoMsg);
+		MsgUtils.logISOMsgPlainText(isoMsg);
 
 		// read PAN
 		assertEquals("could not read Field 2", "5405620000000000014", isoMsg
