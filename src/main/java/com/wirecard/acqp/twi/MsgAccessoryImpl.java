@@ -55,9 +55,9 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 		switch (scheme) {
 		case VISA:
-			byte[] dataPart = asciiIn.uninterpret(
-					twoInput.substring(44, twoInput.length()).getBytes(), 0,
-					twoInput.substring(44, twoInput.length()).length() / 2);
+			String visaDataPartHex = twoInput.substring(44, twoInput.length());
+			//convert Hex to ASCII
+			byte[] dataPart = asciiIn.uninterpret(visaDataPartHex.getBytes(), 0, visaDataPartHex.length() / 2);
 			isoMsg.unpack(dataPart);
 			break;
 		case MASTERCARD:
@@ -81,9 +81,10 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			 throw new NotYetImpementedException();
 		default:
 			throw new IllegalStateException(
-					"Can't dertemine CardScheme. You schould never see this. ");
+					"Can't detemine CardScheme. You schould never see this. Sorry!");
 
 		}
+		//@TODO sysout 
 		System.out.println("TWOInput : " + twoInput);
 		MsgUtils.logISOMsg(isoMsg);
 

@@ -25,9 +25,8 @@ public enum CardScheme {
 	/**
 	 * HelperMethod to use JRE 1.6 compatible string switch
 	 * 
-	 * @param msg
-	 *            the HexString of an ISO8583 InterchangeMsg
-	 * @return
+	 * @param cardSchemeType
+	 * @return CardScheme Enum
 	 */
 	public static CardScheme getCardScheme(String cardSchemeType) throws IllegalArgumentException {
 

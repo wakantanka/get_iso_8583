@@ -18,7 +18,6 @@ public final class MsgUtils {
 	}
 
 	public static String GetBitMap(String input) {
-		// System.out.println(ISOUtil.trimf(testdata.substring(8, 24)));
 		return input.substring(8, 24);
 	}
 
@@ -133,7 +132,7 @@ public final class MsgUtils {
 
 	}
 
-	// TODO move toUTils?
+	// TODO refactor
 	static void logISOMsg(ISOMsg msg) {
 		System.out.println("----ISO MESSAGE-----");
 		try {
@@ -174,7 +173,6 @@ public final class MsgUtils {
 	
 	}
 
-//	public static void logISOHeader(BASE1Header bASE1Header) {
 	public static void logISOHeader(String bASE1Header) {
 		System.out.println("----ISO HEADER-----");
 		try {
