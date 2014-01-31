@@ -939,7 +939,7 @@
           name="Merchant Cert Serial Number"
           pad="true"
           class="org.jpos.iso.IFB_LLNUM"/>
-      <isofield
+      <!--isofield
           id="8"
           length="40"
           name="Transaction ID"
@@ -950,11 +950,46 @@
           length="40"
           name="TransStain"
           pad="true"
-          class="org.jpos.iso.IFB_NUMERIC"/>
+          class="org.jpos.iso.IFB_NUMERIC"/-->
+      <isofield
+          id="8"
+          length="20"
+          name="TRANSACTION ID (XID)"
+          pad="true"
+          class="org.jpos.iso.IFB_BINARY"/>
+      <isofield
+          id="9"
+          length="20"
+          name="CAVV DATA"
+          pad="true"
+          class="org.jpos.iso.IFB_BINARY"/>
       <isofield
           id="10"
           length="6"
-          name="CVV2 Request Data"
+          name="CVV2 AUTHORIZATION REQUEST DATA"
+          class="org.jpos.iso.IFE_CHAR"/>
+      <isofield
+          id="11"
+          length="0"
+          name="not applicable"
+          pad="true"
+          class="org.jpos.iso.IFE_CHAR"/>
+      <isofield
+          id="12"
+          length="3"
+          name="Service Indicators"
+          pad="true"
+          class="org.jpos.iso.IFB_BITMAP"/>
+      <isofield
+          id="13"
+          length="1"
+          name="POS Environment"
+          class="org.jpos.iso.IFE_CHAR"/>
+     <isofield
+          id="14"
+          length="0"
+          name="not applicable"
+          pad="true"
           class="org.jpos.iso.IFE_CHAR"/>
   </isofieldpackager>
 
