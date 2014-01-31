@@ -111,12 +111,15 @@ public class MsgAccessoryVISAACTest {
 		assertEquals("SubField 63.2 was not read correctly.", "0000",
 				fieldValue631);
 
-		String fieldValue = msgAccessory.getFieldValue(twoInput, "VISA", "60");
-		assertEquals("Field 60 was not read correctly.", "09", fieldValue);
+		String fieldValue601 = msgAccessory.getFieldValue(twoInput, "VISA", "60.1");
+		assertEquals("SubField 60.1 was not read correctly.", "0", fieldValue601);
+		
+//		String fieldValue = msgAccessory.getFieldValue(twoInput, "VISA", "60.2");
+//		assertEquals("SubField 60.1 was not read correctly.", "9", fieldValue);
 
 		String fieldValue41 = msgAccessory
 				.getFieldValue(twoInput, "VISA", "41");
-		assertEquals("Field 60 was not read correctly.", "e0000001",
+		assertEquals("Field 41 was not read correctly.", "e0000001",
 				fieldValue41);
 
 		String fieldValue126_10 = msgAccessory.getFieldValue(twoInput, "VISA",

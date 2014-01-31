@@ -388,11 +388,64 @@
       length="14"
       name="NATIONAL POS GEOGRAPHIC DATA"
       class="org.jpos.iso.IFB_LLHECHAR"/>
-  <isofield
-      id="60"
-      length="6"
-      name="RESERVED PRIVATE"
-      class="org.jpos.iso.IFB_LLHBINARY"/>
+   <isofieldpackager
+       id="60"
+      length="12"
+      name="ADDITIONAL POS INFORMATION"
+      class="org.jpos.iso.IFB_LLHBINARY"
+      packager="org.jpos.iso.packager.GenericSubFieldPackager"
+	  emitBitmap="false">
+		    <isofield
+		      id="1"
+		      length="1"
+		      name="TERMINAL TYPE"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+			<isofield
+		      id="2"
+		      length="1"
+		      name="TERMINAL ENTRY CAPABILITY"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+			<isofield
+		      id="3"
+		      length="1"
+		      name="CHIP CONDITION CODE"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+			<isofield
+		      id="4"
+		      length="1"
+		      name="SPECIAL CONDITION INDICATOR"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+			<isofield
+		      id="5"
+		      length="2"
+		      name="not applicable"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+			<isofield
+		      id="6"
+		      length="1"
+		      name="CHIP TRANSACTION INDICATOR"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+			<isofield
+		      id="7"
+		      length="1"
+		      name="CHIP CARD AUTHENTICATION RELIABILITY INDICATOR"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+			<isofield
+		      id="8"
+		      length="2"
+		      name="MAIL/PHONE/ELECTRONIC COMMERCE AND PAYMENT INDICATOR"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+			<isofield
+		      id="9"
+		      length="1"
+		      name="not applicable"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+			<isofield
+		      id="10"
+		      length="1"
+		      name="PARTIAL AUTHORIZATION INDICATOR"
+		      class="org.jpos.iso.IFB_NUMERIC"/>
+      </isofieldpackager>
   <isofield
       id="61"
       length="36"
