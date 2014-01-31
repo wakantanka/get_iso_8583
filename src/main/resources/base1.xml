@@ -27,26 +27,23 @@
       id="3"
       length="6"
       name="PROCESSING CODE"
-      class="org.jpos.iso.IFB_FNUMERIC"
+      class="org.jpos.iso.IFB_NUMERIC"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
 	  emitBitmap="false">
 	    <isofield
 	      id="1"
 	      length="2"
 	      name="TRANSACTION TYPE"
-	      pad="true"
 	      class="org.jpos.iso.IFA_NUMERIC"/>
 	    <isofield
 	      id="2"
 	      length="2"
 	      name="ACCOUNT TYPE FROM"
-	      pad="true"
 	      class="org.jpos.iso.IFA_NUMERIC"/>
 	      <isofield
 	      id="3"
 	      length="2"
 	      name="ACCOUNT TYPE TO"
-	      pad="true"
 	      class="org.jpos.iso.IFA_NUMERIC"/>
   </isofieldpackager>
   <isofield
@@ -157,12 +154,31 @@
       name="FORWARDING INSTITUTION COUNTRY CODE"
       pad="true"
       class="org.jpos.iso.IFB_NUMERIC"/>
-  <isofield
+
+  <isofieldpackager
       id="22"
       length="4"
       name="POINT OF SERVICE ENTRY MODE"
-      pad="true"
-      class="org.jpos.iso.IFB_NUMERIC"/>
+      class="org.jpos.iso.IFB_NUMERIC"
+      packager="org.jpos.iso.packager.GenericSubFieldPackager"
+	  emitBitmap="false">
+	    <isofield
+	      id="1"
+	      length="1"
+	      name="ACCOUNT NUMBER/DATE ENTRY MODE"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+	    <isofield
+	      id="2"
+	      length="2"
+	      name="PIN ENTRY CAPABILITY"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+	      <isofield
+	      id="3"
+	      length="1"
+	      name="unused"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+  </isofieldpackager>  
+
   <isofield
       id="23"
       length="3"
