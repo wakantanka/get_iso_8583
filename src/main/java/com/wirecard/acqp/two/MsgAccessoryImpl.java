@@ -10,6 +10,9 @@ import org.jpos.iso.AsciiHexInterpreter;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.packager.GenericPackager;
+import org.jpos.util.LogSource;
+import org.jpos.util.Logger;
+import org.jpos.util.SimpleLogListener;
 
 /**
  * @author jan.wahler Copyright Wirecard AG (c) 2014. All rights reserved.
@@ -49,6 +52,11 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 		ISOMsg isoMsg = new ISOMsg();
 
 		isoMsg.setPackager(packager);
+		
+//		 Logger logger = new Logger();
+//		 logger.addListener(new SimpleLogListener(System.out));
+//		 ((LogSource) packager).setLogger(logger, "debug");
+
 
 		switch (scheme) {
 		case VISA:
@@ -111,9 +119,6 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 		packager = new GenericPackager(scheme.getPath());
 		return getFieldValue(fieldPath);
 
-		// Logger logger = new Logger();
-		// logger.addListener(new SimpleLogListener(System.out));
-		// ((LogSource) packager).setLogger(logger, "debug");
 
 	}
 

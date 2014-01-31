@@ -23,12 +23,32 @@
       name="PAN - PRIMARY ACCOUNT NUMBER"
       pad="true"
       class="org.jpos.iso.IFB_LLHNUM"/>
-  <isofield
+  <isofieldpackager
       id="3"
       length="6"
       name="PROCESSING CODE"
-      pad="true"
-      class="org.jpos.iso.IFB_NUMERIC"/>
+      class="org.jpos.iso.IFB_FNUMERIC"
+      packager="org.jpos.iso.packager.GenericSubFieldPackager"
+	  emitBitmap="false">
+	    <isofield
+	      id="1"
+	      length="2"
+	      name="TRANSACTION TYPE"
+	      pad="true"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+	    <isofield
+	      id="2"
+	      length="2"
+	      name="ACCOUNT TYPE FROM"
+	      pad="true"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+	      <isofield
+	      id="3"
+	      length="2"
+	      name="ACCOUNT TYPE TO"
+	      pad="true"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+  </isofieldpackager>
   <isofield
       id="4"
       length="12"
