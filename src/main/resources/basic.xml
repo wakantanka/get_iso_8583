@@ -318,7 +318,7 @@
 	          length="5" 
 	          name="PDS 61" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
-		 		<isofield 
+		<isofield 
 	          id="3" 
 	          length="3" 
 	          name="PDS 92" 

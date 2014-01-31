@@ -19,12 +19,7 @@ http://jpos.org/doc/javadoc/org/jpos/iso/AsciiPrefixer.html
 http://jpos.org/doc/javadoc/org/jpos/iso/AsciiHexInterpreter.html
 
 
---21.1.
-jpos/src/dist/cfg/packager/base1.xml
-//			82 --> 62
 //			http://en.wikipedia.org/wiki/EBCDIC
- 
-//			BCDInterpreter.LEFT_PADDED_F
 
 
 http://www.codeproject.com/Articles/100084/Introduction-to-ISO-8583 
