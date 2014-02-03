@@ -28,12 +28,10 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	public MsgAccessoryImpl() {
 		super();
-		DOMConfigurator.configure( "resources/log4j.xml");
 	}
 
 	public MsgAccessoryImpl(String twoInput, String cardSchemeType)
 			throws ISOException {
-		DOMConfigurator.configure( "resources/log4j.xml");
 		this.twoInput = twoInput;
 		scheme = CardScheme.getCardScheme(cardSchemeType);
 
@@ -57,6 +55,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 		isoMsg.setPackager(packager);
 		
 		  logger.info("Hello World");
+		  logger.debug("Hello Debug");  
 //		 org.jpos.util.Logger logger = new Logger();
 //		 logger.addListener(new org.jpos.util.SimpleLogListener(System.out));
 //		 ((org.jpos.util.LogSource) packager).setLogger(logger, "debug");
@@ -90,7 +89,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			 throw new NotYetImpementedException();
 		default:
 			throw new IllegalStateException(
-					"Can't detemine CardScheme. You schould never see this. Sorry!");
+					"Can't determine CardScheme. You schould never see this. Sorry!");
 
 		}
 		//@TODO sysout 

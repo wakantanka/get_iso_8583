@@ -2,19 +2,43 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-
-	<appender name="MeinAppender" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="datePattern" value="'.'yyyy-MM-dd_HH-mm" />
-		<param name="file" value="logs/MeineLogDatei.log" />
-		<param name="Append" value="true" />
+   <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %c{1} - %m%n" />
+        </layout>
+    </appender>
+	<appender name="DebugAppender" class="org.apache.log4j.FileAppender">
+		<param name="file" value="logs/MeineDebugLogDatei.log" />
+		<param name="Append" value="false" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] %c: %m%n" />
+		</layout>
+	</appender>
+	<appender name="MeinAppender" class="org.apache.log4j.FileAppender">
+		<param name="file" value="logs/MeineInfoLogDatei.log" />
+		<param name="Append" value="false" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] %c: %m%n" />
 		</layout>
 	</appender>
 
+  <logger name="com.wirecard.acqp.two" additivity="false">
+         <level value="debug" />
+        <appender-ref ref="DebugAppender"/>
+    </logger> 
+    
+  <logger name="com.wirecard.acqp" >
+         <level value="info" />
+        <appender-ref ref="MeinAppender"/>
+    </logger> 
+    
 	<root>
-		<priority value="INFO" />
-		<appender-ref ref="MeinAppender" />
+		<priority value="ERROR"/>
+		<appender-ref ref="console" />
 	</root>
+	
+	
+	
 
 </log4j:configuration>

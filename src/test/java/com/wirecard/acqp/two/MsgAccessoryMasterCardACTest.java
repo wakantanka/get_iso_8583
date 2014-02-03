@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOException;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -26,6 +27,7 @@ public class MsgAccessoryMasterCardACTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		DOMConfigurator.configure( "resources/log4j.xml");
 	}
 
 

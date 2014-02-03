@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOException;
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +27,8 @@ public class MsgAccessoryJCBACTest {
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() throws Exception  {
+ 
 	}
 
 	private IMsgAccessory msgAccessory;
