@@ -10,9 +10,9 @@ import org.jpos.iso.AsciiHexInterpreter;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.packager.GenericPackager;
-import org.jpos.util.LogSource;
-import org.jpos.util.Logger;
-import org.jpos.util.SimpleLogListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.apache.log4j.xml.DOMConfigurator;
 
 /**
  * @author jan.wahler Copyright Wirecard AG (c) 2014. All rights reserved.
@@ -22,15 +22,18 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 	private GenericPackager packager = null;
 	private AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
 	private String twoInput;
-
+	private static Logger logger = LoggerFactory.getLogger(MsgAccessoryImpl.class);
+	 
 	private CardScheme scheme;
 
 	public MsgAccessoryImpl() {
 		super();
+		DOMConfigurator.configure( "resources/log4j.xml");
 	}
 
 	public MsgAccessoryImpl(String twoInput, String cardSchemeType)
 			throws ISOException {
+		DOMConfigurator.configure( "resources/log4j.xml");
 		this.twoInput = twoInput;
 		scheme = CardScheme.getCardScheme(cardSchemeType);
 
@@ -53,9 +56,10 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 		isoMsg.setPackager(packager);
 		
-//		 Logger logger = new Logger();
-//		 logger.addListener(new SimpleLogListener(System.out));
-//		 ((LogSource) packager).setLogger(logger, "debug");
+		  logger.info("Hello World");
+//		 org.jpos.util.Logger logger = new Logger();
+//		 logger.addListener(new org.jpos.util.SimpleLogListener(System.out));
+//		 ((org.jpos.util.LogSource) packager).setLogger(logger, "debug");
 
 
 		switch (scheme) {

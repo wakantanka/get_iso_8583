@@ -313,13 +313,13 @@
 	          name="PDS 1" 
 	          class="org.jpos.iso.IF_CHAR"/> 
         
-		<!-- isofield 
-	          id="2" 
+		<isofield 
+	          id="2"
 	          length="5" 
 	          name="PDS 61" 
-	          class="org.jpos.iso.IFMC_LLCHAR"/ --> 
+	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 		
-		 <isofieldpackager 
+		 <!-- isofieldpackager 
    		      id="2" 
 	          length="9" 
 	          name="PDS 61" 
@@ -351,7 +351,8 @@
 	                 length="1"  
 	                 name="PDS 61 - Final Authorization Indicator" 
 	                 class="org.jpos.iso.IFA_NUMERIC" /> 
-   		</isofieldpackager>
+   		</isofieldpackager -->
+		 
 		<isofield 
 	          id="3" 
 	          length="3" 
