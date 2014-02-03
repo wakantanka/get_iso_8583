@@ -14,6 +14,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.codec.binary.Hex;
+import org.jpos.iso.ISOComponent;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.LeftPadder;
@@ -141,34 +142,22 @@ public final class MsgUtils {
 
 	}
 
-	// TODO refactor
 	static void logISOMsgPlainText(ISOMsg msg) {
-		System.out.println("----ISO MESSAGE-----");
+		StringBuilder sb = new StringBuilder();
+		sb.append("----ISO MESSAGE-----" + "\n");
 		try {
-			System.out.println("  MTI : " + msg.getMTI());
+			sb.append("  MTI : " + msg.getMTI() + "\n");
 			for (int i = 1; i <= msg.getMaxField(); i++) {
 				if (msg.hasField(i)) {
-					System.out.print("    Field-"
-							+ msg.getComponent(i).getKey().toString() + " : \"" );
-							 if ( msg.getComponent(i).getValue() instanceof byte[]) {
-								 System.out.print( 	 Hex.encodeHexString((byte[]) msg.getComponent(i).getValue()).toString() + "\"\n" );
-							}
-							 else {
-								 System.out.print( msg.getComponent(i).getValue().toString() + "\"\n" );
-							}
-	
+					sb.append(logField(msg.getComponent(i)) + "\n");
+
 					if (msg.getComponent(i).getMaxField() > 0) {
-	
+
 						for (int j = 1; j < msg.getComponent(i).getMaxField() + 1; j++) {
 							ISOMsg isoSubMsg = (ISOMsg) msg.getComponent(i);
+
 							if (isoSubMsg.hasField(j)) {
-	
-								System.out.println("        SubField-"
-										+ (isoSubMsg.getComponent(j).getKey()
-												.toString()
-												+ " : \"" + isoSubMsg
-												.getComponent(j).getValue()
-												.toString()) + "\"");
+								sb.append("\tSub" + logField(isoSubMsg.getComponent(j)) + "\n");
 							}
 						}
 					}
@@ -177,19 +166,34 @@ public final class MsgUtils {
 		} catch (ISOException e) {
 			e.printStackTrace();
 		} finally {
-			System.out.println("--------------------");
+			sb.append("--------------------");
 		}
-	
+		System.out.println(sb);
+
+	}
+
+	private static String logField(ISOComponent isoComp) throws ISOException {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Field-" +  isoComp.getKey().toString());
+		sb.append(" : \"");
+
+		if (isoComp.getValue() instanceof byte[]) {
+			sb.append(Hex.encodeHexString(
+					(byte[]) isoComp.getValue()).toString() + "\"");
+		} else {
+			sb.append(isoComp.getValue().toString()+ "\"");
+		}
+		return sb.toString();
 	}
 
 	public static void logISOHeader(String bASE1Header) {
 		System.out.println("----ISO HEADER-----");
 		try {
-//			String header = ISOUtil.hexString(bASE1Header.pack());
+			// String header = ISOUtil.hexString(bASE1Header.pack());
 			StringBuilder header = new StringBuilder();
 			String lf = System.getProperty("line.separator");
 			StringBuffer d = new StringBuffer();
-			
+
 			d.append(lf);
 			d.append("[H 01] ");
 			d.append(header.substring(0, 2));
@@ -237,37 +241,38 @@ public final class MsgUtils {
 
 	public static String logISOMsgXml() {
 
-
 		try {
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory
+					.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-	 
+
 			// root elements
 			Document doc = docBuilder.newDocument();
 			Element rootElement = doc.createElement("ISOMsg");
 			rootElement.setAttribute("mti", "0100");
 			doc.appendChild(rootElement);
-	 
+
 			Element field1 = doc.createElement("field-1");
 			rootElement.appendChild(field1);
-			
+
 			Element field2 = doc.createElement("field-2");
-	  
+
 			Element subfield21 = doc.createElement("SubField-1");
-//			field2.appendChild(doc.createTextNode("yong"));
+			// field2.appendChild(doc.createTextNode("yong"));
 			field2.appendChild(subfield21);
-	 
+
 			rootElement.appendChild(field2);
 			// write the content into xml file
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			TransformerFactory transformerFactory = TransformerFactory
+					.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-	 
-			// Output to console for testing
-			 StreamResult result = new StreamResult(System.out);
 
-			 transformer.transform(source, result);
-			 
+			// Output to console for testing
+			StreamResult result = new StreamResult(System.out);
+
+			transformer.transform(source, result);
+
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -277,7 +282,5 @@ public final class MsgUtils {
 		}
 		return "<Field-3></Field-3>";
 	}
-	
-	
 
 }
