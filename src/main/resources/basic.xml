@@ -338,7 +338,7 @@
 	                 class="org.jpos.iso.IFA_NUMERIC" /> 
                  <isofield 
                  	 id="3"
-	                 length="3"  
+	                 length="1"  
 	                 name="PDS 61 - Real-time Substantiation Indicator" 
 	                 class="org.jpos.iso.IFA_NUMERIC" /> 
                  <isofield 

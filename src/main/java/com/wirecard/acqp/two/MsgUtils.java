@@ -147,22 +147,7 @@ public final class MsgUtils {
 		sb.append("----ISO MESSAGE-----" + "\n");
 		try {
 			sb.append("  MTI : " + msg.getMTI() + "\n");
-			for (int i = 1; i <= msg.getMaxField(); i++) {
-				if (msg.hasField(i)) {
-					sb.append(logField(msg.getComponent(i)) + "\n");
-
-					if (msg.getComponent(i).getMaxField() > 0) {
-
-						for (int j = 1; j < msg.getComponent(i).getMaxField() + 1; j++) {
-							ISOMsg isoSubMsg = (ISOMsg) msg.getComponent(i);
-
-							if (isoSubMsg.hasField(j)) {
-								sb.append("\tSub" + logField(isoSubMsg.getComponent(j)) + "\n");
-							}
-						}
-					}
-				}
-			}
+			sb.append(logFields(msg, ""));
 		} catch (ISOException e) {
 			e.printStackTrace();
 		} finally {
@@ -174,14 +159,44 @@ public final class MsgUtils {
 
 	private static String logField(ISOComponent isoComp) throws ISOException {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Field-" +  isoComp.getKey().toString());
+		sb.append("Field-" + isoComp.getKey().toString());
 		sb.append(" : \"");
 
 		if (isoComp.getValue() instanceof byte[]) {
-			sb.append(Hex.encodeHexString(
-					(byte[]) isoComp.getValue()).toString() + "\"");
+			sb.append(Hex.encodeHexString((byte[]) isoComp.getValue())
+					.toString() + "\"\n");
 		} else {
-			sb.append(isoComp.getValue().toString()+ "\"");
+			sb.append(isoComp.getValue().toString() + "\"\n");
+		}
+		return sb.toString();
+	}
+
+	private static String logFields(ISOMsg isoMsg, String prefix)
+			throws ISOException {
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 1; i < isoMsg.getMaxField() + 1; i++) {
+
+			if (isoMsg.hasField(i)) {
+
+				sb.append(prefix + "Field-"
+						+ isoMsg.getComponent(i).getKey().toString());
+				sb.append(" : \"");
+
+				if (isoMsg.getComponent(i).getValue() instanceof byte[]) {
+					sb.append(Hex.encodeHexString(
+							(byte[]) isoMsg.getComponent(i).getValue())
+							.toString()
+							+ "\"\n");
+				} else {
+					sb.append(isoMsg.getComponent(i).getValue().toString()
+							+ "\"\n");
+				}
+				// has Subfields
+				if (isoMsg.getComponent(i).getMaxField() > 0)
+					sb.append(logFields((ISOMsg) isoMsg.getComponent(i),
+							"\tSub"));
+			}
 		}
 		return sb.toString();
 	}
