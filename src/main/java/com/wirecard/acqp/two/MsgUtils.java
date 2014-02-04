@@ -176,20 +176,6 @@ public final class MsgUtils {
 
 	}
 
-	private static String logField(ISOComponent isoComp) throws ISOException {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Field-" + isoComp.getKey().toString());
-		sb.append(" : \"");
-
-		if (isoComp.getValue() instanceof byte[]) {
-			sb.append(Hex.encodeHexString((byte[]) isoComp.getValue())
-					.toString() + "\"\n");
-		} else {
-			sb.append(isoComp.getValue().toString() + "\"\n");
-		}
-		return sb.toString();
-	}
-
 	private static String logFields(ISOMsg isoMsg, String prefix)
 			throws ISOException {
 		StringBuilder sb = new StringBuilder();
