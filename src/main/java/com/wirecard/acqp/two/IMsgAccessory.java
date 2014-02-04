@@ -12,7 +12,7 @@ import org.jpos.iso.ISOException;
  * Copyright Wirecard AG (c) 2014. All rights reserved.
  */
 public interface IMsgAccessory {
-	
+	//TODO trennen der beiden zugriffarten,wg threadsafty bei Cardscheme und twoData
 	/**
 	 * Utility AccessMethod for requesting a specific FieldValue
 	 * 

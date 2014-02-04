@@ -61,11 +61,6 @@ public class SplitMsgPartsTest {
 
 	}
 	
-	
-	@Test
-	public void testSeperateGetMTI() {
-		assertEquals("0100", MsgUtils.GetMTI(testdata));
-	}
 
 	@Test
 	public void testSeperateBitMap() throws DecoderException {
@@ -141,39 +136,6 @@ public class SplitMsgPartsTest {
 	}
 
 	@Test
-	public void testAuslesenFeld43Struk() throws DecoderException {
-		byte[] bytes = Hex.decodeHex("D9C5E3D3".toCharArray());
-		StringBuffer result = new StringBuffer();
-		for (byte b : bytes) {
-			result.append((char) b + 12);
-			result.append(" "); // delimiter
-		}
-		System.out.println("result " + result.toString());
-		System.out.println(new String(bytes));
-
-		byte[] byteArray = { 0x41, 0x42, 0x43, 0x62, 0x47 };
-
-		System.out.println("ASCII Equivalent of Values in Byte Array:\n");
-
-		System.out.println(new String(byteArray));
-
-		String string = "11011100010000010001000000000000";
-		String string1 = "00000000010000110000100000101100";
-
-		System.out.println(new BigInteger(string1, 2).toString(16));
-		System.out.println(new BigInteger(string, 2).toString(16));
-		System.out.println(Long.toHexString(Long.parseLong(string1, 2)));
-		System.out.println(Long.toHexString(Long.parseLong(string, 2)));
-
-		// 82 --> 62
-		// http://en.wikipedia.org/wiki/EBCDIC
-		System.out.println();
-		System.out.println((char) 62);
-		System.out.println((char) 129);
-
-	}
-
-	@Test
 	public void testDecodeEBCDIC() throws UnsupportedEncodingException {
 
 		assertEquals(new String(MsgUtils.decodeNibbleHex("82F0F0F0F0F0F0F1"),
@@ -183,13 +145,6 @@ public class SplitMsgPartsTest {
 				new String(
 						MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1"),
 						"Cp1047"), "RETLb0000001");
-	}
-
-	@Test
-	public void testDecodeVisaEBCDIC() throws UnsupportedEncodingException {
-
-		System.out.println(new String(MsgUtils
-				.decodeNibbleHex("16010200B7000000"), "Cp1047"));
 	}
 
 	@Test

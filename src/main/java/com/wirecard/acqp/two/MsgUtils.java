@@ -25,12 +25,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class MsgUtils {
-	private static Logger logger = LoggerFactory
-			.getLogger(MsgUtils.class);
-	
-	public static String GetMTI(String input) {
-		return stripFs(input.substring(0, 8));
-	}
+	private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
 
 	public static String GetBitMap(String input) {
 		return input.substring(8, 24);
@@ -159,8 +154,9 @@ public final class MsgUtils {
 			sb.append("--------------------");
 		}
 		System.out.println(sb);
-		
+
 	}
+
 	static String getISOMsgPlainText(ISOMsg msg) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("----ISO MESSAGE-----" + "\n");
@@ -260,16 +256,22 @@ public final class MsgUtils {
 	}
 
 	public static PrintStream createLoggingProxy() {
-	    return new PrintStream(System.out) {
-	        public void print(final String string) {
-	            logger.debug(string);
-	        }
-	        public void println(final String string) {
-	            logger.debug(string);
-	        }
-	    };
+		return new PrintStream(System.out) {
+			public void print(final String string) {
+				logger.debug(string);
+				if (logger.isTraceEnabled())
+					System.out.println(string);
+				;
+			}
+
+			public void println(final String string) {
+				logger.debug(string);
+				if (logger.isTraceEnabled())
+					System.out.println(string);
+			}
+		};
 	}
-	
+
 	public static String logISOMsgXml() {
 
 		try {

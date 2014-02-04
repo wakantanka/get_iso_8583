@@ -43,6 +43,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	}
 
+	//TODO Threadsafty
 	public String getFieldValue(String fieldPath) throws IllegalStateException, NotYetImpementedException, IllegalArgumentException {
 		try {
 			String twoInputTemp;
@@ -58,6 +59,8 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			if (twoInputTemp.length() < 200)  
 				throw new IllegalArgumentException("TwoInput to short");
 
+			// logging
+			logger.debug("used TWOInput : " + twoInputTemp);
 			
 				ISOMsg isoMsg = new ISOMsg();
 
@@ -80,31 +83,19 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 				isoMsg.unpack(dataPart);
 				break;
 			case MASTERCARD:
-				String mti = new String(MsgUtils.decodeNibbleHex(twoInputTemp
-						.substring(0, 8)), "Cp1047");
-				String bitmap = new String(MsgUtils.GetBitMap(twoInputTemp));
-
-				String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInputTemp
-						.substring(24, twoInputTemp.length())), "Cp1047");
-
-				StringBuilder sb = new StringBuilder();
-				sb.append(mti);
-				sb.append(bitmap);
-				sb.append(dataPartMC);
-
-				String data = sb.toString();
-				isoMsg.unpack(data.getBytes());
-
+				isoMsg.unpack(getBytesFromTwoDataMC(twoInputTemp));
 				break;
 			case JCB:
-				throw new NotYetImpementedException();
+				isoMsg.unpack(getBytesFromTwoDataJCB(twoInputTemp));
+				break;
+				
+				//throw new NotYetImpementedException();
 			default:
 				throw new IllegalStateException(
 						"Can't determine CardScheme. You schould never see this. Sorry!");
 
 			}
 			// logging
-			logger.debug("TWOInput : " + twoInputFromConstructor);
 			if (logger.isTraceEnabled())
 				isoMsg.dump(MsgUtils.createLoggingProxy(), "");
 			logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));
@@ -130,16 +121,49 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 		
 	}
 
+	private byte[] getBytesFromTwoDataMC(
+			String twoInput)
+					throws UnsupportedEncodingException, ISOException {
+		String mti = new String(MsgUtils.decodeNibbleHex(twoInput
+				.substring(0, 8)), "Cp1047");
+		String bitmap = new String(MsgUtils.GetBitMap(twoInput));
+		
+		String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInput
+				.substring(24, twoInput.length())), "Cp1047");
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(mti);
+		sb.append(bitmap);
+		sb.append(dataPartMC);
+		
+		String data = sb.toString();
+		return (data.getBytes());
+	}
+	private byte[] getBytesFromTwoDataJCB(
+			String twoInput)
+			throws UnsupportedEncodingException, ISOException {
+		String mti = new String(MsgUtils.decodeNibbleHex(twoInput
+				.substring(0, 8)), "Cp1047");
+		String bitmap = new String(MsgUtils.GetBitMap(twoInput));
+
+//		String dataPartJcb = new  String(twoInput				.substring(24, twoInput.length()) );
+		String dataPartJcb =  new String(MsgUtils.stripAllFs(twoInput.substring(24, twoInput.length()),110));
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(mti);
+		sb.append(bitmap);
+		sb.append(dataPartJcb);
+
+		String data = sb.toString();
+		return (data.getBytes());
+	}
+
 	// utiltyMethod with full data
 	public String getFieldValue(String twoInput, String cardSchemeType,
 			String fieldPath) throws ISOException,
 			UnsupportedEncodingException, IllegalStateException {
 
 		this.twoInputFromUtilMethod = twoInput;
-		// TODO absichern twoimput für construktur ok, aber nicht für
-		// Utilzugriff ??
-		// evtl ergibt sich ein Problem wenn zuerst constructor aufruf twoInput
-		// setzt, dannach Verwednung mit diser utilMethode
 		scheme = CardScheme.getCardScheme(cardSchemeType);
 
 		packager = new GenericPackager(scheme.getPath());
