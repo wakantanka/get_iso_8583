@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.AsciiHexInterpreter;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOHeader;
@@ -13,9 +14,14 @@ import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOUtil;
 import org.jpos.iso.header.BASE1Header;
 import org.jpos.iso.packager.GenericPackager;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ParseISOMessageBase1VisaPackerTest {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		DOMConfigurator.configure( "resources/log4j.xml");
+	}
 
 	@Test
 	public void testParseAuthRequest() throws 

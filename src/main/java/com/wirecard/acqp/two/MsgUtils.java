@@ -1,6 +1,7 @@
 package com.wirecard.acqp.two;
 
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,11 +19,15 @@ import org.jpos.iso.ISOComponent;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.LeftPadder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class MsgUtils {
-
+	private static Logger logger = LoggerFactory
+			.getLogger(MsgUtils.class);
+	
 	public static String GetMTI(String input) {
 		return stripFs(input.substring(0, 8));
 	}
@@ -154,6 +159,20 @@ public final class MsgUtils {
 			sb.append("--------------------");
 		}
 		System.out.println(sb);
+		
+	}
+	static String getISOMsgPlainText(ISOMsg msg) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("----ISO MESSAGE-----" + "\n");
+		try {
+			sb.append("  MTI : " + msg.getMTI() + "\n");
+			sb.append(logFields(msg, ""));
+		} catch (ISOException e) {
+			e.printStackTrace();
+		} finally {
+			sb.append("--------------------");
+		}
+		return sb.toString();
 
 	}
 
@@ -254,6 +273,17 @@ public final class MsgUtils {
 		;
 	}
 
+	public static PrintStream createLoggingProxy() {
+	    return new PrintStream(System.out) {
+	        public void print(final String string) {
+	            logger.debug(string);
+	        }
+	        public void println(final String string) {
+	            logger.debug(string);
+	        }
+	    };
+	}
+	
 	public static String logISOMsgXml() {
 
 		try {

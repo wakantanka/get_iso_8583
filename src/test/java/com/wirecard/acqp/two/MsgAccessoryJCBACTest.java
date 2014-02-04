@@ -27,9 +27,10 @@ public class MsgAccessoryJCBACTest {
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception  {
- 
+	public static void setUpBeforeClass() throws Exception {
+		DOMConfigurator.configure( "resources/log4j.xml");
 	}
+
 
 	private IMsgAccessory msgAccessory;
 

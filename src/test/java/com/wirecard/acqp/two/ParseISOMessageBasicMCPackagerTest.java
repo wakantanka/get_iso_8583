@@ -4,12 +4,18 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.packager.GenericPackager;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ParseISOMessageBasicMCPackagerTest {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		DOMConfigurator.configure( "resources/log4j.xml");
+	}
 
 	@Test
 	public void testParseAuthRequest() throws ISOException,

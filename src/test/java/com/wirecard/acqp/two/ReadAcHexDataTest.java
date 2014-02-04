@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.codec.DecoderException;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -20,6 +21,9 @@ public class ReadAcHexDataTest {
 	private static String testdata;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		DOMConfigurator.configure( "resources/log4j.xml");
+
+		
 		StringBuilder sb = new StringBuilder();
 
 		File testdataFile = new File("./src/test/resources/testdataMCAuthRequest.ac");

@@ -15,6 +15,7 @@ import java.util.Set;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.binary.StringUtils;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOException;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,6 +26,8 @@ public class SplitMsgPartsTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		DOMConfigurator.configure( "resources/log4j.xml");
+
 		StringBuilder sb = new StringBuilder();
 
 		File testdataFile = new File(

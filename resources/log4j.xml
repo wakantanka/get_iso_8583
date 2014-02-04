@@ -2,12 +2,12 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-   <appender name="console" class="org.apache.log4j.ConsoleAppender">
-        <param name="Target" value="System.out" />
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%-5p %c{1} - %m%n" />
-        </layout>
-    </appender>
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p %c{1} - %m%n" />
+		</layout>
+	</appender>
 	<appender name="DebugAppender" class="org.apache.log4j.FileAppender">
 		<param name="file" value="logs/MeineDebugLogDatei.log" />
 		<param name="Append" value="false" />
@@ -23,22 +23,20 @@
 		</layout>
 	</appender>
 
-  <logger name="com.wirecard.acqp.two" additivity="false">
-         <level value="debug" />
-        <appender-ref ref="DebugAppender"/>
-    </logger> 
-    
-  <logger name="com.wirecard.acqp" >
-         <level value="info" />
-        <appender-ref ref="MeinAppender"/>
-    </logger> 
-    
+	<logger name="com.wirecard.acqp.two" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="DebugAppender"/>
+	</logger>
+
+	<logger name="com.wirecard.acqp" >
+		<level value="info" />
+		<appender-ref ref="MeinAppender"/>
+	</logger>
+
 	<root>
 		<priority value="ERROR"/>
 		<appender-ref ref="console" />
 	</root>
-	
-	
-	
+
 
 </log4j:configuration>

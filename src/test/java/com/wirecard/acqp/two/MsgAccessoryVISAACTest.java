@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOException;
 import org.junit.After;
 import org.junit.Before;
@@ -25,7 +26,9 @@ public class MsgAccessoryVISAACTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		DOMConfigurator.configure( "resources/log4j.xml");
 	}
+
 
 	private IMsgAccessory msgAccessory;
 
