@@ -12,7 +12,7 @@ import org.jpos.iso.ISOMsg;
 import org.jpos.iso.packager.GenericPackager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.jpos.util.BufferedExceptionLogListener;
+
 /**
  * @author jan.wahler Copyright Wirecard AG (c) 2014. All rights reserved.
  * 
@@ -20,7 +20,8 @@ import org.jpos.util.BufferedExceptionLogListener;
 public class MsgAccessoryImpl implements IMsgAccessory {
 	private GenericPackager packager = null;
 	private AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
-	private String twoInput;
+	private final String twoInputFromConstructor;
+	private String twoInputFromUtilMethod = null;
 	private static Logger logger = LoggerFactory
 			.getLogger(MsgAccessoryImpl.class);
 
@@ -28,11 +29,12 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	public MsgAccessoryImpl() {
 		super();
+		this.twoInputFromConstructor = null;
 	}
 
 	public MsgAccessoryImpl(String twoInput, String cardSchemeType)
 			throws ISOException {
-		this.twoInput = twoInput;
+		this.twoInputFromConstructor = twoInput;
 		scheme = CardScheme.getCardScheme(cardSchemeType);
 
 		packager = new GenericPackager(scheme.getPath());
@@ -41,86 +43,100 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	}
 
-	public String getFieldValue(String fieldPath) throws ISOException,
-			UnsupportedEncodingException, IllegalStateException,
-			NotYetImpementedException {
-		if (twoInput == null)
-			throw new IllegalStateException(
-					"Called Method without TWOInputData. Use right constructor or utiltyMethod");
-		else if (twoInput.length() < 200) {
-			throw new IllegalArgumentException("TwoInput to short");
+	public String getFieldValue(String fieldPath) throws IllegalStateException, NotYetImpementedException, IllegalArgumentException {
+		try {
+			String twoInputTemp;
+			if (twoInputFromUtilMethod == null) {
+				twoInputTemp = twoInputFromConstructor;
+			}
+			  else 
+				  twoInputTemp = twoInputFromUtilMethod;
+			
+			if (twoInputTemp == null)
+				throw new IllegalStateException(
+						"Called Method without TWOInputData. Use right constructor or utiltyMethod");
+			if (twoInputTemp.length() < 200)  
+				throw new IllegalArgumentException("TwoInput to short");
+
+			
+				ISOMsg isoMsg = new ISOMsg();
+
+			isoMsg.setPackager(packager);
+
+			if (logger.isTraceEnabled()) {
+				org.jpos.util.Logger jPlogger = new org.jpos.util.Logger();
+				jPlogger.addListener(new org.jpos.util.SimpleLogListener(MsgUtils
+						.createLoggingProxy()));
+				((org.jpos.util.LogSource) packager).setLogger(jPlogger, "debug");
+
+			}
+
+			switch (scheme) {
+			case VISA:
+				String visaDataPartHex = twoInputTemp.substring(44, twoInputTemp.length());
+				// convert Hex to ASCII
+				byte[] dataPart = asciiIn.uninterpret(visaDataPartHex.getBytes(),
+						0, visaDataPartHex.length() / 2);
+				isoMsg.unpack(dataPart);
+				break;
+			case MASTERCARD:
+				String mti = new String(MsgUtils.decodeNibbleHex(twoInputTemp
+						.substring(0, 8)), "Cp1047");
+				String bitmap = new String(MsgUtils.GetBitMap(twoInputTemp));
+
+				String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInputTemp
+						.substring(24, twoInputTemp.length())), "Cp1047");
+
+				StringBuilder sb = new StringBuilder();
+				sb.append(mti);
+				sb.append(bitmap);
+				sb.append(dataPartMC);
+
+				String data = sb.toString();
+				isoMsg.unpack(data.getBytes());
+
+				break;
+			case JCB:
+				throw new NotYetImpementedException();
+			default:
+				throw new IllegalStateException(
+						"Can't determine CardScheme. You schould never see this. Sorry!");
+
+			}
+			// logging
+			logger.debug("TWOInput : " + twoInputFromConstructor);
+			if (logger.isTraceEnabled())
+				isoMsg.dump(MsgUtils.createLoggingProxy(), "");
+			logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));
+			// MsgUtils.logISOMsgPlainText(isoMsg);
+
+			if (isoMsg.getValue(fieldPath) instanceof byte[]) {
+				return Hex.encodeHexString(
+						(byte[]) isoMsg.getComponent(fieldPath).getValue())
+						.toString();
+			} else {
+				return isoMsg.getString(fieldPath);
+			}
+		} catch (UnsupportedEncodingException e) {
+			logger.error("error in getFieldValue", e);
+			return e.getMessage();
+		} catch (ISOException e) {
+			logger.error("error in getFieldValue" , e);
+			return e.getMessage();
+		}finally {
+			twoInputFromUtilMethod = null;
+		
 		}
-
-		ISOMsg isoMsg = new ISOMsg();
-
-		isoMsg.setPackager(packager);
-
-		if (logger.isTraceEnabled()) {
-			org.jpos.util.Logger jPlogger = new org.jpos.util.Logger();
-			jPlogger.addListener(new org.jpos.util.SimpleLogListener(MsgUtils.createLoggingProxy()));
-			((org.jpos.util.LogSource) packager).setLogger(jPlogger, "debug");
-
-		}
-
-		switch (scheme) {
-		case VISA:
-			String visaDataPartHex = twoInput.substring(44, twoInput.length());
-			// convert Hex to ASCII
-			byte[] dataPart = asciiIn.uninterpret(visaDataPartHex.getBytes(),
-					0, visaDataPartHex.length() / 2);
-			isoMsg.unpack(dataPart);
-			break;
-		case MASTERCARD:
-			String mti = new String(MsgUtils.decodeNibbleHex(twoInput
-					.substring(0, 8)), "Cp1047");
-			String bitmap = new String(MsgUtils.GetBitMap(twoInput));
-
-			String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInput
-					.substring(24, twoInput.length())), "Cp1047");
-
-			StringBuilder sb = new StringBuilder();
-			sb.append(mti);
-			sb.append(bitmap);
-			sb.append(dataPartMC);
-
-			String data = sb.toString();
-			isoMsg.unpack(data.getBytes());
-
-			break;
-		case JCB:
-			throw new NotYetImpementedException();
-		default:
-			throw new IllegalStateException(
-					"Can't determine CardScheme. You schould never see this. Sorry!");
-
-		}
-		// logging
-		logger.debug("TWOInput : " + twoInput);
-		if (logger.isTraceEnabled())
-			isoMsg.dump(MsgUtils.createLoggingProxy(), "");
-		logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));
-		//MsgUtils.logISOMsgPlainText(isoMsg);
-
-		if (isoMsg.getValue(fieldPath) instanceof byte[]) {
-			return Hex.encodeHexString(
-					(byte[]) isoMsg.getComponent(fieldPath).getValue())
-					.toString();
-		} else {
-			return isoMsg.getString(fieldPath);
-		}
-
-		// throw new NotYetImpementedException();
-
+		
 	}
 
-	// TODO Exception wie behandeln?
 	// utiltyMethod with full data
 	public String getFieldValue(String twoInput, String cardSchemeType,
 			String fieldPath) throws ISOException,
 			UnsupportedEncodingException, IllegalStateException {
 
-		this.twoInput = twoInput;
-		// TODO absichern two imput mit final für construktur ok, aber nicht für
+		this.twoInputFromUtilMethod = twoInput;
+		// TODO absichern twoimput für construktur ok, aber nicht für
 		// Utilzugriff ??
 		// evtl ergibt sich ein Problem wenn zuerst constructor aufruf twoInput
 		// setzt, dannach Verwednung mit diser utilMethode
