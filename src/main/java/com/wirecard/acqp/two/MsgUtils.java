@@ -316,4 +316,11 @@ public final class MsgUtils {
 		return "<Field-3></Field-3>";
 	}
 
+	public static boolean isHex(String hextwoData) {
+		   String hexPattern = "([A-Fa-f0-9])+$";
+		   Pattern  pattern = Pattern.compile(hexPattern, Pattern.CASE_INSENSITIVE);
+		   Matcher matcher = pattern.matcher(hextwoData);
+			  return matcher.matches();
+	}
+
 }

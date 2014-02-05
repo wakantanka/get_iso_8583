@@ -44,7 +44,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 	}
 
 	//TODO Threadsafty
-	public String getFieldValue(String fieldPath) throws IllegalStateException, NotYetImpementedException, IllegalArgumentException {
+	public String getFieldValue(String fieldPath) throws IllegalStateException, NotYetImpementedException, IllegalArgumentException, ISOException {
 		try {
 			String twoInputTemp;
 			if (twoInputFromUtilMethod == null) {
@@ -111,9 +111,9 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 		} catch (UnsupportedEncodingException e) {
 			logger.error("error in getFieldValue", e);
 			return e.getMessage();
-		} catch (ISOException e) {
-			logger.error("error in getFieldValue" , e);
-			return e.getMessage();
+//		} catch (ISOException e) {
+//			logger.error("error in getFieldValue" , e);
+//			return e.getMessage();
 		}finally {
 			twoInputFromUtilMethod = null;
 		
