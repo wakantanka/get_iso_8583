@@ -24,7 +24,7 @@
 	</appender>
 
 	<logger name="com.wirecard.acqp.two" additivity="false">
-		<level value="info" />
+		<level value="trace" />
 		<appender-ref ref="DebugAppender"/>
 	</logger>
 

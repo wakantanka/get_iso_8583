@@ -131,5 +131,27 @@ public class MsgAccessoryVISAACTest {
 				fieldValue126_10);
 
 	}
+//	@Test
+	public void testAuthorizationRequestAvs()
+			throws ISOException, IllegalStateException,
+			IllegalArgumentException, UnsupportedEncodingException {
+		// TranID 19462775 123.66.c0 = 75008 123.66.cf =24 Rue de la Bastille
+		String twoInput = "16010200D900000079542500000000000000000000000100F224648108E08012000000000000002410426354FFFFFF8694000000000000260000020310213262425415100742027601205906466255F4F0F3F4F1F0F6F2F4F2F5F481F0F0F0F1F4F7F0F1F0F0F181F0F0F0F1F4F7F0404040E6C4D7999640C184849985A2A240E585998986898381A38996C1A28388888589944040404040C4C509780509000000070580000000002166001EC005F7F5F0F0F8CF15F2F440D9A48540848540938140C281A2A3899393850E0040000000000000F1F140C6C6C6";
+//		C0 05 F7F5F0F0F8 CF 15
+//
+//		  </isomsg>
+//		  <field id="123" value="Ã&#0;&#30;{&#9;75008õ&#10;24 Rue de la Bastille"/>
+//		  <isomsg
+		
+		String fieldValue631 = msgAccessory.getFieldValue(twoInput, "VISA",
+				"63.1");
+		assertEquals("SubField 63.2 was not read correctly.", "0000",
+				fieldValue631);
+		
+		String fieldValue123_66_c0 = msgAccessory.getFieldValue(twoInput, "VISA",
+				"123.2");
+		System.out.println(fieldValue123_66_c0);
+		assertEquals("SubField fieldValue123.66.c0 was not read correctly.", "00", fieldValue123_66_c0);
+	}
 
 }
