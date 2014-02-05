@@ -18,6 +18,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.wirecard.acqp.two.MsgAccessoryImpl.NotYetImpementedException;
+
 import static org.junit.Assert.fail;
 
 public class ParserHardeningTest {
@@ -41,11 +43,32 @@ public class ParserHardeningTest {
 	public void testParserHardeningVisa() throws IOException {
 		// http://chrismelinn.wordpress.com/2013/04/12/using-the-golden-master-technique-to-test-legacy-code/
 		// for hardening parser
-
-
+		
 		File testdataFile = new File(
 				"./src/test/resources/VISA-parser-hardening.txt");
 		parseBulkFile(testdataFile, CardScheme.VISA);
+		
+	}
+	
+
+	@Test (expected = NotYetImpementedException.class)
+	public void testParserHardeningJCB() throws IOException {
+		// http://chrismelinn.wordpress.com/2013/04/12/using-the-golden-master-technique-to-test-legacy-code/
+		// for hardening parser
+		
+		File testdataFile = new File(
+				"./src/test/resources/JCB-parser-hardening.txt");
+ 		parseBulkFile(testdataFile, CardScheme.JCB);
+		
+	}
+//	@Test
+	public void testParserHardeningMC() throws IOException {
+		// http://chrismelinn.wordpress.com/2013/04/12/using-the-golden-master-technique-to-test-legacy-code/
+		// for hardening parser
+
+		File testdataFile = new File(
+				"./src/test/resources/MasterCard-parser-hardening.txt");
+		parseBulkFile(testdataFile, CardScheme.MASTERCARD);
 
 	}
 

@@ -86,8 +86,8 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 				isoMsg.unpack(getBytesFromTwoDataMC(twoInputTemp));
 				break;
 			case JCB:
-				isoMsg.unpack(getBytesFromTwoDataJCB(twoInputTemp));
 				throw new NotYetImpementedException();
+				//isoMsg.unpack(getBytesFromTwoDataJCB(twoInputTemp));
 //				break;
 				
 			default:
@@ -110,7 +110,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			}
 		} catch (UnsupportedEncodingException e) {
 			logger.error("error in getFieldValue", e);
-			return e.getMessage();
+//			return e.getMessage();
 //		} catch (ISOException e) {
 //			logger.error("error in getFieldValue" , e);
 //			return e.getMessage();
@@ -118,6 +118,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			twoInputFromUtilMethod = null;
 		
 		}
+		return null;
 		
 	}
 
