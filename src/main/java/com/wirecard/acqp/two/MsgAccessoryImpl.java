@@ -87,9 +87,9 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 				break;
 			case JCB:
 				isoMsg.unpack(getBytesFromTwoDataJCB(twoInputTemp));
-				break;
+				throw new NotYetImpementedException();
+//				break;
 				
-				//throw new NotYetImpementedException();
 			default:
 				throw new IllegalStateException(
 						"Can't determine CardScheme. You schould never see this. Sorry!");
