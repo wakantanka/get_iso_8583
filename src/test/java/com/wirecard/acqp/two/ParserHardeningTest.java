@@ -48,7 +48,7 @@ public class ParserHardeningTest {
 	}
 	
 
-//	@Test (expected = NotYetImpementedException.class)
+	@Test (expected = NotYetImpementedException.class)
 	public void testParserHardeningJCB() throws IOException {
 		
 		File testdataFile = new File(
@@ -57,7 +57,7 @@ public class ParserHardeningTest {
 		
 	}
 	
-//	@Test
+	@Test
 	public void testParserHardeningMC() throws IOException {
 
 		File testdataFile = new File(
