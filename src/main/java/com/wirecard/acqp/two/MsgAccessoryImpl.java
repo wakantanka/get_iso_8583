@@ -127,10 +127,14 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 					throws UnsupportedEncodingException, ISOException {
 		String mti = new String(MsgUtils.decodeNibbleHex(twoInput
 				.substring(0, 8)), "Cp1047");
-		String bitmap = new String(MsgUtils.GetBitMap(twoInput));
+		String bitmap = new String(MsgUtils.GetMCBitMap(twoInput));
+		
+		int dataOfsset = 24;
+		if (bitmap.length()>16) //secondary Bit Map is present
+			dataOfsset = 40;
 		
 		String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInput
-				.substring(24, twoInput.length())), "Cp1047");
+				.substring(dataOfsset, twoInput.length())), "Cp1047");
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append(mti);
@@ -145,7 +149,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			throws UnsupportedEncodingException, ISOException {
 		String mti = new String(MsgUtils.decodeNibbleHex(twoInput
 				.substring(0, 8)), "Cp1047");
-		String bitmap = new String(MsgUtils.GetBitMap(twoInput));
+		String bitmap = new String(MsgUtils.GetMCBitMap(twoInput));
 
 //		String dataPartJcb = new  String(twoInput				.substring(24, twoInput.length()) );
 		String dataPartJcb =  new String(MsgUtils.stripAllFs(twoInput.substring(24, twoInput.length()),110));

@@ -64,7 +64,7 @@ public class SplitMsgPartsTest {
 
 	@Test
 	public void testSeperateBitMap() throws DecoderException {
-		assertEquals("723C440188E18008", MsgUtils.GetBitMap(testdata));
+		assertEquals("723C440188E18008", MsgUtils.GetMCBitMap(testdata));
 	}
 
 	@Test

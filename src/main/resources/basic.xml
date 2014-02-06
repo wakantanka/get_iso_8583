@@ -8,8 +8,8 @@
       class="org.jpos.iso.IFA_NUMERIC"/>
   <isofield
       id="1"
-      length="64"
-      name="BIT MAP"
+      length="16"
+      name="SECONDARY BIT MAP"
       class="org.jpos.iso.IFA_BITMAP"/>
   <isofield
       id="2"
@@ -199,7 +199,7 @@
       class="org.jpos.iso.IFA_LLNUM"/>
   <isofield
       id="33"
-      length="11"
+      length="40"
       name="FORWARDING INSTITUTION IDENT CODE"
       class="org.jpos.iso.IFA_LLNUM"/>
   <isofield
@@ -314,7 +314,7 @@
 	          class="org.jpos.iso.IF_CHAR"/> 
 		<isofield 
 	          id="2"
-	          length="32"  
+	          length="99"  
 	          name="PDS 61" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 		 <!-- isofieldpackager 
@@ -352,22 +352,22 @@
    		</isofieldpackager -->
 		<isofield 
 	          id="3" 
-	          length="32" 
+	          length="99" 
 	          name="PDS 92 CVC 2" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 		<isofield 
 	          id="4" 
-	          length="32" 
+	          length="99" 
 	          name="PDS 42 Electronic Commerce Indicators" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/>
 		<isofield 
 	          id="5" 
-	          length="32" 
+	          length="99" 
 	          name="PDS 43 Universal Cardholder Authentication Field (UCAF)" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 		<isofield 
 	          id="6" 
-	          length="32" 
+	          length="99" 
 	          name="PDS 87 Card Validation Code Result" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 </isofieldpackager>

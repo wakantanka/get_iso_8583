@@ -27,7 +27,7 @@ public class ParseISOMessageBasicMCPackagerTest {
 
 		String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
 				8)), "Cp1047");
-		String bitmap = new String(MsgUtils.GetBitMap(twoInput));
+		String bitmap = new String(MsgUtils.GetMCBitMap(twoInput));
 
 		String dataPart = new String(MsgUtils.decodeNibbleHex(twoInput
 				.substring(24, twoInput.length())), "Cp1047");

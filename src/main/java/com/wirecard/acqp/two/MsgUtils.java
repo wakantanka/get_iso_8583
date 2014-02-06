@@ -27,8 +27,10 @@ import org.w3c.dom.Element;
 public final class MsgUtils {
 	private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
 
-	public static String GetBitMap(String input) {
+	public static String GetMCBitMap(String input) {
+		if (input.substring(24, 40).contains("F"))
 		return input.substring(8, 24);
+		else return input.substring(8, 40);
 	}
 
 	public static String GetData(String input) {
