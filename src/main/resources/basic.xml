@@ -314,7 +314,7 @@
 	          class="org.jpos.iso.IF_CHAR"/> 
 		<isofield 
 	          id="2"
-	          length="7"  
+	          length="32"  
 	          name="PDS 61" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 		 <!-- isofieldpackager 
@@ -352,12 +352,12 @@
    		</isofieldpackager -->
 		<isofield 
 	          id="3" 
-	          length="3" 
+	          length="32" 
 	          name="PDS 92 CVC 2" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 		<isofield 
 	          id="4" 
-	          length="7" 
+	          length="32" 
 	          name="PDS 42 Electronic Commerce Indicators" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/>
 		<isofield 
@@ -367,7 +367,7 @@
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 		<isofield 
 	          id="6" 
-	          length="1" 
+	          length="32" 
 	          name="PDS 87 Card Validation Code Result" 
 	          class="org.jpos.iso.IFMC_LLCHAR"/> 
 </isofieldpackager>
