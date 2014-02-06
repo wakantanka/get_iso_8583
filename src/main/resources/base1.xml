@@ -875,13 +875,13 @@
       length="13"
       name="REMAINING OPEN-TO-USE"
       class="org.jpos.iso.IFB_LLHCHAR"/>
-  <!-- isofield
+  <isofield
       id="123"
       length="33"
       name="ADDRESS VERIFICATION DATA"
-      class="org.jpos.iso.IFB_LLHECHAR"/ -->
+      class="org.jpos.iso.IFB_LLHECHAR"/>
   
-<isofieldpackager
+<!--isofieldpackager
       id="123"
       length="33"
       name="ADDRESS VERIFICATION DATA"
@@ -898,7 +898,7 @@
 		      length="19"
 		      name="CARDHOLDER STREET ADDRESS"
 		      class="org.jpos.iso.IFB_LLCHAR"/> 
-  </isofieldpackager>
+  </isofieldpackager -->
   
   <isofield
       id="124"
