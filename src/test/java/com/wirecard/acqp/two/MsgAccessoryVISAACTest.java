@@ -9,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOException;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,6 +37,7 @@ public class MsgAccessoryVISAACTest {
 	@Before
 	public void setUp() throws Exception {
 		msgAccessory = new MsgAccessoryImpl();
+		
 	}
 
 	/**
