@@ -29,14 +29,18 @@
         <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="User Parameters" enabled="true">
           <collectionProp name="UserParameters.names">
             <stringProp name="99645">doh</stringProp>
-            <stringProp name="114251">sum</stringProp>
             <stringProp name="108417">msg</stringProp>
+            <stringProp name="-907987551">schema</stringProp>
+            <stringProp name="1266022431">fieldpath</stringProp>
+            <stringProp name="567970967">fieldValue</stringProp>
           </collectionProp>
           <collectionProp name="UserParameters.thread_values">
-            <collectionProp name="964137993">
+            <collectionProp name="1336846692">
               <stringProp name="126421938">${__time(EEE\, d MMM yyyy)}</stringProp>
-              <stringProp name="-1796243405">${__doubleSum(3.5, 4.7, sumVariable)}</stringProp>
-              <stringProp name="110932200">${__readInterchangeMsgField(3.5, 4.7, sumVariable)}</stringProp>
+              <stringProp name="271261605">&quot;16010200D600000079542500000000000000000000000400F22464810CE08016000000400000000010400601FFFFFF0013000000000000002238012812282961059615110780080401205906428104F4F0F2F8F1F2F6F1F0F5F9F6F9F5F0F1F1F583F0F0F0F0F0F0F1F1F0F0F383F0F0F0F0F0F0F1404040C6C3C240E28899A340D5819485404040404040404040404040C6C3C240E28899A340D3968340E4C10978050900000005104000000000000000041402859374059607A0000000002501010000000000000000000000000000000000000000&quot;</stringProp>
+              <stringProp name="1055070495">&quot;VISA&quot;</stringProp>
+              <stringProp name="1024796608">&quot;62.2&quot;</stringProp>
+              <stringProp name="193213352">${__readInterchangeMsgField(16010200D600000079542500000000000000000000000400F22464810CE08016000000400000000010400601FFFFFF0013000000000000002238012812282961059615110780080401205906428104F4F0F2F8F1F2F6F1F0F5F9F6F9F5F0F1F1F583F0F0F0F0F0F0F1F1F0F0F383F0F0F0F0F0F0F1404040C6C3C240E28899A340D5819485404040404040404040404040C6C3C240E28899A340D3968340E4C10978050900000005104000000000000000041402859374059607A0000000002501010000000000000000000000000000000000000000, VISA, 62.2)}</stringProp>
             </collectionProp>
           </collectionProp>
           <boolProp name="UserParameters.per_iteration">false</boolProp>
