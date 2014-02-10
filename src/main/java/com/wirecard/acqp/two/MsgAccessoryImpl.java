@@ -43,53 +43,56 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	}
 
-	//TODO Threadsafty
-	public String getFieldValue(String fieldPath) throws IllegalStateException, NotYetImpementedException, IllegalArgumentException, ISOException {
+	@Deprecated
+	public String getFieldValue(String fieldPath) throws IllegalStateException,
+			NotYetImpementedException, IllegalArgumentException, ISOException {
 		try {
 			String twoInputTemp;
 			if (twoInputFromUtilMethod == null) {
 				twoInputTemp = twoInputFromConstructor;
-			}
-			  else 
-				  twoInputTemp = twoInputFromUtilMethod;
-			
+			} else
+				twoInputTemp = twoInputFromUtilMethod;
+
 			if (twoInputTemp == null)
 				throw new IllegalStateException(
 						"Called Method without TWOInputData. Use right constructor or utiltyMethod");
-			if (twoInputTemp.length() < 200)  
+			if (twoInputTemp.length() < 200)
 				throw new IllegalArgumentException("TwoInput to short");
 
 			// logging
 			logger.debug("used TWOInput : " + twoInputTemp);
-			
-				ISOMsg isoMsg = new ISOMsg();
+
+			ISOMsg isoMsg = new ISOMsg();
 
 			isoMsg.setPackager(packager);
 
 			if (logger.isTraceEnabled()) {
 				org.jpos.util.Logger jPlogger = new org.jpos.util.Logger();
-				jPlogger.addListener(new org.jpos.util.SimpleLogListener(MsgUtils
-						.createLoggingProxy()));
-				((org.jpos.util.LogSource) packager).setLogger(jPlogger, "debug");
+				jPlogger.addListener(new org.jpos.util.SimpleLogListener(
+						MsgUtils.createLoggingProxy()));
+				((org.jpos.util.LogSource) packager).setLogger(jPlogger,
+						"debug");
 
 			}
 
 			switch (scheme) {
 			case VISA:
-				String visaDataPartHex = twoInputTemp.substring(44, twoInputTemp.length());
+				String visaDataPartHex = twoInputTemp.substring(44,
+						twoInputTemp.length());
 				// convert Hex to ASCII
-				byte[] dataPart = asciiIn.uninterpret(visaDataPartHex.getBytes(),
-						0, visaDataPartHex.length() / 2);
+				byte[] dataPart = asciiIn.uninterpret(
+						visaDataPartHex.getBytes(), 0,
+						visaDataPartHex.length() / 2);
 				isoMsg.unpack(dataPart);
 				break;
 			case MASTERCARD:
-				isoMsg.unpack(getBytesFromTwoDataMC(twoInputTemp));
+				isoMsg.unpack(MsgUtils.getBytesFromTwoDataMC(twoInputTemp));
 				break;
 			case JCB:
 				throw new NotYetImpementedException();
-				//isoMsg.unpack(getBytesFromTwoDataJCB(twoInputTemp));
-//				break;
-				
+				// isoMsg.unpack(MsgUtils.getBytesFromTwoDataJCB(twoInputTemp));
+				// break;
+
 			default:
 				throw new IllegalStateException(
 						"Can't determine CardScheme. You schould never see this. Sorry!");
@@ -110,57 +113,16 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			}
 		} catch (UnsupportedEncodingException e) {
 			logger.error("error in getFieldValue", e);
-//			return e.getMessage();
-//		} catch (ISOException e) {
-//			logger.error("error in getFieldValue" , e);
-//			return e.getMessage();
-		}finally {
+			// return e.getMessage();
+			// } catch (ISOException e) {
+			// logger.error("error in getFieldValue" , e);
+			// return e.getMessage();
+		} finally {
 			twoInputFromUtilMethod = null;
-		
+
 		}
 		return null;
-		
-	}
 
-	private byte[] getBytesFromTwoDataMC(
-			String twoInput)
-					throws UnsupportedEncodingException, ISOException {
-		String mti = new String(MsgUtils.decodeNibbleHex(twoInput
-				.substring(0, 8)), "Cp1047");
-		String bitmap = new String(MsgUtils.GetMCBitMap(twoInput));
-		
-		int dataOfsset = 24;
-		if (bitmap.length()>16) //secondary Bit Map is present
-			dataOfsset = 40;
-		
-		String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInput
-				.substring(dataOfsset, twoInput.length())), "Cp1047");
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append(mti);
-		sb.append(bitmap);
-		sb.append(dataPartMC);
-		
-		String data = sb.toString();
-		return (data.getBytes());
-	}
-	private byte[] getBytesFromTwoDataJCB(
-			String twoInput)
-			throws UnsupportedEncodingException, ISOException {
-		String mti = new String(MsgUtils.decodeNibbleHex(twoInput
-				.substring(0, 8)), "Cp1047");
-		String bitmap = new String(MsgUtils.GetMCBitMap(twoInput));
-
-//		String dataPartJcb = new  String(twoInput				.substring(24, twoInput.length()) );
-		String dataPartJcb =  new String(MsgUtils.stripAllFs(twoInput.substring(24, twoInput.length()),110));
-
-		StringBuilder sb = new StringBuilder();
-		sb.append(mti);
-		sb.append(bitmap);
-		sb.append(dataPartJcb);
-
-		String data = sb.toString();
-		return (data.getBytes());
 	}
 
 	// utiltyMethod with full data
@@ -176,13 +138,82 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	}
 
-	@SuppressWarnings("serial")
-	class NotYetImpementedException extends java.lang.RuntimeException {
+	public static String echoFieldValue(String twoInput) {
+		return "echo " + twoInput;
+	}
+	public static String echoFieldValue(String twoInput, String b, String c) {
+		return "echo " + b + c + twoInput;
+	}
 
-		public NotYetImpementedException() {
-			super("NotYetImpementedException");
+	public static String readFieldValue(String twoInput, String cardSchemeType,
+			String fieldPath) throws ISOException, UnsupportedEncodingException {
+		try {
+			if (twoInput == null || twoInput.length() < 200)
+				throw new IllegalArgumentException("TwoInput to short");
+
+			GenericPackager sPackager = new GenericPackager(CardScheme
+					.getCardScheme(cardSchemeType).getPath());
+
+			// logging
+			logger.debug("used TWOInput : " + twoInput);
+
+			ISOMsg isoMsg = new ISOMsg();
+
+			isoMsg.setPackager(sPackager);
+
+			if (logger.isTraceEnabled()) {
+				org.jpos.util.Logger jPlogger = new org.jpos.util.Logger();
+				jPlogger.addListener(new org.jpos.util.SimpleLogListener(
+						MsgUtils.createLoggingProxy()));
+				((org.jpos.util.LogSource) sPackager).setLogger(jPlogger,
+						"debug");
+
+			}
+
+			switch (CardScheme.getCardScheme(cardSchemeType)) {
+			case VISA:
+				String visaDataPartHex = twoInput.substring(44,
+						twoInput.length());
+				// convert Hex to ASCII
+				AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
+				byte[] dataPart = asciiIn.uninterpret(
+						visaDataPartHex.getBytes(), 0,
+						visaDataPartHex.length() / 2);
+				isoMsg.unpack(dataPart);
+				break;
+			case MASTERCARD:
+				isoMsg.unpack(MsgUtils.getBytesFromTwoDataMC(twoInput));
+				break;
+			case JCB:
+				throw new NotYetImpementedException();
+				// isoMsg.unpack(MsgUtils.getBytesFromTwoDataJCB(twoInputTemp));
+				// break;
+
+			default:
+				throw new IllegalStateException(
+						"Can't determine CardScheme. You schould never see this. Sorry!");
+
+			}
+			// logging
+			if (logger.isTraceEnabled())
+				isoMsg.dump(MsgUtils.createLoggingProxy(), "");
+			logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));
+			// MsgUtils.logISOMsgPlainText(isoMsg);
+
+			if (isoMsg.getValue(fieldPath) instanceof byte[]) {
+				return Hex.encodeHexString(
+						(byte[]) isoMsg.getComponent(fieldPath).getValue())
+						.toString();
+			} else {
+				return isoMsg.getString(fieldPath);
+			}
+		} catch (UnsupportedEncodingException e) {
+			logger.error("error in getFieldValue", e);
 		}
+		return null;
 
-	};
+	}
+
+	// MsgUtils.logISOMsgPlainText(isoMsg);
 
 }

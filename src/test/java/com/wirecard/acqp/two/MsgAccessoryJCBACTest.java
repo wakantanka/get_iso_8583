@@ -14,8 +14,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.wirecard.acqp.two.MsgAccessoryImpl.NotYetImpementedException;
-
 /**
  * @author jan.wahler
  * 

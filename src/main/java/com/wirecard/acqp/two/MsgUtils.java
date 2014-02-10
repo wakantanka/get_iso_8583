@@ -2,6 +2,7 @@ package com.wirecard.acqp.two;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,18 +28,18 @@ import org.w3c.dom.Element;
 public final class MsgUtils {
 	private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
 
-	public static String GetMCBitMap(String input) {
+	 static String GetMCBitMap(String input) {
 		if (input.substring(24, 40).contains("F"))
 		return input.substring(8, 24);
 		else return input.substring(8, 40);
 	}
 
-	public static String GetData(String input) {
+	 static String GetData(String input) {
 		// return (input.substring(24, 226));
 		return stripFs(input.substring(24, 226));
 	}
 
-	public static byte[] decodeNibbleHex(String input) {
+	 static byte[] decodeNibbleHex(String input) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		char[] chars = input.toCharArray();
 		for (int i = 0; i < chars.length - 1; i += 2) {
@@ -101,7 +102,7 @@ public final class MsgUtils {
 		return LeftPadder.ZERO_PADDER.pad(Bin, 8);
 	}
 
-	public static String cleanNibblesFromHexMsg(String hexMsg) {
+	 static String cleanNibblesFromHexMsg(String hexMsg) {
 		StringBuilder sb = new StringBuilder();
 		int tempBegin = 0;
 		String part;
@@ -204,7 +205,7 @@ public final class MsgUtils {
 		return sb.toString();
 	}
 
-	public static void logISOHeader(String bASE1Header) {
+	private static void logISOHeader(String bASE1Header) {
 		System.out.println("----ISO HEADER-----");
 		try {
 			// String header = ISOUtil.hexString(bASE1Header.pack());
@@ -324,5 +325,48 @@ public final class MsgUtils {
 		   Matcher matcher = pattern.matcher(hextwoData);
 			  return matcher.matches();
 	}
+	
+	  static byte[] getBytesFromTwoDataMC(
+			String twoInput)
+					throws UnsupportedEncodingException, ISOException {
+		String mti = new String(MsgUtils.decodeNibbleHex(twoInput
+				.substring(0, 8)), "Cp1047");
+		String bitmap = new String(MsgUtils.GetMCBitMap(twoInput));
+		
+		int dataOfsset = 24;
+		if (bitmap.length()>16) //secondary Bit Map is present
+			dataOfsset = 40;
+		
+		String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInput
+				.substring(dataOfsset, twoInput.length())), "Cp1047");
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(mti);
+		sb.append(bitmap);
+		sb.append(dataPartMC);
+		
+		String data = sb.toString();
+		return (data.getBytes());
+	}
+	
+	  static byte[] getBytesFromTwoDataJCB(
+			String twoInput)
+			throws UnsupportedEncodingException, ISOException {
+		String mti = new String(MsgUtils.decodeNibbleHex(twoInput
+				.substring(0, 8)), "Cp1047");
+		String bitmap = new String(MsgUtils.GetMCBitMap(twoInput));
+
+//		String dataPartJcb = new  String(twoInput				.substring(24, twoInput.length()) );
+		String dataPartJcb =  new String(MsgUtils.stripAllFs(twoInput.substring(24, twoInput.length()),110));
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(mti);
+		sb.append(bitmap);
+		sb.append(dataPartJcb);
+
+		String data = sb.toString();
+		return (data.getBytes());
+	}
+
 
 }
