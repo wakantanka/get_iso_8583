@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public final class MsgUtils {
+public abstract  class MsgUtils {
 	private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
 
 	 static String GetMCBitMap(String input) {

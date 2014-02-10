@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author jan.wahler Copyright Wirecard AG (c) 2014. All rights reserved.
+ * @author Wirecard AG (c) 2014. All rights reserved.
  * 
  */
 public class MsgAccessoryImpl implements IMsgAccessory {
@@ -125,7 +125,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	}
 
-	// utiltyMethod with full data
+	@Deprecated
 	public String getFieldValue(String twoInput, String cardSchemeType,
 			String fieldPath) throws ISOException,
 			UnsupportedEncodingException, IllegalStateException {
@@ -138,13 +138,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	}
 
-	public static String echoFieldValue(String twoInput) {
-		return "echo " + twoInput;
-	}
-	public static String echoFieldValue(String twoInput, String b, String c) {
-		return "echo " + b + c + twoInput;
-	}
-
+	
 	public static String readFieldValue(String twoInput, String cardSchemeType,
 			String fieldPath) throws ISOException, UnsupportedEncodingException {
 		try {
