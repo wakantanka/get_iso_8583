@@ -106,9 +106,9 @@ public class ParserHardeningTest {
 		try 
 		{
 			String pan = msgAccessory.getFieldValue(twoData, scheme.toString(), "2");
-			String pan2 = MsgAccessoryImpl.readFieldValue(twoData, scheme.toString(), "2");
-			System.out.println("PAN " + pan2);
-			assertNotNull("PAN is null" + pan2);
+//			String pan2 = MsgAccessoryImpl.readFieldValue(twoData, scheme.toString(), "2");
+			System.out.println("PAN " + pan);
+			assertNotNull("PAN is null" + pan);
 			
 		} catch (IllegalStateException e) {
 			fail(e.getMessage());
