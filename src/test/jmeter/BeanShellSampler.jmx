@@ -85,6 +85,12 @@ return com.wirecard.acqp.two.MsgAccessoryImpl.readFieldValue( msg, schema, field
           <boolProp name="perThread">false</boolProp>
         </RandomVariableConfig>
         <hashTree/>
+        <com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler guiclass="TestBeanGUI" testclass="com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler" testname="InterchangeAccessorySampler" enabled="true">
+          <stringProp name="responseCode"></stringProp>
+          <stringProp name="responseMessage"></stringProp>
+          <stringProp name="simulateWaiting">${}</stringProp>
+        </com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler>
+        <hashTree/>
       </hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>

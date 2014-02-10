@@ -45,13 +45,13 @@ public class InterchangeAccessorySampler
         // response code
         res.setResponseCode(getResponseCode());
         res.setResponseMessage(getResponseMessage());
-        res.setSuccessful(isSuccessfull());
+//        res.setSuccessful(isSuccessfull());
 
         // responde data
-        res.setDataType(SampleResult.TEXT);
-        res.setResponseData(getResponseData().getBytes());
+//        res.setDataType(SampleResult.TEXT);
+//        res.setResponseData(getResponseData().getBytes());
 
-        res.setLatency(getLatency());
+//        res.setLatency(getLatency());
 
         return res;
     }
