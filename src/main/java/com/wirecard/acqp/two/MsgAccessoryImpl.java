@@ -151,9 +151,8 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			if (twoInput == null || twoInput.length() < 200)
 				throw new IllegalArgumentException("TwoInput to short");
 
-//			GenericPackager sPackager = new GenericPackager(CardScheme
-//					.getCardScheme(cardSchemeType).getPath());
-			GenericPackager sPackager = new GenericPackager();
+			GenericPackager sPackager = new GenericPackager("src/main/resources/base1.xml");
+//			GenericPackager sPackager = new GenericPackager();
 
 			// logging
 			logger.debug("used TWOInput : " + twoInput);
