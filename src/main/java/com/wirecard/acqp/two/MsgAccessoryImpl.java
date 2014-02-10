@@ -171,9 +171,6 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 			}
 
-			return "doof";
-/*			switch (CardScheme.getCardScheme(cardSchemeType)) {
-			case VISA:
 				String visaDataPartHex = twoInput.substring(44,
 						twoInput.length());
 				// convert Hex to ASCII
@@ -181,9 +178,9 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 				byte[] dataPart = asciiIn.uninterpret(
 						visaDataPartHex.getBytes(), 0,
 						visaDataPartHex.length() / 2);
-				isoMsg.unpack(dataPart);
-				break;
-			case MASTERCARD:
+//				isoMsg.unpack(dataPart);
+		return "doof";
+				/*				case MASTERCARD:
 				isoMsg.unpack(MsgUtils.getBytesFromTwoDataMC(twoInput));
 				break;
 			case JCB:
