@@ -147,12 +147,12 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	public static String readFieldValue(String twoInput, String cardSchemeType,
 			String fieldPath) throws ISOException, UnsupportedEncodingException {
-//		try {
+		try {
 			if (twoInput == null || twoInput.length() < 200)
 				throw new IllegalArgumentException("TwoInput to short");
 
-			GenericPackager sPackager = new GenericPackager("src/main/resources/base1.xml");
-//			GenericPackager sPackager = new GenericPackager();
+			GenericPackager sPackager = new GenericPackager(CardScheme
+					.getCardScheme(cardSchemeType).getPath());
 
 			// logging
 			logger.debug("used TWOInput : " + twoInput);
@@ -170,6 +170,8 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 			}
 
+			switch (CardScheme.getCardScheme(cardSchemeType)) {
+			case VISA:
 				String visaDataPartHex = twoInput.substring(44,
 						twoInput.length());
 				// convert Hex to ASCII
@@ -177,9 +179,9 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 				byte[] dataPart = asciiIn.uninterpret(
 						visaDataPartHex.getBytes(), 0,
 						visaDataPartHex.length() / 2);
-//				isoMsg.unpack(dataPart);
-		return "doof";
-				/*				case MASTERCARD:
+				isoMsg.unpack(dataPart);
+				break;
+			case MASTERCARD:
 				isoMsg.unpack(MsgUtils.getBytesFromTwoDataMC(twoInput));
 				break;
 			case JCB:
@@ -209,7 +211,7 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 			logger.error("error in getFieldValue", e);
 		}
 		return null;
-*/
+
 	}
 
 	// MsgUtils.logISOMsgPlainText(isoMsg);

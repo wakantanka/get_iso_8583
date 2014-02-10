@@ -30,11 +30,13 @@
           <collectionProp name="UserParameters.names">
             <stringProp name="99645">doh</stringProp>
             <stringProp name="114251">sum</stringProp>
+            <stringProp name="108417">msg</stringProp>
           </collectionProp>
           <collectionProp name="UserParameters.thread_values">
-            <collectionProp name="260702777">
+            <collectionProp name="964137993">
               <stringProp name="126421938">${__time(EEE\, d MMM yyyy)}</stringProp>
               <stringProp name="-1796243405">${__doubleSum(3.5, 4.7, sumVariable)}</stringProp>
+              <stringProp name="110932200">${__readInterchangeMsgField(3.5, 4.7, sumVariable)}</stringProp>
             </collectionProp>
           </collectionProp>
           <boolProp name="UserParameters.per_iteration">false</boolProp>
@@ -51,7 +53,7 @@ import  com.wirecard.acqp.two.MsgAccessoryImpl;
 </stringProp>
         </BeanShellPreProcessor>
         <hashTree/>
-        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="false">
           <stringProp name="BeanShellSampler.query">
 
 msg = &quot;16010200D600000079542500000000000000000000000400F22464810CE08016000000400000000010400601FFFFFF0013000000000000002238012812282961059615110780080401205906428104F4F0F2F8F1F2F6F1F0F5F9F6F9F5F0F1F1F583F0F0F0F0F0F0F1F1F0F0F383F0F0F0F0F0F0F1404040C6C3C240E28899A340D5819485404040404040404040404040C6C3C240E28899A340D3968340E4C10978050900000005104000000000000000041402859374059607A0000000002501010000000000000000000000000000000000000000&quot;;
@@ -66,7 +68,7 @@ fieldPath = &quot;62.2&quot;;
           <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
         </BeanShellSampler>
         <hashTree/>
-        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="false">
           <stringProp name="BeanShellSampler.query">msg = &quot;16010200D600000079542500000000000000000000000400F22464810CE08016000000400000000010400601FFFFFF0013000000000000002238012812282961059615110780080401205906428104F4F0F2F8F1F2F6F1F0F5F9F6F9F5F0F1F1F583F0F0F0F0F0F0F1F1F0F0F383F0F0F0F0F0F0F1404040C6C3C240E28899A340D5819485404040404040404040404040C6C3C240E28899A340D3968340E4C10978050900000005104000000000000000041402859374059607A0000000002501010000000000000000000000000000000000000000&quot;;
 schema = &quot;VISA&quot;;
 fieldPath = &quot;62.2&quot;; 

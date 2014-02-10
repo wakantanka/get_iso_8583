@@ -27,7 +27,7 @@ public class MsgAccessoryMasterCardACTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		DOMConfigurator.configure( "resources/log4j.xml");
+//		DOMConfigurator.configure( "resources/log4j.xml");
 	}
 
 
