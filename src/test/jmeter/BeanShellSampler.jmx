@@ -91,6 +91,8 @@ return com.wirecard.acqp.two.MsgAccessoryImpl.readFieldValue( msg, schema, field
           <boolProp name="simulateWaiting">true</boolProp>
           <stringProp name="requestData">tztz</stringProp>
           <stringProp name="responseData">resd</stringProp>
+          <stringProp name="cardSchema"></stringProp>
+          <stringProp name="twoInput"></stringProp>
         </com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">

@@ -29,18 +29,6 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 		=new SampleResult();
 			res.sampleStart();
 		
-//		if (isSimulateWaiting()) {
-//			res = new SampleResult();
-//			try {
-//				Thread.sleep(getResponseTime());
-//			} catch (InterruptedException ignored) {
-//			}
-//			res.sampleEnd();
-//		} else {
-//			res = new SampleResult(System.currentTimeMillis(),
-//					getResponseTime());
-//		}
-
 		res.setSampleLabel(getName());
 
 		// source data
@@ -48,7 +36,7 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 
 		// response code
 //		res.setResponseCode(getCardSchema());
-		res.setResponseMessage(getResponseMessage());
+		res.setResponseMessage(getFieldPath());
 		res.setSuccessful(isSuccessfull());
 
 		// responde data
@@ -70,10 +58,6 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 //	public void setSuccessful(boolean selected) {
 //		// selected=true;
 //		setProperty(IS_SUCCESSFUL, selected);
-//	}
-
-//	public void setSimulateWaiting(boolean selected) {
-//		setProperty(IS_WAITING, selected);
 //	}
 
 	public void setCardSchema(String text) {
@@ -100,60 +84,26 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 //		return getPropertyAsBoolean(IS_SUCCESSFUL);
 	}
 
-//	public boolean isSimulateWaiting() {
-//		return getPropertyAsBoolean(IS_WAITING);
-//	}
-
 	/**
-	 * @return the responseCode
+	 * @return the cardSchema
 	 */
 	public String getCardSchema() {
 		return getPropertyAsString(CARD_SCHEMA);
 	}
 
 	/**
-	 * @return the responseMessage
+	 * @return the fieldPath
 	 */
-	public String getResponseMessage() {
+	public String getFieldPath() {
 		return getPropertyAsString(FIELD_PATH);
 	}
 
 	/**
-	 * @return the responseData
+	 * @return the twoInput
 	 */
-//	public String getResponseData() {
-//		return getPropertyAsString(RESPONSE_DATA);
-//	}
-
 	public String getTwoInput() {
 		return getPropertyAsString(TWO_INPUT);
 	}
-
-//	public int getResponseTime() {
-//		int time = 0;
-//		try {
-//			time = Integer.valueOf(getPropertyAsString(RESPONSE_TIME));
-//		} catch (NumberFormatException ignored) {
-//		}
-//		return time;
-//	}
-
-//	public int getLatency() {
-//		int time = 0;
-//		try {
-//			time = Integer.valueOf(getPropertyAsString(LATENCY));
-//		} catch (NumberFormatException ignored) {
-//		}
-//		return time;
-//	}
-
-//	public void setResponseTime(String time) {
-//		setProperty(RESPONSE_TIME, time);
-//	}
-
-//	public void setLatency(String time) {
-//		setProperty(LATENCY, time);
-//	}
 
 	public boolean interrupt() {
 		Thread.currentThread().interrupt();
