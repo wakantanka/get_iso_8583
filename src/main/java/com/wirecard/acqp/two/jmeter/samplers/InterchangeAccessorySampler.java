@@ -48,8 +48,8 @@ public class InterchangeAccessorySampler
 //        res.setSuccessful(isSuccessfull());
 
         // responde data
-//        res.setDataType(SampleResult.TEXT);
-//        res.setResponseData(getResponseData().getBytes());
+        res.setDataType(SampleResult.TEXT);
+  res.setResponseData(getResponseData().getBytes());
 
 //        res.setLatency(getLatency());
 
