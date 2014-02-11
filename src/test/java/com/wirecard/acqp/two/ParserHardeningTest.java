@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOException;
 import org.junit.After;
@@ -23,7 +24,7 @@ public class ParserHardeningTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-//		DOMConfigurator.configure("resources/log4j.xml");
+		DOMConfigurator.configure("resources/log4j.xml");
 
 	}
 
@@ -84,7 +85,7 @@ public class ParserHardeningTest {
 							+ "is not a hexString");
 					continue;
 				}
-				System.out.println(twoData);
+//				Logger.debug(twoData);
 				
 				 parseRow(twoData, scheme);
 
@@ -106,9 +107,9 @@ public class ParserHardeningTest {
 		try 
 		{
 			String pan = msgAccessory.getFieldValue(twoData, scheme.toString(), "2");
-//			String pan2 = MsgAccessoryImpl.readFieldValue(twoData, scheme.toString(), "2");
-			System.out.println("PAN " + pan);
-			assertNotNull("PAN is null" + pan);
+			String pan2 = MsgAccessoryImpl.readFieldValue(twoData, scheme.toString(), "2");
+//			System.out.println("PAN " + pan2);
+			assertNotNull("PAN is null" + pan2);
 			
 		} catch (IllegalStateException e) {
 			fail(e.getMessage());

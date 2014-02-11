@@ -14,11 +14,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+
 /**
- * @author jan.wahler
- * 
- *
+ * @author Wirecard AG (c) 2014. All rights reserved.
  */
+
 public class ReadInterchangeMsgFieldJCBACTest {
 
 	/**

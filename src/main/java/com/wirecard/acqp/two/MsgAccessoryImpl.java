@@ -138,7 +138,24 @@ public class MsgAccessoryImpl implements IMsgAccessory {
 
 	}
 
-	
+	/**
+	 * Utility AccessMethod for requesting a specific FieldValue
+	 * 
+	 * @param msg
+	 *            the HexString of an ISO8583 InterchangeMsg
+	 * @param scheme
+	 *            the CardScheme allowed Values VISA, MASTERCARD, JCB
+	 * @param fieldNo
+	 *            requested FieldPath e. g. 30, could include Subfields e. g.
+	 *            62.2
+	 * @return the requested fieldvalue as String
+	 * @throws ISOException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 *             if cardScheme can not determinied
+	 * @throws UnsupportedEncodingException
+	 * 
+	 */
 	public static String readFieldValue(String twoInput, String cardSchemeType,
 			String fieldPath) throws ISOException, UnsupportedEncodingException {
 		try {
