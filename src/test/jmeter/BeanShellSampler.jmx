@@ -103,6 +103,8 @@ return com.wirecard.acqp.two.MsgAccessoryImpl.readFieldValue( msg, schema, field
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
+        <com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler guiclass="TestBeanGUI" testclass="com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler" testname="InterchangeAccessorySampler" enabled="true"/>
+        <hashTree/>
       </hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
