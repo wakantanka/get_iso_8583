@@ -15,7 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<!-- ref http://stackoverflow.com/questions/17777821/maven-dependency-conflict-org-w3c-dom-elementtraversal  -->
+	<!-- ref http://stackoverflow.com/questions/17777821/maven-dependency-conflict-org-w3c-dom-elementtraversal -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -78,6 +78,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.jmeter</groupId>
+			<artifactId>ApacheJMeter_components</artifactId>
+			<!-- <version>2.9</version> -->
+			<version>${jmeter.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 	<build>
@@ -118,6 +125,8 @@
 							<goal>jmeter</goal>
 						</goals>
 						<configuration>
+							<suppressJMeterOutput>false</suppressJMeterOutput>
+<!-- 							<propertiesUser><jmeter.exit.check.pause>10</jmeter.exit.check.pause></propertiesUser> -->
 							<jmeterPlugins>
 								<plugin>
 									<groupId>${project.groupId}</groupId>
@@ -129,11 +138,11 @@
 					</execution>
 				</executions>
 				<dependencies>
-					<dependency>
-						<groupId>${project.groupId}</groupId>
-						<artifactId>${project.artifactId}</artifactId>
-						<version>${project.version}</version>
-					</dependency>
+				<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>${project.artifactId}</artifactId>
+				<version>${project.version}</version>
+				</dependency>
 				</dependencies>
 			</plugin>
 		</plugins>

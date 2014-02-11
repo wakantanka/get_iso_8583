@@ -80,17 +80,29 @@ return com.wirecard.acqp.two.MsgAccessoryImpl.readFieldValue( msg, schema, field
           <stringProp name="variableName"></stringProp>
           <stringProp name="outputFormat"></stringProp>
           <stringProp name="minimumValue">1</stringProp>
-          <stringProp name="maximumValue"></stringProp>
+          <stringProp name="maximumValue">233</stringProp>
           <stringProp name="randomSeed"></stringProp>
           <boolProp name="perThread">false</boolProp>
         </RandomVariableConfig>
         <hashTree/>
         <com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler guiclass="TestBeanGUI" testclass="com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler" testname="InterchangeAccessorySampler" enabled="true">
-          <stringProp name="responseCode"></stringProp>
-          <stringProp name="responseMessage"></stringProp>
-          <stringProp name="simulateWaiting">${}</stringProp>
+          <stringProp name="responseCode">resc</stringProp>
+          <stringProp name="responseMessage">resm</stringProp>
+          <boolProp name="simulateWaiting">true</boolProp>
+          <stringProp name="requestData">tztz</stringProp>
+          <stringProp name="responseData">resd</stringProp>
         </com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="-340323263">response</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
