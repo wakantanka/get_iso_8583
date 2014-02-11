@@ -1,10 +1,15 @@
 package com.wirecard.acqp.two.jmeter.samplers;
 
+import java.io.UnsupportedEncodingException;
+
 import org.apache.jmeter.samplers.AbstractSampler;
 import org.apache.jmeter.samplers.Entry;
 import org.apache.jmeter.samplers.Interruptible;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.jmeter.testbeans.TestBean;
+import org.jpos.iso.ISOException;
+
+import com.wirecard.acqp.two.MsgAccessoryImpl;
 
 /**
  * 
@@ -15,50 +20,67 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 		TestBean, Interruptible {
 
 	private static final long serialVersionUID = 6455497354844447057L;
-//	public static final String IS_SUCCESSFUL = "SUCCESFULL";
+	public static final String IS_SUCCESSFUL = "SUCCESFULL";
 	public static final String CARD_SCHEMA = "CARD_SCHEMA";
 	public static final String FIELD_PATH = "FIELD_PATH";
 //	public static final String RESPONSE_DATA = "RESPONSE_DATA";
 	public static final String TWO_INPUT = "TWO_INPUT";
-//	public static final String RESPONSE_TIME = "RESPONSE_TIME";
-//	public static final String LATENCY = "LATENCY";
-//	public static final String IS_WAITING = "WAITING";
 
 	public SampleResult sample(Entry e) {
 		SampleResult res 
 		=new SampleResult();
 			res.sampleStart();
 		
+		 String fieldValue = null;
+		 setSuccessful(false);
+		 
 		res.setSampleLabel(getName());
 
 		// source data
-		res.setSamplerData(getTwoInput());
+		StringBuilder sb = new StringBuilder();
+		res.setDataEncoding("UTF-8");
+		
+		sb.append("Two Input: ");
+		sb.append(getTwoInput() + "\n");
+		sb.append("Card Scheme: ");
+		sb.append(getCardSchema() + "\n");
+		sb.append("Field Path: ");
+		sb.append(getFieldPath() + "\n");
+		System.out.println( sb.toString() );
+		res.setSamplerData(sb.toString());
 
-		// response code
-//		res.setResponseCode(getCardSchema());
-		res.setResponseMessage(getFieldPath());
-		res.setSuccessful(isSuccessfull());
 
 		// responde data
-		// res.setResponseData(getResponseData().getBytes());
 
-		// res.setLatency(getLatency());
-		res.setDataEncoding("UTF-8");
-//		res.setSamplerData("samplerRequsData");
-        res.setResponseData("response", null);
-        res.setDataType(SampleResult.TEXT);
-
-        res.setResponseCode("200");
-        res.setResponseOK();
-        res.sampleEnd();
+		res.setResponseMessage(getFieldPath());
+		try {
+			  fieldValue = MsgAccessoryImpl.readFieldValue(getTwoInput(), getCardSchema(), getFieldPath());
+			  setSuccessful(true);
+		        res.setResponseCode("200");
+		        res.setResponseOK();
+		        res.setResponseData(fieldValue, null);
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		} catch (ISOException e1) {
+			e1.printStackTrace();
+		}
+		finally {
+			res.setDataType(SampleResult.TEXT);
+			
+			res.setSuccessful(isSuccessfull());
+			
+			res.sampleEnd();
+			
+			return res;
+			
+		}
         
-		return res;
 	}
 
-//	public void setSuccessful(boolean selected) {
-//		// selected=true;
-//		setProperty(IS_SUCCESSFUL, selected);
-//	}
+	public void setSuccessful(boolean selected) {
+		// selected=true;
+		setProperty(IS_SUCCESSFUL, selected);
+	}
 
 	public void setCardSchema(String text) {
 		setProperty(CARD_SCHEMA, text);
@@ -68,9 +90,6 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 		setProperty(FIELD_PATH, text);
 	}
 
-//	public void setResponseData(String text) {
-//		setProperty(RESPONSE_DATA, text);
-//	}
 
 	public void setTwoInput(String text) {
 		setProperty(TWO_INPUT, text);
@@ -80,8 +99,8 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 	 * @return the successfull
 	 */
 	public boolean isSuccessfull() {
-		return true;
-//		return getPropertyAsBoolean(IS_SUCCESSFUL);
+//		return true;
+		return getPropertyAsBoolean(IS_SUCCESSFUL);
 	}
 
 	/**
