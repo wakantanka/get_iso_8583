@@ -20,7 +20,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class ParserHardeningTest {
-	private  IMsgAccessory msgAccessory = new MsgAccessoryImpl();
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -39,9 +38,6 @@ public class ParserHardeningTest {
 //	@Ignore
 	@Test
 	public void testParserHardeningVisa() throws IOException {
-		// http://chrismelinn.wordpress.com/2013/04/12/using-the-golden-master-technique-to-test-legacy-code/
-		// for hardening parser
-		
 		File testdataFile = new File(
 				"./src/test/resources/VISA-parser-hardening.txt");
 		parseBulkFile(testdataFile, CardScheme.VISA);
@@ -106,10 +102,8 @@ public class ParserHardeningTest {
 	private  void parseRow(String twoData, CardScheme scheme) {
 		try 
 		{
-			String pan = msgAccessory.getFieldValue(twoData, scheme.toString(), "2");
-			String pan2 = MsgAccessoryImpl.readFieldValue(twoData, scheme.toString(), "2");
-//			System.out.println("PAN " + pan2);
-			assertNotNull("PAN is null" + pan2);
+			String pan = MsgAccessoryImpl.readFieldValue(twoData, scheme.toString(), "2");
+			assertNotNull("PAN is null" + pan);
 			
 		} catch (IllegalStateException e) {
 			fail(e.getMessage());

@@ -8,7 +8,7 @@ import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 
 /**
- * @author jan.wahler
+ * @author Wirecard AG (c) 2014. All rights reserved.
  * Copyright Wirecard AG (c) 2014. All rights reserved.
  */
 public class DistStandaloneTest {

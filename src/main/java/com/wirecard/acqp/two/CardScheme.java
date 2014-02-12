@@ -1,7 +1,7 @@
 package com.wirecard.acqp.two;
 
 /**
- * @author jan.wahler Copyright Wirecard AG (c) 2014. All rights reserved.
+ * @author Wirecard AG (c) 2014. All rights reserved.
  * @link http://en.wikipedia.org/wiki/Card_schemes
  */
 public enum CardScheme {
