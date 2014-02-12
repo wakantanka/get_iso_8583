@@ -7,12 +7,12 @@ package com.wirecard.acqp.two;
 public enum CardScheme {
 	VISA("base1", 44), MASTERCARD("basic", 0), JCB("basicJCB", 0);
 
-	private String path;
-	int dataOffset;
+	private final String path;
+	private final int dataOffset;
 
-	CardScheme(String path, int offset) {
-		this.path = path;
-		this.dataOffset = offset;
+	CardScheme(final String cpath, final int coffset) {
+		this.path = cpath;
+		this.dataOffset = coffset;
 	}
 
 	/**
@@ -23,12 +23,13 @@ public enum CardScheme {
 	}
 
 	/**
-	 * HelperMethod to use JRE 1.6 compatible string switch
+	 * HelperMethod to use JRE 1.6 compatible string switch.
 	 * 
 	 * @param cardSchemeType
 	 * @return CardScheme Enum
+	 * @throws IllegalArgumentException
 	 */
-	public static CardScheme getCardScheme(String cardSchemeType) throws IllegalArgumentException {
+	public static CardScheme getCardScheme(final String cardSchemeType) {
 
 		if (cardSchemeType.equalsIgnoreCase("VISA")) {
 			return CardScheme.VISA;

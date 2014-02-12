@@ -17,10 +17,14 @@ import org.slf4j.LoggerFactory;
  * @author Wirecard AG (c) 2014. All rights reserved.
  * 
  */
-public abstract class MsgAccessoryImpl { //implements IMsgAccessory {
+public final class MsgAccessoryImpl { // implements IMsgAccessory {
 	private static Logger logger = LoggerFactory
 			.getLogger(MsgAccessoryImpl.class);
 
+	private MsgAccessoryImpl() {
+		// nothing - Utility classes should not have a public or default
+		// constructor.
+	}
 
 	/**
 	 * Utility AccessMethod for requesting a specific FieldValue

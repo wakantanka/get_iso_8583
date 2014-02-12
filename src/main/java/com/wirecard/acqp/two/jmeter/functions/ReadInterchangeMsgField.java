@@ -14,7 +14,6 @@ import org.apache.jmeter.functions.AbstractFunction;
 import org.apache.jmeter.functions.InvalidVariableException;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.jmeter.samplers.Sampler;
-import org.apache.jmeter.threads.JMeterVariables;
 import org.jpos.iso.ISOException;
 
 import com.wirecard.acqp.two.MsgAccessoryImpl;
@@ -27,15 +26,15 @@ import com.wirecard.acqp.two.MsgAccessoryImpl;
 /**
  * Provides a readFieldValue function that parses Interchange Messages and return Fieldvalue from given fieldPath .
  */
-public class ReadInterchangeMsgField extends AbstractFunction {
+public final class ReadInterchangeMsgField extends AbstractFunction {
 
-    private static final List<String> desc = new LinkedList<String>();
+    private static final List<String> DESC = new LinkedList<String>();
     private static final String KEY = "__readInterchangeMsgField"; 
 
     static {
-        desc.add("the twoInput"); 
-        desc.add("CardSchema"); 
-        desc.add("FieldPath"); 
+        DESC.add("the twoInput"); 
+        DESC.add("CardSchema"); 
+        DESC.add("FieldPath"); 
     }
     private Object[] values;
 
@@ -49,7 +48,7 @@ public class ReadInterchangeMsgField extends AbstractFunction {
 
     /** {@inheritDoc} */
     @Override
-    public synchronized String execute(SampleResult previousResult, Sampler currentSampler)
+    public synchronized String execute(final SampleResult previousResult, final  Sampler currentSampler)
             throws InvalidVariableException {
     	System.out.println("############################# EXEC ReadInterchangeMsgField #############################");
     	System.out.println("############################# EXEC " + ((CompoundVariable) values[0]).execute().trim()  + " #############################");
@@ -61,7 +60,7 @@ public class ReadInterchangeMsgField extends AbstractFunction {
         String totalString = null;
         
     	try {
-    		totalString = MsgAccessoryImpl.readFieldValue(((CompoundVariable) values[0]).execute().trim(), ((CompoundVariable) values[1]).execute().trim(), ((CompoundVariable) values[2]).execute().trim() );
+    		totalString = MsgAccessoryImpl.readFieldValue(((CompoundVariable) values[0]).execute().trim(), ((CompoundVariable) values[1]).execute().trim(), ((CompoundVariable) values[2]).execute().trim());
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (ISOException e) {
@@ -74,7 +73,7 @@ public class ReadInterchangeMsgField extends AbstractFunction {
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void setParameters(Collection<CompoundVariable> parameters) throws InvalidVariableException {
+    public synchronized void setParameters(final Collection<CompoundVariable> parameters) throws InvalidVariableException {
         checkMinParameterCount(parameters, 2);
         values = parameters.toArray();
     }
@@ -87,6 +86,6 @@ public class ReadInterchangeMsgField extends AbstractFunction {
 
     /** {@inheritDoc} */
     public List<String> getArgumentDesc() {
-        return desc;
+        return DESC;
     }
 }

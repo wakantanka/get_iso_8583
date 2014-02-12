@@ -13,7 +13,7 @@ import com.wirecard.acqp.two.MsgAccessoryImpl;
  * @author Wirecard AG (c) 2014. All rights reserved.
  */
 
-public class InterchangeAccessorySampler extends AbstractSampler implements
+public final class InterchangeAccessorySampler extends AbstractSampler implements
 		TestBean, Interruptible {
 
 	private static final long serialVersionUID = 6455497354844447057L;
@@ -22,7 +22,7 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 	public static final String FIELD_PATH = "FIELD_PATH";
 	public static final String TWO_INPUT = "TWO_INPUT";
 
-	public SampleResult sample(Entry e) {
+	public SampleResult sample(final Entry e) {
 		SampleResult res = new SampleResult();
 		res.sampleStart();
 
@@ -72,20 +72,20 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 
 	}
 
-	public void setSuccessful(boolean selected) {
+	public void setSuccessful(final boolean selected) {
 		// selected=true;
 		setProperty(IS_SUCCESSFUL, selected);
 	}
 
-	public void setCardSchema(String text) {
+	public void setCardSchema(final String text) {
 		setProperty(CARD_SCHEMA, text);
 	}
 
-	public void setFieldPath(String text) {
+	public void setFieldPath(final String text) {
 		setProperty(FIELD_PATH, text);
 	}
 
-	public void setTwoInput(String text) {
+	public void setTwoInput(final String text) {
 		setProperty(TWO_INPUT, text);
 	}
 
