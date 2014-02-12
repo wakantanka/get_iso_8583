@@ -3,12 +3,12 @@ package com.wirecard.acqp.two.jmeter.samplers;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.JCheckBox;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 import org.apache.jmeter.samplers.gui.AbstractSamplerGui;
 import org.apache.jmeter.testelement.TestElement;
 
@@ -23,15 +23,10 @@ public class InterchangeAccessorySamplerGui
 	 * 
 	 */
 	private static final long serialVersionUID = 9216502088765956186L;
-//	public static final String WIKIPAGE = "DummySampler";
 	private JTextField twoInput;
 //    private JCheckBox isSuccessful;
     private JTextField cardSchema;
     private JTextField fieldPath;
-//    private JTextField responseTime;
-//    private JTextArea responseData;
-//    private JCheckBox isWaiting;
-//    private JTextField latency;
 
     /**
      *

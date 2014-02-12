@@ -56,18 +56,15 @@ public class ReadInterchangeMsgField extends AbstractFunction {
     	System.out.println("############################# EXEC " + ((CompoundVariable) values[1]).execute().trim()  + " #############################");
     	System.out.println("############################# EXEC " + ((CompoundVariable) values[2]).execute().trim()  + " #############################");
 
-        JMeterVariables vars = getVariables();
-
+//        JMeterVariables vars = getVariables();
 
         String totalString = null;
         
     	try {
     		totalString = MsgAccessoryImpl.readFieldValue(((CompoundVariable) values[0]).execute().trim(), ((CompoundVariable) values[1]).execute().trim(), ((CompoundVariable) values[2]).execute().trim() );
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ISOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

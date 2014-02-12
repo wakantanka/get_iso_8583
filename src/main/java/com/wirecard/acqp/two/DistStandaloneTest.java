@@ -3,7 +3,6 @@
  */
 package com.wirecard.acqp.two;
 
-import static com.wirecard.acqp.two.MsgUtils.stripFs;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 

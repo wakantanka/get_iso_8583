@@ -11,7 +11,6 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOHeader;
 import org.jpos.iso.ISOUtil;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

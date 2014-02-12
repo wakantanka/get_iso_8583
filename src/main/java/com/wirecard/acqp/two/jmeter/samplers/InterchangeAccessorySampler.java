@@ -1,13 +1,10 @@
 package com.wirecard.acqp.two.jmeter.samplers;
 
-import java.io.UnsupportedEncodingException;
-
 import org.apache.jmeter.samplers.AbstractSampler;
 import org.apache.jmeter.samplers.Entry;
 import org.apache.jmeter.samplers.Interruptible;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.jmeter.testbeans.TestBean;
-import org.jpos.iso.ISOException;
 
 import com.wirecard.acqp.two.MsgAccessoryImpl;
 

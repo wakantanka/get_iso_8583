@@ -18,12 +18,9 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public abstract class MsgAccessoryImpl { //implements IMsgAccessory {
-	private GenericPackager packager = null;
-	private AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
 	private static Logger logger = LoggerFactory
 			.getLogger(MsgAccessoryImpl.class);
 
-	private CardScheme scheme;
 
 	/**
 	 * Utility AccessMethod for requesting a specific FieldValue

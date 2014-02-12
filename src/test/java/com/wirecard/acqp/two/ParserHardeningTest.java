@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOException;
 import org.junit.After;

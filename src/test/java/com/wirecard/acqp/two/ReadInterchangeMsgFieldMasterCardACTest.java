@@ -10,7 +10,6 @@ import static org.junit.Assert.fail;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.log4j.xml.DOMConfigurator;
-import org.w3c.dom.ElementTraversal;
 import org.jpos.iso.ISOException;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
