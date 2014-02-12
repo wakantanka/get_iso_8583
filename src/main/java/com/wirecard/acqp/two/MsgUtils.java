@@ -34,10 +34,6 @@ public abstract  class MsgUtils {
 		else return input.substring(8, 40);
 	}
 
-	 static String GetData(String input) {
-		// return (input.substring(24, 226));
-		return stripFs(input.substring(24, 226));
-	}
 
 	 static byte[] decodeNibbleHex(String input) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -80,84 +76,6 @@ public abstract  class MsgUtils {
 			}
 		}
 		return result.toString();
-	}
-
-	static String hexStringToBinaryString(String HexString) throws ISOException {
-		StringBuilder sb = new StringBuilder();
-		char[] chars = HexString.toCharArray();
-
-		for (int i = 0; i < chars.length - 1; i++) {
-			String hex = "" + chars[i] + chars[i + 1];
-			i++;
-			sb.append(hexToBinary(hex));
-
-		}
-
-		return sb.toString();
-	}
-
-	static String hexToBinary(String Hex) throws ISOException {
-		int i = Integer.parseInt(Hex, 16);
-		String Bin = Integer.toBinaryString(i);
-		return LeftPadder.ZERO_PADDER.pad(Bin, 8);
-	}
-
-	 static String cleanNibblesFromHexMsg(String hexMsg) {
-		StringBuilder sb = new StringBuilder();
-		int tempBegin = 0;
-		String part;
-		int couter = 0;
-		Matcher matcher = Pattern.compile("(F[A-F0-9]){2,}").matcher(hexMsg);
-
-		while (matcher.find()) {
-			System.out.printf("%s an Position [%d,%d]%n", matcher.group(),
-					matcher.start(), matcher.end());
-
-			if (tempBegin < matcher.start()) {
-				System.out.println("noFs "
-						+ hexMsg.substring(tempBegin, matcher.start()));
-				sb.append(hexMsg.substring(tempBegin, matcher.start()));
-			}
-
-			part = hexMsg.substring(matcher.start(), matcher.end()).replace(
-					"F", "");
-			System.out.println("counter: " + couter + " " + part);
-			sb.append(part);
-
-			tempBegin = matcher.end();
-			couter++;
-		}
-
-		System.out.println(sb.toString());
-		return sb.toString();
-	}
-
-	public static String hextoASCII(String hex) {
-		StringBuilder output = new StringBuilder();
-		for (int i = 0; i < hex.length(); i += 2) {
-			String str = hex.substring(i, i + 2);
-
-			System.out.println(str);
-			output.append((char) (Integer.parseInt(str, 16)));
-		}
-
-		return output.toString();
-
-	}
-
-	static void logISOMsgPlainText(ISOMsg msg) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("----ISO MESSAGE-----" + "\n");
-		try {
-			sb.append("  MTI : " + msg.getMTI() + "\n");
-			sb.append(logFields(msg, ""));
-		} catch (ISOException e) {
-			e.printStackTrace();
-		} finally {
-			sb.append("--------------------");
-		}
-		System.out.println(sb);
-
 	}
 
 	static String getISOMsgPlainText(ISOMsg msg) {
@@ -205,59 +123,7 @@ public abstract  class MsgUtils {
 		return sb.toString();
 	}
 
-	private static void logISOHeader(String bASE1Header) {
-		System.out.println("----ISO HEADER-----");
-		try {
-			// String header = ISOUtil.hexString(bASE1Header.pack());
-			StringBuilder header = new StringBuilder();
-			String lf = System.getProperty("line.separator");
-			StringBuffer d = new StringBuffer();
-
-			d.append(lf);
-			d.append("[H 01] ");
-			d.append(header.substring(0, 2));
-			d.append(lf);
-			d.append("[H 02] ");
-			d.append(header.substring(2, 4));
-			d.append(lf);
-			d.append("[H 03] ");
-			d.append(header.substring(4, 6));
-			d.append(lf);
-			d.append("[H 04] ");
-			d.append(header.substring(6, 10));
-			d.append(lf);
-			d.append("[H 05] ");
-			d.append(header.substring(10, 16));
-			d.append(lf);
-			d.append("[H 06] ");
-			d.append(header.substring(16, 22));
-			d.append(lf);
-			d.append("[H 07] ");
-			d.append(header.substring(22, 24));
-			d.append(lf);
-			d.append("[H 08] ");
-			d.append(header.substring(24, 28));
-			d.append(lf);
-			d.append("[H 09] ");
-			d.append(header.substring(28, 34));
-			d.append(lf);
-			d.append("[H 10] ");
-			d.append(header.substring(34, 36));
-			d.append(lf);
-			d.append("[H 11] ");
-			d.append(header.substring(36, 42));
-			d.append(lf);
-			d.append("[H 12] ");
-			d.append(header.substring(42, 44));
-			d.append(lf);
-			System.out.println(d.toString());
-
-		} finally {
-			System.out.println("--------------------");
-		}
-		;
-	}
-
+ 
 	public static PrintStream createLoggingProxy() {
 		return new PrintStream(System.out) {
 			public void print(final String string) {

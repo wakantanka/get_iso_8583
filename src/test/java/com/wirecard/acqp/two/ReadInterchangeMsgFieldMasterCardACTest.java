@@ -94,8 +94,7 @@ public class ReadInterchangeMsgFieldMasterCardACTest {
 				"jIbyd6TeahmkABEAAAFrQmyXwm0=", fieldValue48_43);
 		
 		String fieldValue61_4 = MsgAccessoryImpl.readFieldValue(msg, "MASTERCARD", "61.4");
-		assertEquals("SubField 48.43 was not read correctly.",
-				"5", fieldValue61_4);
+		assertEquals("could not read Field 61.4", "5", fieldValue61_4);
 	}
 	
 	@Ignore
@@ -109,7 +108,7 @@ public class ReadInterchangeMsgFieldMasterCardACTest {
 				"0", fieldValue48_61_1);
 		fail("access should be over 48.61.1"); 
 		
-		
+		// TODO NotImplemented fieldlength not sure, subsubfield 48.61.5 descoped
 //		String fieldValue48_61_5 = MsgAccessoryImpl.readFieldValue(msg, "MASTERCARD", "48.2.5");
 //		assertEquals("SubField 48.61.5 was not read correctly.",
 //				"1", fieldValue48_61_5);
