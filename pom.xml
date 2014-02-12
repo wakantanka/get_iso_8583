@@ -86,9 +86,29 @@
 
 	</dependencies>
 	<build>
-
-
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.11</version>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>validate</phase>
+						<configuration>
+							<configLocation>src/main/resources/checkstyle.xml</configLocation>
+							<encoding>UTF-8</encoding>
+							<consoleOutput>true</consoleOutput>
+							<failsOnError>false</failsOnError>
+							<linkXRef>false</linkXRef>
+						</configuration>
+						<goals>
+							<goal>checkstyle</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
@@ -124,7 +144,7 @@
 						</goals>
 						<configuration>
 							<suppressJMeterOutput>false</suppressJMeterOutput>
-<!-- 							<propertiesUser><jmeter.exit.check.pause>10</jmeter.exit.check.pause></propertiesUser> -->
+							<!-- <propertiesUser><jmeter.exit.check.pause>10</jmeter.exit.check.pause></propertiesUser> -->
 							<jmeterPlugins>
 								<plugin>
 									<groupId>${project.groupId}</groupId>
@@ -136,14 +156,50 @@
 					</execution>
 				</executions>
 				<dependencies>
-				<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>${project.artifactId}</artifactId>
-				<version>${project.version}</version>
-				</dependency>
+					<dependency>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>${project.artifactId}</artifactId>
+						<version>${project.version}</version>
+					</dependency>
 				</dependencies>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-checkstyle-plugin
+										</artifactId>
+										<versionRange>
+											[2.11,)
+										</versionRange>
+										<goals>
+											<goal>check</goal>
+											<goal>checkstyle</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>
