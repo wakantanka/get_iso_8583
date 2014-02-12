@@ -36,7 +36,7 @@ public class ParserHardeningTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void testParserHardeningVisa() throws IOException {
 		// http://chrismelinn.wordpress.com/2013/04/12/using-the-golden-master-technique-to-test-legacy-code/
@@ -58,7 +58,7 @@ public class ParserHardeningTest {
 		
 	}
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void testParserHardeningMC() throws IOException {
 

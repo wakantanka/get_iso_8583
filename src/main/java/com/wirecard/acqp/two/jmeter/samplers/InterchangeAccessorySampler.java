@@ -23,58 +23,56 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 	public static final String IS_SUCCESSFUL = "SUCCESFULL";
 	public static final String CARD_SCHEMA = "CARD_SCHEMA";
 	public static final String FIELD_PATH = "FIELD_PATH";
-//	public static final String RESPONSE_DATA = "RESPONSE_DATA";
 	public static final String TWO_INPUT = "TWO_INPUT";
 
 	public SampleResult sample(Entry e) {
-		SampleResult res 
-		=new SampleResult();
-			res.sampleStart();
-		
-		 String fieldValue = null;
-		 setSuccessful(false);
-		 
+		SampleResult res = new SampleResult();
+		res.sampleStart();
+
+		String fieldValue = null;
+		setSuccessful(false);
+
 		res.setSampleLabel(getName());
 
 		// source data
 		StringBuilder sb = new StringBuilder();
 		res.setDataEncoding("UTF-8");
-		
+		String twoInput = getTwoInput().trim();
+		String cardSchema = getCardSchema().trim();
+		String fieldPath = getFieldPath().trim();
+
 		sb.append("Two Input: ");
-		sb.append(getTwoInput() + "\n");
+		sb.append(twoInput + "\n");
 		sb.append("Card Scheme: ");
-		sb.append(getCardSchema() + "\n");
+		sb.append(cardSchema + "\n");
 		sb.append("Field Path: ");
-		sb.append(getFieldPath() + "\n");
-		System.out.println( sb.toString() );
+		sb.append(fieldPath + "\n");
+		System.out.println(sb.toString());
 		res.setSamplerData(sb.toString());
 
-
 		// responde data
-
-		res.setResponseMessage(getFieldPath());
+		res.setResponseMessage("Value of Field" + fieldPath);
 		try {
-			  fieldValue = MsgAccessoryImpl.readFieldValue(getTwoInput(), getCardSchema(), getFieldPath());
-			  setSuccessful(true);
-		        res.setResponseCode("200");
-		        res.setResponseOK();
-		        res.setResponseData(fieldValue, null);
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		} catch (ISOException e1) {
-			e1.printStackTrace();
-		}
-		finally {
+			fieldValue = MsgAccessoryImpl.readFieldValue(twoInput,
+					cardSchema, fieldPath);
+			res.setResponseCode("200");
+			res.setResponseOK();
+			res.setResponseData(fieldValue, null);
+			setSuccessful(true);
+		} catch (Exception e2) {
+			setSuccessful(false);
+			throw e2;
+		} finally {
 			res.setDataType(SampleResult.TEXT);
-			
+
 			res.setSuccessful(isSuccessfull());
-			
+
 			res.sampleEnd();
-			
+
 			return res;
-			
+
 		}
-        
+
 	}
 
 	public void setSuccessful(boolean selected) {
@@ -90,7 +88,6 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 		setProperty(FIELD_PATH, text);
 	}
 
-
 	public void setTwoInput(String text) {
 		setProperty(TWO_INPUT, text);
 	}
@@ -99,7 +96,7 @@ public class InterchangeAccessorySampler extends AbstractSampler implements
 	 * @return the successfull
 	 */
 	public boolean isSuccessfull() {
-//		return true;
+		// return true;
 		return getPropertyAsBoolean(IS_SUCCESSFUL);
 	}
 
