@@ -5,8 +5,9 @@
 	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0
 	http://maven.apache.org/xsd/assembly-1.1.0.xsd">
 	<id>distribution</id>
-	<!-- cp -R target/distribution/interchange-msg-accessory-distribution/interchange-msg-accessory/* ~/dev/apache-jmeter-2.9/
-	 -->
+	<!-- cp -R target/distribution/interchange-msg-accessory-distribution/interchange-msg-accessory/*
+		~/dev/apache-jmeter-2.9/
+		-->
 	<formats>
 		<format>dir</format>
 	</formats>
@@ -20,13 +21,20 @@
 			<includes>
 				<include>*:jar</include>
 			</includes>
+			<excludes>
+				<exclude>
+					 com.wirecard.acqp.two:*
+				</exclude>
+			</excludes>
 			<outputDirectory>lib</outputDirectory>
 		</dependencySet>
 	</dependencySets>
 	<fileSets>
 		<fileSet>
 			<directory>src/main/resources</directory>
-			<includes><include>*.xml</include></includes>
+			<includes>
+				<include>*.xml</include>
+			</includes>
 			<outputDirectory>bin/src/main/resources</outputDirectory>
 		</fileSet>
 	</fileSets>

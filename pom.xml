@@ -131,42 +131,12 @@
 			</plugin>
 
 
-			<plugin>
-				<groupId>com.lazerycode.jmeter</groupId>
-				<artifactId>jmeter-maven-plugin</artifactId>
-				<version>1.4.1</version>
-				<executions>
-					<execution>
-						<id>jmeter-tests</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jmeter</goal>
-						</goals>
-						<configuration>
-							<suppressJMeterOutput>false</suppressJMeterOutput>
-							<!-- <propertiesUser><jmeter.exit.check.pause>10</jmeter.exit.check.pause></propertiesUser> -->
-							<jmeterPlugins>
-								<plugin>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${project.version}</version>
-								</plugin>
-							</jmeterPlugins>
-						</configuration>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>${project.groupId}</groupId>
-						<artifactId>${project.artifactId}</artifactId>
-						<version>${project.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -200,6 +170,45 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-	</build>
 
+	</build>
+	<profiles>
+		<profile>
+			<id>jmeter</id>
+			<build><plugins>
+				<plugin>
+					<groupId>com.lazerycode.jmeter</groupId>
+					<artifactId>jmeter-maven-plugin</artifactId>
+					<version>1.4.1</version>
+					<executions>
+						<execution>
+							<id>jmeter-tests</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jmeter</goal>
+							</goals>
+							<configuration>
+								<suppressJMeterOutput>false</suppressJMeterOutput>
+								<!-- <propertiesUser><jmeter.exit.check.pause>10</jmeter.exit.check.pause></propertiesUser> -->
+								<jmeterPlugins>
+									<plugin>
+										<groupId>${project.groupId}</groupId>
+										<artifactId>${project.artifactId}</artifactId>
+										<version>${project.version}</version>
+									</plugin>
+								</jmeterPlugins>
+							</configuration>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<version>${project.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin></plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

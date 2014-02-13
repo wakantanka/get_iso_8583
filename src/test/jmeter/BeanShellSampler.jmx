@@ -107,7 +107,7 @@ return com.wirecard.acqp.two.MsgAccessoryImpl.readFieldValue( msg, schema, field
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler guiclass="TestBeanGUI" testclass="com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler" testname="InterchangeAccessorySamplerInfaliDPath" enabled="true">
+        <com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler guiclass="TestBeanGUI" testclass="com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler" testname="InterchangeAccessorySamplerInfaliDPath" enabled="false">
           <stringProp name="responseCode">resc</stringProp>
           <stringProp name="responseMessage">resm</stringProp>
           <boolProp name="simulateWaiting">true</boolProp>
@@ -119,7 +119,7 @@ return com.wirecard.acqp.two.MsgAccessoryImpl.readFieldValue( msg, schema, field
           <stringProp name="fieldPath">2.3.54</stringProp>
         </com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler>
         <hashTree/>
-        <com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler guiclass="TestBeanGUI" testclass="com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler" testname="InterchangeAccessorySamplerInfalidTWOInput" enabled="true">
+        <com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler guiclass="TestBeanGUI" testclass="com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler" testname="InterchangeAccessorySamplerInfalidTWOInput" enabled="false">
           <stringProp name="responseCode">resc</stringProp>
           <stringProp name="responseMessage">resm</stringProp>
           <boolProp name="simulateWaiting">true</boolProp>
@@ -131,7 +131,7 @@ return com.wirecard.acqp.two.MsgAccessoryImpl.readFieldValue( msg, schema, field
           <stringProp name="fieldPath">2</stringProp>
         </com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler>
         <hashTree/>
-        <com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler guiclass="TestBeanGUI" testclass="com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler" testname="InterchangeAccessorySamplerInfalidCardSchema" enabled="true">
+        <com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler guiclass="TestBeanGUI" testclass="com.wirecard.acqp.two.jmeter.samplers.InterchangeAccessorySampler" testname="InterchangeAccessorySamplerInfalidCardSchema" enabled="false">
           <stringProp name="responseCode">resc</stringProp>
           <stringProp name="responseMessage">resm</stringProp>
           <boolProp name="simulateWaiting">true</boolProp>
