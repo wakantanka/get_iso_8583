@@ -13,6 +13,8 @@ import org.jpos.iso.packager.GenericPackager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bsh.This;
+
 /**
  * @author Wirecard AG (c) 2014. All rights reserved.
  * 
@@ -29,18 +31,17 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
 	/**
 	 * Utility AccessMethod for requesting a specific FieldValue
 	 * 
-	 * @param msg
+	 * @param twoInput
 	 *            the HexString of an ISO8583 InterchangeMsg
-	 * @param scheme
+	 * @param cardSchemeType
 	 *            the CardScheme allowed Values VISA, MASTERCARD, JCB
-	 * @param fieldNo
+	 * @param fieldPath
 	 *            requested FieldPath e. g. 30, could include Subfields e. g.
 	 *            62.2
 	 * @return the requested fieldvalue as String
 	 * @throws ISOException
 	 * @throws IllegalArgumentException
 	 * @throws IllegalStateException
-	 *             if cardScheme can not determinied
 	 * @throws UnsupportedEncodingException
 	 * 
 	 */
@@ -107,7 +108,7 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
 				return isoMsg.getString(fieldPath);
 			}
 		} catch (UnsupportedEncodingException e) {
-			logger.error("error in getFieldValue", e);
+			logger.error("error in ", e);
 		}
 		return null;
 

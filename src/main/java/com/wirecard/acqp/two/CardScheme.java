@@ -38,7 +38,7 @@ public enum CardScheme {
 		} else if (cardSchemeType.equalsIgnoreCase("JCB")) {
 			return CardScheme.JCB;
 		} else {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Can't determine CardScheme.");
 		}
 	}
 

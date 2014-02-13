@@ -54,17 +54,24 @@ public final class InterchangeAccessorySampler extends AbstractSampler
 		try {
 			fieldValue = MsgAccessoryImpl.readFieldValue(twoInput, cardSchema,
 					fieldPath);
-			res.setResponseMessage("Value of Field" + fieldPath);
+//			res.setResponseMessage("Value of Field : " + fieldPath);
 			res.setResponseCode("200");
 			res.setResponseOK();
 			res.setResponseData(fieldValue, null);
 			setSuccessful(true);
-		} catch (UnsupportedEncodingException e1) {
-			setSampleResultErrorState(res, e1);
-		} catch (ISOException e2) {
-			setSampleResultErrorState(res, e2);
+//		} catch (UnsupportedEncodingException e1) {
+//			e1.printStackTrace();
+//			return setSampleResultErrorState(res, e1);
+//			
+//		} catch (ISOException e2) {
+//			e2.printStackTrace();
+//			return	setSampleResultErrorState(res, e2);
 		} catch (Exception e3) {
-			setSampleResultErrorState(res, e3);
+			e3.printStackTrace();
+			setSuccessful(false);
+			res.setResponseCode("500");
+			res.setErrorCount(res.getErrorCount() + 1);
+			res.setResponseMessage("ERROR " + e3.getMessage());
 		} finally {
 			res.setDataType(SampleResult.TEXT);
 			res.setSuccessful(isSuccessfull());
@@ -73,15 +80,7 @@ public final class InterchangeAccessorySampler extends AbstractSampler
 		return res;
 
 	}
-//res call by reference
-	private void setSampleResultErrorState(SampleResult res, final Exception e1) {
-		setSuccessful(false);
-		res.setResponseCode("500");
-		res.setErrorCount(res.getErrorCount() + 1);
-		res.setResponseData(null, e1.getMessage());
  
-	}
-
 	public void setSuccessful(final boolean selected) {
 		// selected=true;
 		setProperty(IS_SUCCESSFUL, selected);
