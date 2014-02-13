@@ -19,104 +19,104 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class ParserHardeningTest {
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		DOMConfigurator.configure("resources/log4j.xml");
 
-	}
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        DOMConfigurator.configure("resources/log4j.xml");
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    }
 
-	@After
-	public void tearDown() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-//	@Ignore
-	@Test
-	public void testParserHardeningVisa() throws IOException {
-		File testdataFile = new File(
-				"./src/test/resources/VISA-parser-hardening.txt");
-		parseBulkFile(testdataFile, CardScheme.VISA);
-		
-	}
-	
-	@Ignore
-	@Test (expected = NotYetImpementedException.class)
-	public void testParserHardeningJCB() throws IOException {
-		
-		File testdataFile = new File(
-				"./src/test/resources/JCB-parser-hardening.txt");
- 		parseBulkFile(testdataFile, CardScheme.JCB);
-		
-	}
-	
-//	@Ignore
-	@Test
-	public void testParserHardeningMC() throws IOException {
+    @After
+    public void tearDown() throws Exception {
+    }
 
-		File testdataFile = new File(
-				"./src/test/resources/MasterCard-parser-hardening.txt");
-		parseBulkFile(testdataFile, CardScheme.MASTERCARD);
-	}
+    // @Ignore
+    @Test
+    public void testParserHardeningVisa() throws IOException {
+        File testdataFile = new File(
+                "./src/test/resources/VISA-parser-hardening.txt");
+        parseBulkFile(testdataFile, CardScheme.VISA);
 
-	private  void parseBulkFile(File testdatafile, CardScheme scheme) {
+    }
 
-		if (!testdatafile.canRead() || !testdatafile.isFile())
-			fail("can't read testdatafile.");
+    @Ignore
+    @Test(expected = NotYetImpementedException.class)
+    public void testParserHardeningJCB() throws IOException {
 
-		BufferedReader in = null;
-		try {
-			in = new BufferedReader(new FileReader(testdatafile));
-			String row = null;
-			while ((row = in.readLine()) != null) {
-				String[] segs = row.split(Pattern.quote(","));
-				String twoData = segs[segs.length - 1].trim();
-				
-				if (!MsgUtils.isHex(twoData)) {
-					System.out.println("WARNING : " + twoData
-							+ "is not a hexString");
-					continue;
-				}
-//				Logger.debug(twoData);
-				
-				 parseRow(twoData, scheme);
+        File testdataFile = new File(
+                "./src/test/resources/JCB-parser-hardening.txt");
+        parseBulkFile(testdataFile, CardScheme.JCB);
 
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			fail("can't opem testdatafile.");
-		} finally {
-			if (in != null)
-				try {
-					in.close();
-				} catch (IOException e) {
-					fail("can't close testdatafile.");
-				}
-		}
-	}
+    }
 
-	private  void parseRow(String twoData, CardScheme scheme) {
-		try 
-		{
-			String pan = MsgAccessoryImpl.readFieldValue(twoData, scheme.toString(), "2");
-			assertNotNull("PAN is null" + pan);
-			
-		} catch (IllegalStateException e) {
-			fail(e.getMessage());
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			fail(e.getMessage());
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			fail(e.getMessage());
-			e.printStackTrace();
-		} catch (ISOException e) {
-			fail(e.getMessage());
-			e.printStackTrace();
-		}
-		
-	}
+    // @Ignore
+    @Test
+    public void testParserHardeningMC() throws IOException {
+
+        File testdataFile = new File(
+                "./src/test/resources/MasterCard-parser-hardening.txt");
+        parseBulkFile(testdataFile, CardScheme.MASTERCARD);
+    }
+
+    private void parseBulkFile(File testdatafile, CardScheme scheme) {
+
+        if (!testdatafile.canRead() || !testdatafile.isFile())
+            fail("can't read testdatafile.");
+
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(testdatafile));
+            String row = null;
+            while ((row = in.readLine()) != null) {
+                String[] segs = row.split(Pattern.quote(","));
+                String twoData = segs[segs.length - 1].trim();
+
+                if (!MsgUtils.isHex(twoData)) {
+                    System.out.println("WARNING : " + twoData
+                            + "is not a hexString");
+                    continue;
+                }
+                // Logger.debug(twoData);
+
+                parseRow(twoData, scheme);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail("can't opem testdatafile.");
+        } finally {
+            if (in != null)
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    fail("can't close testdatafile.");
+                }
+        }
+    }
+
+    private void parseRow(String twoData, CardScheme scheme) {
+        try {
+            String pan = MsgAccessoryImpl.readFieldValue(twoData,
+                    scheme.toString(), "2");
+            assertNotNull("PAN is null" + pan);
+
+        } catch (IllegalStateException e) {
+            fail(e.getMessage());
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            fail(e.getMessage());
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            fail(e.getMessage());
+            e.printStackTrace();
+        } catch (ISOException e) {
+            fail(e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
 }

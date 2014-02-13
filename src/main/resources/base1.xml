@@ -29,22 +29,22 @@
       name="PROCESSING CODE"
       class="org.jpos.iso.IFB_NUMERIC"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
-	  emitBitmap="false">
-	    <isofield
-	      id="1"
-	      length="2"
-	      name="TRANSACTION TYPE"
-	      class="org.jpos.iso.IFA_NUMERIC"/>
-	    <isofield
-	      id="2"
-	      length="2"
-	      name="ACCOUNT TYPE FROM"
-	      class="org.jpos.iso.IFA_NUMERIC"/>
-	      <isofield
-	      id="3"
-	      length="2"
-	      name="ACCOUNT TYPE TO"
-	      class="org.jpos.iso.IFA_NUMERIC"/>
+      emitBitmap="false">
+        <isofield
+          id="1"
+          length="2"
+          name="TRANSACTION TYPE"
+          class="org.jpos.iso.IFA_NUMERIC"/>
+        <isofield
+          id="2"
+          length="2"
+          name="ACCOUNT TYPE FROM"
+          class="org.jpos.iso.IFA_NUMERIC"/>
+          <isofield
+          id="3"
+          length="2"
+          name="ACCOUNT TYPE TO"
+          class="org.jpos.iso.IFA_NUMERIC"/>
   </isofieldpackager>
   <isofield
       id="4"
@@ -161,22 +161,22 @@
       name="POINT OF SERVICE ENTRY MODE"
       class="org.jpos.iso.IFB_NUMERIC"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
-	  emitBitmap="false">
-	    <isofield
-	      id="1"
-	      length="1"
-	      name="ACCOUNT NUMBER/DATE ENTRY MODE"
-	      class="org.jpos.iso.IFA_NUMERIC"/>
-	    <isofield
-	      id="2"
-	      length="2"
-	      name="PIN ENTRY CAPABILITY"
-	      class="org.jpos.iso.IFA_NUMERIC"/>
-	      <isofield
-	      id="3"
-	      length="1"
-	      name="unused"
-	      class="org.jpos.iso.IFA_NUMERIC"/>
+      emitBitmap="false">
+        <isofield
+          id="1"
+          length="1"
+          name="ACCOUNT NUMBER/DATE ENTRY MODE"
+          class="org.jpos.iso.IFA_NUMERIC"/>
+        <isofield
+          id="2"
+          length="2"
+          name="PIN ENTRY CAPABILITY"
+          class="org.jpos.iso.IFA_NUMERIC"/>
+          <isofield
+          id="3"
+          length="1"
+          name="unused"
+          class="org.jpos.iso.IFA_NUMERIC"/>
   </isofieldpackager>  
 
   <isofield
@@ -394,57 +394,57 @@
       name="ADDITIONAL POS INFORMATION"
       class="org.jpos.iso.IFB_LLHBINARY"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
-	  emitBitmap="false">
-		    <isofield
-		      id="1"
-		      length="1"
-		      name="TERMINAL TYPE"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
-			<isofield
-		      id="2"
-		      length="1"
-		      name="TERMINAL ENTRY CAPABILITY"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
-			<isofield
-		      id="3"
-		      length="1"
-		      name="CHIP CONDITION CODE"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
-			<isofield
-		      id="4"
-		      length="1"
-		      name="SPECIAL CONDITION INDICATOR"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
-			<isofield
-		      id="5"
-		      length="2"
-		      name="not applicable"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
-			<isofield
-		      id="6"
-		      length="1"
-		      name="CHIP TRANSACTION INDICATOR"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
-			<isofield
-		      id="7"
-		      length="1"
-		      name="CHIP CARD AUTHENTICATION RELIABILITY INDICATOR"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
-			<isofield
-		      id="8"
-		      length="2"
-		      name="MAIL/PHONE/ELECTRONIC COMMERCE AND PAYMENT INDICATOR"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
-			<isofield
-		      id="9"
-		      length="1"
-		      name="not applicable"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
-			<isofield
-		      id="10"
-		      length="1"
-		      name="PARTIAL AUTHORIZATION INDICATOR"
-		      class="org.jpos.iso.IFB_NUMERIC"/>
+      emitBitmap="false">
+            <isofield
+              id="1"
+              length="1"
+              name="TERMINAL TYPE"
+              class="org.jpos.iso.IFB_NUMERIC"/>
+            <isofield
+              id="2"
+              length="1"
+              name="TERMINAL ENTRY CAPABILITY"
+              class="org.jpos.iso.IFB_NUMERIC"/>
+            <isofield
+              id="3"
+              length="1"
+              name="CHIP CONDITION CODE"
+              class="org.jpos.iso.IFB_NUMERIC"/>
+            <isofield
+              id="4"
+              length="1"
+              name="SPECIAL CONDITION INDICATOR"
+              class="org.jpos.iso.IFB_NUMERIC"/>
+            <isofield
+              id="5"
+              length="2"
+              name="not applicable"
+              class="org.jpos.iso.IFB_NUMERIC"/>
+            <isofield
+              id="6"
+              length="1"
+              name="CHIP TRANSACTION INDICATOR"
+              class="org.jpos.iso.IFB_NUMERIC"/>
+            <isofield
+              id="7"
+              length="1"
+              name="CHIP CARD AUTHENTICATION RELIABILITY INDICATOR"
+              class="org.jpos.iso.IFB_NUMERIC"/>
+            <isofield
+              id="8"
+              length="2"
+              name="MAIL/PHONE/ELECTRONIC COMMERCE AND PAYMENT INDICATOR"
+              class="org.jpos.iso.IFB_NUMERIC"/>
+            <isofield
+              id="9"
+              length="1"
+              name="not applicable"
+              class="org.jpos.iso.IFB_NUMERIC"/>
+            <isofield
+              id="10"
+              length="1"
+              name="PARTIAL AUTHORIZATION INDICATOR"
+              class="org.jpos.iso.IFB_NUMERIC"/>
       </isofieldpackager>
   <isofield
       id="61"
@@ -887,17 +887,17 @@
       name="ADDRESS VERIFICATION DATA"
       class="org.jpos.iso.IFB_LLHECHAR"
       packager="org.jpos.iso.packager.GenericSubFieldPackager">  
-		  <isofield
-		      id="2"
-		      length="9"
-		      name="POSTAL CODE"
-		      class="org.jpos.iso.IFB_LLCHAR"/> 
+          <isofield
+              id="2"
+              length="9"
+              name="POSTAL CODE"
+              class="org.jpos.iso.IFB_LLCHAR"/> 
 
-		  <isofield
-		      id="4"
-		      length="19"
-		      name="CARDHOLDER STREET ADDRESS"
-		      class="org.jpos.iso.IFB_LLCHAR"/> 
+          <isofield
+              id="4"
+              length="19"
+              name="CARDHOLDER STREET ADDRESS"
+              class="org.jpos.iso.IFB_LLCHAR"/> 
   </isofieldpackager -->
   
   <isofield

@@ -23,21 +23,21 @@
       class="org.jpos.iso.IFA_NUMERIC"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
       emitBitmap="false"> 
-		<isofield 
-	          id="1" 
-	          length="2" 
-	          name="Transaction Code" 
-	          class="org.jpos.iso.IFA_NUMERIC"/> 
-		<isofield 
-	          id="2" 
-	          length="2" 
-	          name="From account type" 
-	          class="org.jpos.iso.IFA_NUMERIC"/> 
-		<isofield 
-	          id="3" 
-	          length="2" 
-	          name="To account type" 
-	          class="org.jpos.iso.IFA_NUMERIC"/> 
+        <isofield 
+              id="1" 
+              length="2" 
+              name="Transaction Code" 
+              class="org.jpos.iso.IFA_NUMERIC"/> 
+        <isofield 
+              id="2" 
+              length="2" 
+              name="From account type" 
+              class="org.jpos.iso.IFA_NUMERIC"/> 
+        <isofield 
+              id="3" 
+              length="2" 
+              name="To account type" 
+              class="org.jpos.iso.IFA_NUMERIC"/> 
   </isofieldpackager>
   <isofield
       id="4"
@@ -136,16 +136,16 @@
       class="org.jpos.iso.IFA_NUMERIC"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
       emitBitmap="false"> 
-		<isofield 
-	          id="1" 
-	          length="2" 
-	          name="POS Terminal PAN Entry Mode" 
-	          class="org.jpos.iso.IFA_NUMERIC"/> 
-		<isofield 
-	          id="2" 
-	          length="1" 
-	          name="POS Terminal PIN Entry Mode" 
-	          class="org.jpos.iso.IFA_NUMERIC"/> 
+        <isofield 
+              id="1" 
+              length="2" 
+              name="POS Terminal PAN Entry Mode" 
+              class="org.jpos.iso.IFA_NUMERIC"/> 
+        <isofield 
+              id="2" 
+              length="1" 
+              name="POS Terminal PIN Entry Mode" 
+              class="org.jpos.iso.IFA_NUMERIC"/> 
 </isofieldpackager>
   <isofield
       id="23"
@@ -254,32 +254,32 @@
       class="org.jpos.iso.IF_CHAR"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
       emitBitmap="false"> 
-		<isofield 
-	          id="1" 
-	          length="22" 
-	          name="Merchant Name" 
-	          class="org.jpos.iso.IF_CHAR"/> 
-		<isofield 
-	          id="2" 
-	          length="1" 
-	          name="Space" 
-	          class="org.jpos.iso.IF_CHAR"/> 
-		<isofield 
-	          id="3" 
-	          length="13" 
-	          name="Merchant City" 
-	          class="org.jpos.iso.IF_CHAR"/> 
-		<isofield 
-	          id="4" 
-	          length="1" 
-	          name="Space" 
-	          class="org.jpos.iso.IF_CHAR"/> 
-		<isofield 
-	          id="5" 
-	          length="3" 
-	          name="Merchant State" 
-	          class="org.jpos.iso.IF_CHAR"/> 
-		</isofieldpackager>
+        <isofield 
+              id="1" 
+              length="22" 
+              name="Merchant Name" 
+              class="org.jpos.iso.IF_CHAR"/> 
+        <isofield 
+              id="2" 
+              length="1" 
+              name="Space" 
+              class="org.jpos.iso.IF_CHAR"/> 
+        <isofield 
+              id="3" 
+              length="13" 
+              name="Merchant City" 
+              class="org.jpos.iso.IF_CHAR"/> 
+        <isofield 
+              id="4" 
+              length="1" 
+              name="Space" 
+              class="org.jpos.iso.IF_CHAR"/> 
+        <isofield 
+              id="5" 
+              length="3" 
+              name="Merchant State" 
+              class="org.jpos.iso.IF_CHAR"/> 
+        </isofieldpackager>
   <isofield
       id="44"
       length="25"
@@ -307,71 +307,71 @@
       class="org.jpos.iso.IFA_LLLCHAR"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
       emitBitmap="false"> 
-	    <isofield 
-	          id="1" 
-	          length="1"
-	          name="PDS 1 Processing Indicator" 
-	          class="org.jpos.iso.IF_CHAR"/> 
-		<isofield 
-	          id="2"
-	          length="99"  
-	          name="PDS 61" 
-	          class="org.jpos.iso.IFMC_LLCHAR"/> 
-		 <!-- isofieldpackager 
-   		      id="2" 
-	          length="9" 
-	          name="PDS 61" 
-	          class="org.jpos.iso.IFMC_LLCHAR"
-      		  packager="org.jpos.iso.packager.GenericSubFieldPackager"
-      		  emitBitmap="false">
+        <isofield 
+              id="1" 
+              length="1"
+              name="PDS 1 Processing Indicator" 
+              class="org.jpos.iso.IF_CHAR"/> 
+        <isofield 
+              id="2"
+              length="99"  
+              name="PDS 61" 
+              class="org.jpos.iso.IFMC_LLCHAR"/> 
+         <!-- isofieldpackager 
+                 id="2" 
+              length="9" 
+              name="PDS 61" 
+              class="org.jpos.iso.IFMC_LLCHAR"
+                packager="org.jpos.iso.packager.GenericSubFieldPackager"
+                emitBitmap="false">
                  <isofield 
-                 	 id="1"
-	                 length="1"  
-	                 name="PDS 61 - Partial Approval Terminal Support Indicator" 
-	                 class="org.jpos.iso.IFA_NUMERIC" /> 
+                      id="1"
+                     length="1"  
+                     name="PDS 61 - Partial Approval Terminal Support Indicator" 
+                     class="org.jpos.iso.IFA_NUMERIC" /> 
                  <isofield 
-                 	 id="2"
-	                 length="1"  
-	                 name="PDS 61 - Purchase Amount Only Terminal Support Indicator" 
-	                 class="org.jpos.iso.IFA_NUMERIC" /> 
+                      id="2"
+                     length="1"  
+                     name="PDS 61 - Purchase Amount Only Terminal Support Indicator" 
+                     class="org.jpos.iso.IFA_NUMERIC" /> 
                  <isofield 
-                 	 id="3"
-	                 length="1"  
-	                 name="PDS 61 - Real-time Substantiation Indicator" 
-	                 class="org.jpos.iso.IFA_NUMERIC" /> 
+                      id="3"
+                     length="1"  
+                     name="PDS 61 - Real-time Substantiation Indicator" 
+                     class="org.jpos.iso.IFA_NUMERIC" /> 
                  <isofield 
                      id="4"
-	                 length="1"  
-	                 name="PDS 61 - Merchant Transaction Fraud Scoring Indicator" 
-	                 class="org.jpos.iso.IFA_NUMERIC" /> 
+                     length="1"  
+                     name="PDS 61 - Merchant Transaction Fraud Scoring Indicator" 
+                     class="org.jpos.iso.IFA_NUMERIC" /> 
                  <isofield 
-                 	 id="5"
-	                 length="1"  
-	                 name="PDS 61 - Final Authorization Indicator" 
-	                 class="org.jpos.iso.IFA_NUMERIC" /> 
-   		</isofieldpackager -->
-		<isofield 
-	          id="3" 
-	          length="99" 
-	          name="PDS 92 CVC 2" 
-	          class="org.jpos.iso.IFMC_LLCHAR"/> 
-		<isofield 
-	          id="4" 
-	          length="99" 
-	          name="PDS 42 Electronic Commerce Indicators" 
-	          class="org.jpos.iso.IFMC_LLCHAR"/>
-		<isofield 
-	          id="5" 
-	          length="99" 
-	          name="PDS 43 Universal Cardholder Authentication Field (UCAF)" 
-	          class="org.jpos.iso.IFMC_LLCHAR"/> 
-		<isofield 
-	          id="6" 
-	          length="99" 
-	          name="PDS 87 Card Validation Code Result" 
-	          class="org.jpos.iso.IFMC_LLCHAR"/> 
+                      id="5"
+                     length="1"  
+                     name="PDS 61 - Final Authorization Indicator" 
+                     class="org.jpos.iso.IFA_NUMERIC" /> 
+           </isofieldpackager -->
+        <isofield 
+              id="3" 
+              length="99" 
+              name="PDS 92 CVC 2" 
+              class="org.jpos.iso.IFMC_LLCHAR"/> 
+        <isofield 
+              id="4" 
+              length="99" 
+              name="PDS 42 Electronic Commerce Indicators" 
+              class="org.jpos.iso.IFMC_LLCHAR"/>
+        <isofield 
+              id="5" 
+              length="99" 
+              name="PDS 43 Universal Cardholder Authentication Field (UCAF)" 
+              class="org.jpos.iso.IFMC_LLCHAR"/> 
+        <isofield 
+              id="6" 
+              length="99" 
+              name="PDS 87 Card Validation Code Result" 
+              class="org.jpos.iso.IFMC_LLCHAR"/> 
 </isofieldpackager>
-	          
+              
 
   <isofield
       id="49"

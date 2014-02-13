@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <assembly
-	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0
-	http://maven.apache.org/xsd/assembly-1.1.0.xsd">
-	<id>distribution</id>
-	<!-- cp -R target/distribution/interchange-msg-accessory-distribution/interchange-msg-accessory/*
-		~/dev/apache-jmeter-2.9/
-		-->
-	<formats>
-		<format>dir</format>
-	</formats>
-	<dependencySets>
-		<dependencySet>
-			<outputDirectory>lib/ext</outputDirectory>
-			<unpack>false</unpack>
-			<scope>system</scope>
-		</dependencySet>
-		<dependencySet>
-			<includes>
-				<include>*:jar</include>
-			</includes>
-			<excludes>
-				<exclude>
-					 com.wirecard.acqp.two:*
-				</exclude>
-			</excludes>
-			<outputDirectory>lib</outputDirectory>
-		</dependencySet>
-	</dependencySets>
+    xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0
+    http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+    <id>distribution</id>
+    <!-- cp -R target/distribution/interchange-msg-accessory-distribution/interchange-msg-accessory/*
+        ~/dev/apache-jmeter-2.9/
+        -->
+    <formats>
+        <format>dir</format>
+    </formats>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib/ext</outputDirectory>
+            <unpack>false</unpack>
+            <scope>system</scope>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>*:jar</include>
+            </includes>
+            <excludes>
+                <exclude>
+                     com.wirecard.acqp.two:*
+                </exclude>
+            </excludes>
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
 </assembly>
