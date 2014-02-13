@@ -175,39 +175,46 @@
 	<profiles>
 		<profile>
 			<id>jmeter</id>
-			<build><plugins>
-				<plugin>
-					<groupId>com.lazerycode.jmeter</groupId>
-					<artifactId>jmeter-maven-plugin</artifactId>
-					<version>1.4.1</version>
-					<executions>
-						<execution>
-							<id>jmeter-tests</id>
-							<phase>verify</phase>
-							<goals>
-								<goal>jmeter</goal>
-							</goals>
-							<configuration>
-								<suppressJMeterOutput>false</suppressJMeterOutput>
-								<!-- <propertiesUser><jmeter.exit.check.pause>10</jmeter.exit.check.pause></propertiesUser> -->
-								<jmeterPlugins>
-									<plugin>
-										<groupId>${project.groupId}</groupId>
-										<artifactId>${project.artifactId}</artifactId>
-										<version>${project.version}</version>
-									</plugin>
-								</jmeterPlugins>
-							</configuration>
-						</execution>
-					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>${project.artifactId}</artifactId>
-							<version>${project.version}</version>
-						</dependency>
-					</dependencies>
-				</plugin></plugins>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+				<plugins>
+					<plugin>
+						<groupId>com.lazerycode.jmeter</groupId>
+						<artifactId>jmeter-maven-plugin</artifactId>
+						<version>1.4.1</version>
+						<executions>
+							<execution>
+								<id>jmeter-tests</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>jmeter</goal>
+								</goals>
+								<configuration>
+									<suppressJMeterOutput>false</suppressJMeterOutput>
+									<!-- <propertiesUser><jmeter.exit.check.pause>10</jmeter.exit.check.pause></propertiesUser> -->
+									<jmeterPlugins>
+										<plugin>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${project.artifactId}</artifactId>
+											<version>${project.version}</version>
+										</plugin>
+									</jmeterPlugins>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>${project.groupId}</groupId>
+								<artifactId>${project.artifactId}</artifactId>
+								<version>${project.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
 			</build>
 		</profile>
 	</profiles>

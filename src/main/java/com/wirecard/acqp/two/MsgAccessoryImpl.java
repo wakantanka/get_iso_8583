@@ -48,11 +48,17 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
 	public static String readFieldValue(String twoInput, String cardSchemeType,
 			String fieldPath) throws ISOException, UnsupportedEncodingException {
 		try {
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+			if (classLoader == null) {
+			    classLoader = Class.class.getClassLoader();
+			}
+			
 			if (twoInput == null || twoInput.length() < 200)
 				throw new IllegalArgumentException("TwoInput to short");
 
-			GenericPackager sPackager = new GenericPackager(CardScheme
-					.getCardScheme(cardSchemeType).getPath());
+			GenericPackager sPackager = new GenericPackager(classLoader.getResourceAsStream(CardScheme
+					.getCardScheme(cardSchemeType).getPath()));
 
 			// logging
 			logger.debug("used TWOInput : " + twoInput);

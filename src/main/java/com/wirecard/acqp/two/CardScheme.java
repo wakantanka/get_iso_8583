@@ -19,7 +19,8 @@ public enum CardScheme {
 	 * @return path to xml field descriptions for GenericPackager
 	 */
 	public String getPath() {
-		return "src/main/resources/" + path + ".xml";
+		return path + ".xml";
+//		return "src/main/resources/" + path + ".xml";
 	}
 
 	/**
