@@ -12,7 +12,6 @@ import org.jpos.iso.ISOException;
 import com.wirecard.acqp.two.MsgAccessoryImpl;
 
 /**
- * 
  * @author Wirecard AG (c) 2014. All rights reserved.
  */
 

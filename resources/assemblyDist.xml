@@ -29,15 +29,4 @@
 			<outputDirectory>lib</outputDirectory>
 		</dependencySet>
 	</dependencySets>
-	<!-- 
-	<fileSets>
-		<fileSet>
-			<directory>src/main/resources</directory>
-			<includes>
-				<include>*.xml</include>
-			</includes>
-			<outputDirectory>bin/src/main/resources</outputDirectory>
-		</fileSet>
-	</fileSets>
- -->
 </assembly>

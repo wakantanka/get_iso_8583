@@ -23,6 +23,9 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * @author Wirecard AG (c) 2014. All rights reserved.
+ */
 public abstract  class MsgUtils {
 	private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
 
