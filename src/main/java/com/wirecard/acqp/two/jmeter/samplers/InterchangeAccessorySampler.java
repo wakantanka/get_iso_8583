@@ -1,10 +1,13 @@
 package com.wirecard.acqp.two.jmeter.samplers;
 
+import java.io.UnsupportedEncodingException;
+
 import org.apache.jmeter.samplers.AbstractSampler;
 import org.apache.jmeter.samplers.Entry;
 import org.apache.jmeter.samplers.Interruptible;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.jmeter.testbeans.TestBean;
+import org.jpos.iso.ISOException;
 
 import com.wirecard.acqp.two.MsgAccessoryImpl;
 
@@ -13,8 +16,8 @@ import com.wirecard.acqp.two.MsgAccessoryImpl;
  * @author Wirecard AG (c) 2014. All rights reserved.
  */
 
-public final class InterchangeAccessorySampler extends AbstractSampler implements
-		TestBean, Interruptible {
+public final class InterchangeAccessorySampler extends AbstractSampler
+		implements TestBean, Interruptible {
 
 	private static final long serialVersionUID = 6455497354844447057L;
 	public static final String IS_SUCCESSFUL = "SUCCESFULL";
@@ -48,28 +51,35 @@ public final class InterchangeAccessorySampler extends AbstractSampler implement
 		res.setSamplerData(sb.toString());
 
 		// responde data
-		res.setResponseMessage("Value of Field" + fieldPath);
 		try {
-			fieldValue = MsgAccessoryImpl.readFieldValue(twoInput,
-					cardSchema, fieldPath);
+			fieldValue = MsgAccessoryImpl.readFieldValue(twoInput, cardSchema,
+					fieldPath);
+			res.setResponseMessage("Value of Field" + fieldPath);
 			res.setResponseCode("200");
 			res.setResponseOK();
 			res.setResponseData(fieldValue, null);
 			setSuccessful(true);
-		} catch (Exception e2) {
-			setSuccessful(false);
-			throw e2;
+		} catch (UnsupportedEncodingException e1) {
+			setSampleResultErrorState(res, e1);
+		} catch (ISOException e2) {
+			setSampleResultErrorState(res, e2);
+		} catch (Exception e3) {
+			setSampleResultErrorState(res, e3);
 		} finally {
 			res.setDataType(SampleResult.TEXT);
-
 			res.setSuccessful(isSuccessfull());
-
 			res.sampleEnd();
-
-			return res;
-
 		}
+		return res;
 
+	}
+//res call by reference
+	private void setSampleResultErrorState(SampleResult res, final Exception e1) {
+		setSuccessful(false);
+		res.setResponseCode("500");
+		res.setErrorCount(res.getErrorCount() + 1);
+		res.setResponseData(null, e1.getMessage());
+ 
 	}
 
 	public void setSuccessful(final boolean selected) {
