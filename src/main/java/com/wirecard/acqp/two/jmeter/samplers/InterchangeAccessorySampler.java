@@ -1,24 +1,25 @@
 package com.wirecard.acqp.two.jmeter.samplers;
 
-import java.io.UnsupportedEncodingException;
+//import java.io.UnsupportedEncodingException;
+//import org.jpos.iso.ISOException;
 
 import org.apache.jmeter.samplers.AbstractSampler;
 import org.apache.jmeter.samplers.Entry;
 import org.apache.jmeter.samplers.Interruptible;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.jmeter.testbeans.TestBean;
-import org.jpos.iso.ISOException;
 
 import com.wirecard.acqp.two.MsgAccessoryImpl;
 
 /**
  * @author Wirecard AG (c) 2014. All rights reserved.
  */
-
+@SuppressWarnings("javadoc")
 public final class InterchangeAccessorySampler extends AbstractSampler
         implements TestBean, Interruptible {
 
     private static final long serialVersionUID = 6455497354844447057L;
+
     public static final String IS_SUCCESSFUL = "SUCCESFULL";
     public static final String CARD_SCHEMA = "CARD_SCHEMA";
     public static final String FIELD_PATH = "FIELD_PATH";

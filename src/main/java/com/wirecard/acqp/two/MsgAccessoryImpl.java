@@ -13,8 +13,6 @@ import org.jpos.iso.packager.GenericPackager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bsh.This;
-
 /**
  * @author Wirecard AG (c) 2014. All rights reserved.
  * 
@@ -22,14 +20,15 @@ import bsh.This;
 public final class MsgAccessoryImpl { // implements IMsgAccessory {
     private static Logger logger = LoggerFactory
             .getLogger(MsgAccessoryImpl.class);
-
+    static final int MIN_TWO_INPUT_LENGTH = 200;
+    static final int VISA_DATA_PART_OFFSET = 44;
     private MsgAccessoryImpl() {
         // nothing - Utility classes should not have a public or default
         // constructor.
     }
 
     /**
-     * Utility AccessMethod for requesting a specific FieldValue
+     * Utility AccessMethod for requesting a specific FieldValue.
      * 
      * @param twoInput
      *            the HexString of an ISO8583 InterchangeMsg
@@ -45,8 +44,9 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
      * @throws UnsupportedEncodingException
      * 
      */
-    public static String readFieldValue(String twoInput, String cardSchemeType,
-            String fieldPath) throws ISOException, UnsupportedEncodingException {
+    public static String readFieldValue(final String twoInput,
+            final String cardSchemeType, final String fieldPath)
+            throws ISOException, UnsupportedEncodingException {
         try {
             ClassLoader classLoader = Thread.currentThread()
                     .getContextClassLoader();
@@ -55,9 +55,10 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
                 classLoader = Class.class.getClassLoader();
             }
 
-            if (twoInput == null || twoInput.length() < 200)
+          
+            if (twoInput == null || twoInput.length() < MIN_TWO_INPUT_LENGTH) {
                 throw new IllegalArgumentException("TwoInput to short");
-
+            }
             GenericPackager sPackager = new GenericPackager(
                     classLoader.getResourceAsStream(CardScheme.getCardScheme(
                             cardSchemeType).getPath()));
@@ -80,7 +81,8 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
 
             switch (CardScheme.getCardScheme(cardSchemeType)) {
             case VISA:
-                String visaDataPartHex = twoInput.substring(44,
+
+                String visaDataPartHex = twoInput.substring(VISA_DATA_PART_OFFSET,
                         twoInput.length());
                 // convert Hex to ASCII
                 AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
@@ -103,8 +105,9 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
 
             }
             // logging
-            if (logger.isTraceEnabled())
+            if (logger.isTraceEnabled()){
                 isoMsg.dump(MsgUtils.createLoggingProxy(), "");
+            }
             logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));
             // MsgUtils.logISOMsgPlainText(isoMsg);
 

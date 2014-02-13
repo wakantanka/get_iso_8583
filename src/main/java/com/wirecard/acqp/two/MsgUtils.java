@@ -26,17 +26,24 @@ import org.w3c.dom.Element;
 /**
  * @author Wirecard AG (c) 2014. All rights reserved.
  */
-public abstract class MsgUtils {
-    private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
+public final class MsgUtils {
 
-    static String GetMCBitMap(String input) {
-        if (input.substring(24, 40).contains("F"))
-            return input.substring(8, 24);
-        else
-            return input.substring(8, 40);
+    private MsgUtils() {
+        // nothing - Utility classes should not have a public or default
+        // constructor.
     }
 
-    static byte[] decodeNibbleHex(String input) {
+    private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
+
+    static String getMCBitMap(final String input) {
+        if (input.substring(24, 40).contains("F")) {
+            return input.substring(8, 24);
+        } else {
+            return input.substring(8, 40);
+        }
+    }
+
+    static byte[] decodeNibbleHex(final String input) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         char[] chars = input.toCharArray();
         for (int i = 0; i < chars.length - 1; i += 2) {
@@ -49,25 +56,27 @@ public abstract class MsgUtils {
         return baos.toByteArray();
     }
 
-    static String stripFs(String input) {
+    static String stripFs(final String input) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
 
-            if (i % 2 == 0 && input.charAt(i) != 'F')
+            if (i % 2 == 0 && input.charAt(i) != 'F') {
                 throw new NumberFormatException("Wrong Format for F-Nibbles");
-
+            }
             if (i % 2 == 1) {
-                result.append(input.charAt(i));
+                {
+                    result.append(input.charAt(i));
+                }
             }
         }
         return result.toString();
     }
 
-    static String stripAllFs(String input) {
+    static String stripAllFs(final String input) {
         return stripAllFs(input, 0);
     }
 
-    static String stripAllFs(String input, int offset) {
+    static String stripAllFs(final String input, final int offset) {
         StringBuilder result = new StringBuilder();
         result.append(input.substring(0, offset));
         for (int i = offset; i < input.length(); i++) {
@@ -79,7 +88,7 @@ public abstract class MsgUtils {
         return result.toString();
     }
 
-    static String getISOMsgPlainText(ISOMsg msg) {
+    static String getISOMsgPlainText(final ISOMsg msg) {
         StringBuilder sb = new StringBuilder();
         sb.append("----ISO MESSAGE-----" + "\n");
         try {
@@ -94,7 +103,7 @@ public abstract class MsgUtils {
 
     }
 
-    private static String logFields(ISOMsg isoMsg, String prefix)
+    private static String logFields(final ISOMsg isoMsg, final String prefix)
             throws ISOException {
         StringBuilder sb = new StringBuilder();
 
@@ -116,21 +125,27 @@ public abstract class MsgUtils {
                             + "\"\n");
                 }
                 // has Subfields
-                if (isoMsg.getComponent(i).getMaxField() > 0)
+                if (isoMsg.getComponent(i).getMaxField() > 0) {
                     sb.append(logFields((ISOMsg) isoMsg.getComponent(i),
                             "\tSub"));
+                }
             }
         }
         return sb.toString();
     }
 
+    /**
+     * Method to get PrintStream for redirect trace logging.
+     * 
+     * @return PrintStream
+     */
     public static PrintStream createLoggingProxy() {
         return new PrintStream(System.out) {
             public void print(final String string) {
                 logger.debug(string);
-                if (logger.isTraceEnabled())
+                if (logger.isTraceEnabled()) {
                     System.out.println(string);
-                ;
+                }
             }
 
             public void println(final String string) {
@@ -185,22 +200,24 @@ public abstract class MsgUtils {
         return "<Field-3></Field-3>";
     }
 
-    public static boolean isHex(String hextwoData) {
+    public static boolean isHex(final String hextwoData) {
         String hexPattern = "([A-Fa-f0-9])+$";
         Pattern pattern = Pattern.compile(hexPattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(hextwoData);
         return matcher.matches();
     }
 
-    static byte[] getBytesFromTwoDataMC(String twoInput)
+    static byte[] getBytesFromTwoDataMC(final String twoInput)
             throws UnsupportedEncodingException, ISOException {
         String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
                 8)), "Cp1047");
-        String bitmap = new String(MsgUtils.GetMCBitMap(twoInput));
+        String bitmap = new String(MsgUtils.getMCBitMap(twoInput));
 
         int dataOfsset = 24;
         if (bitmap.length() > 16) // secondary Bit Map is present
+        {
             dataOfsset = 40;
+        }
 
         String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInput
                 .substring(dataOfsset, twoInput.length())), "Cp1047");
@@ -214,11 +231,11 @@ public abstract class MsgUtils {
         return (data.getBytes());
     }
 
-    static byte[] getBytesFromTwoDataJCB(String twoInput)
+    static byte[] getBytesFromTwoDataJCB(final String twoInput)
             throws UnsupportedEncodingException, ISOException {
         String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
                 8)), "Cp1047");
-        String bitmap = new String(MsgUtils.GetMCBitMap(twoInput));
+        String bitmap = new String(MsgUtils.getMCBitMap(twoInput));
 
         // String dataPartJcb = new String(twoInput .substring(24,
         // twoInput.length()) );

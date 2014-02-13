@@ -6,9 +6,10 @@ import org.jpos.iso.ISOMsg;
 /**
  * @author Wirecard AG (c) 2014. All rights reserved.
  */
-public class DistStandaloneTest {
+public final class DistStandaloneTest {
     private DistStandaloneTest() {
-        // nothing
+        // nothing - Utility classes should not have a public or default
+        // constructor.
     }
 
     /**
