@@ -11,7 +11,7 @@
       length="4"
       name="MESSAGE TYPE INDICATOR"
       pad="true"
-      class="org.jpos.iso.IFA_NUMERIC"/>
+      class="org.jpos.iso.IFE_NUMERIC"/>
   <isofield
       id="1"
       length="16"
@@ -334,7 +334,7 @@
       length="3"
       name="CURRENCY CODE, TRANSACTION"
       pad="true"
-      class="org.jpos.iso.IFB_NUMERIC"/>
+      class="org.jpos.iso.IFE_NUMERIC"/>
   <isofield
       id="50"
       length="3"
@@ -448,10 +448,10 @@
       </isofieldpackager>
   <isofield
       id="61"
-      length="36"
-      name="RESERVED PRIVATE"
+      length="7"
+      name="POINT OF SERVICE INFORMATION"
       pad="true"
-      class="org.jpos.iso.IFB_LLHNUM"/>
+      class="org.jpos.iso.IFE_NUMERIC"/>
   <isofieldpackager
       id="62"
       length="255"

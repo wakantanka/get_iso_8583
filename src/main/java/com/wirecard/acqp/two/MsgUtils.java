@@ -207,6 +207,10 @@ public final class MsgUtils {
         return "<Field-3></Field-3>";
     }
 
+    /**
+     * @param hextwoData
+     * @return true if inputparam is valid hex
+     */
     public static boolean isHex(final String hextwoData) {
         String hexPattern = "([A-Fa-f0-9])+$";
         Pattern pattern = Pattern.compile(hexPattern, Pattern.CASE_INSENSITIVE);
@@ -239,51 +243,5 @@ public final class MsgUtils {
     }
     
      
-    static byte[] getBytesFromTwoDataJCB(final String twoInput)
-            throws UnsupportedEncodingException, ISOException {
-        String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
-                8)), "Cp1047");
-        String bitmap =  twoInput.substring(8, 24);
-        
-        String dataPartJcb = new String(twoInput.substring(24,
-                120).getBytes());
-        String dataPartJcb2 = new String(MsgUtils.decodeNibbleHex(twoInput.substring(120,
-                twoInput.length())), "Cp1047");
-//        String dataPartJcb = new String(MsgUtils.stripAllFs(
-//                twoInput.substring(24, twoInput.length()), 110));
-        
-        StringBuilder sb = new StringBuilder();
-        sb.append(mti);
-        sb.append(bitmap);
-        sb.append(dataPartJcb);
-        sb.append(dataPartJcb2);
-        
-        String data = sb.toString();
-        
-        return (   data.getBytes());
-    }
-    static byte[] getBytesFromTwoDataJCBBinary(final String twoInput)
-            throws UnsupportedEncodingException, ISOException {
-        String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
-                8)), "Cp1047");
-        String bitmap =  twoInput.substring(8, 24);
-
-         String dataPartJcb = new String(twoInput.substring(24,
-                 120).getBytes());
-         String dataPartJcb2 = new String(MsgUtils.decodeNibbleHex(twoInput.substring(120,
-         twoInput.length())), "Cp1047");
-//        String dataPartJcb = new String(MsgUtils.stripAllFs(
-//                twoInput.substring(24, twoInput.length()), 110));
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(mti);
-        sb.append(bitmap);
-        sb.append(dataPartJcb);
-        sb.append(dataPartJcb2);
-
-        String data = sb.toString();
-        
-        return (   data.getBytes());
-    }
 
 }
