@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public final class MsgAccessoryImpl { // implements IMsgAccessory {
     private static Logger logger = LoggerFactory
             .getLogger(MsgAccessoryImpl.class);
-    static final int MIN_TWO_INPUT_LENGTH = 200;
+    static final int MIN_TWO_INPUT_LENGTH = 150; //JCB Response < 190
 
     private MsgAccessoryImpl() {
         // nothing - Utility classes should not have a public or default

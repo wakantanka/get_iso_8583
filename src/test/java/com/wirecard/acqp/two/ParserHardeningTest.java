@@ -18,12 +18,13 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public class ParserHardeningTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         DOMConfigurator.configure("resources/log4j.xml");
-
+//        DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
     }
 
     @Before
@@ -34,7 +35,6 @@ public class ParserHardeningTest {
     public void tearDown() throws Exception {
     }
 
-    // @Ignore
     @Test
     public void testParserHardeningVisa() throws IOException {
         File testdataFile = new File(
@@ -43,8 +43,7 @@ public class ParserHardeningTest {
 
     }
 
-    @Ignore
-    @Test(expected = NotYetImpementedException.class)
+    @Test 
     public void testParserHardeningJCB() throws IOException {
 
         File testdataFile = new File(
@@ -53,7 +52,6 @@ public class ParserHardeningTest {
 
     }
 
-    // @Ignore
     @Test
     public void testParserHardeningMC() throws IOException {
 
@@ -103,6 +101,7 @@ public class ParserHardeningTest {
             String pan = MsgAccessoryImpl.readFieldValue(twoData,
                     scheme.toString(), "2");
             assertNotNull("PAN is null" + pan);
+            System.out.println(pan);
 
         } catch (IllegalStateException e) {
             fail(e.getMessage());
