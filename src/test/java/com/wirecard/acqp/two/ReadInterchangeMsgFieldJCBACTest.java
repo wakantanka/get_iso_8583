@@ -83,7 +83,7 @@ public class ReadInterchangeMsgFieldJCBACTest {
          String fieldValue = MsgAccessoryImpl.readFieldValue(twoJCBMsg, "JCB", "61");
          System.out.println("/"+fieldValue+"/");
          assertEquals("Field 61 was not read correctly.", "222276",
-                 fieldValue.substring(1)); //Why?
+                 fieldValue.substring(1)); //@TODO Why?
      }
      
     @Test

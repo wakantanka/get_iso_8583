@@ -54,12 +54,6 @@ public final class MsgUtils {
             int val = Integer.decode("0x" + new String(bChars)).intValue();
             baos.write((byte) val);
         }
-        try {
-            System.out.println( " ++++++++++++++++++++++++++++++++++++++ " + new String(baos.toByteArray(), "Cp1047"));
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         return baos.toByteArray();
     }
 
