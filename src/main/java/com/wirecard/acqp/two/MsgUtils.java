@@ -16,6 +16,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.codec.binary.Hex;
+import org.jpos.iso.AsciiHexInterpreter;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.slf4j.Logger;
@@ -52,6 +53,12 @@ public final class MsgUtils {
             bChars[1] = chars[(i + 1)];
             int val = Integer.decode("0x" + new String(bChars)).intValue();
             baos.write((byte) val);
+        }
+        try {
+            System.out.println( " ++++++++++++++++++++++++++++++++++++++ " + new String(baos.toByteArray(), "Cp1047"));
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         return baos.toByteArray();
     }
@@ -212,43 +219,71 @@ public final class MsgUtils {
         String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
                 8)), "Cp1047");
         String bitmap = new String(MsgUtils.getMCBitMap(twoInput));
-
+        
         int dataOfsset = 24;
         if (bitmap.length() > 16) // secondary Bit Map is present
         {
             dataOfsset = 40;
         }
-
+        
         String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInput
                 .substring(dataOfsset, twoInput.length())), "Cp1047");
-
+        
         StringBuilder sb = new StringBuilder();
         sb.append(mti);
         sb.append(bitmap);
         sb.append(dataPartMC);
-
+        
         String data = sb.toString();
         return (data.getBytes());
     }
-
+    
+     
     static byte[] getBytesFromTwoDataJCB(final String twoInput)
             throws UnsupportedEncodingException, ISOException {
         String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
                 8)), "Cp1047");
-        String bitmap = new String(MsgUtils.getMCBitMap(twoInput));
+        String bitmap =  twoInput.substring(8, 24);
+        
+        String dataPartJcb = new String(twoInput.substring(24,
+                120).getBytes());
+        String dataPartJcb2 = new String(MsgUtils.decodeNibbleHex(twoInput.substring(120,
+                twoInput.length())), "Cp1047");
+//        String dataPartJcb = new String(MsgUtils.stripAllFs(
+//                twoInput.substring(24, twoInput.length()), 110));
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append(mti);
+        sb.append(bitmap);
+        sb.append(dataPartJcb);
+        sb.append(dataPartJcb2);
+        
+        String data = sb.toString();
+        
+        return (   data.getBytes());
+    }
+    static byte[] getBytesFromTwoDataJCBBinary(final String twoInput)
+            throws UnsupportedEncodingException, ISOException {
+        String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
+                8)), "Cp1047");
+        String bitmap =  twoInput.substring(8, 24);
 
-        // String dataPartJcb = new String(twoInput .substring(24,
-        // twoInput.length()) );
-        String dataPartJcb = new String(MsgUtils.stripAllFs(
-                twoInput.substring(24, twoInput.length()), 110));
+         String dataPartJcb = new String(twoInput.substring(24,
+                 120).getBytes());
+         String dataPartJcb2 = new String(MsgUtils.decodeNibbleHex(twoInput.substring(120,
+         twoInput.length())), "Cp1047");
+//        String dataPartJcb = new String(MsgUtils.stripAllFs(
+//                twoInput.substring(24, twoInput.length()), 110));
 
         StringBuilder sb = new StringBuilder();
         sb.append(mti);
         sb.append(bitmap);
         sb.append(dataPartJcb);
+        sb.append(dataPartJcb2);
 
         String data = sb.toString();
-        return (data.getBytes());
+        
+        return (   data.getBytes());
     }
 
 }

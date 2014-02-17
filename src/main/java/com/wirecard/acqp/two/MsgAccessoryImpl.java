@@ -21,7 +21,7 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
     private static Logger logger = LoggerFactory
             .getLogger(MsgAccessoryImpl.class);
     static final int MIN_TWO_INPUT_LENGTH = 200;
-    static final int VISA_DATA_PART_OFFSET = 44;
+
     private MsgAccessoryImpl() {
         // nothing - Utility classes should not have a public or default
         // constructor.
@@ -55,7 +55,6 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
                 classLoader = Class.class.getClassLoader();
             }
 
-          
             if (twoInput == null || twoInput.length() < MIN_TWO_INPUT_LENGTH) {
                 throw new IllegalArgumentException("TwoInput to short");
             }
@@ -81,9 +80,9 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
 
             switch (CardScheme.getCardScheme(cardSchemeType)) {
             case VISA:
-
-                String visaDataPartHex = twoInput.substring(VISA_DATA_PART_OFFSET,
-                        twoInput.length());
+                int VISA_DATA_PART_OFFSET = CardScheme.VISA.getDataOffset();
+                String visaDataPartHex = twoInput.substring(
+                        VISA_DATA_PART_OFFSET, twoInput.length());
                 // convert Hex to ASCII
                 AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
                 byte[] dataPart = asciiIn.uninterpret(
@@ -95,9 +94,17 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
                 isoMsg.unpack(MsgUtils.getBytesFromTwoDataMC(twoInput));
                 break;
             case JCB:
-                throw new NotYetImpementedException();
-                // isoMsg.unpack(MsgUtils.getBytesFromTwoDataJCB(twoInputTemp));
-                // break;
+                // throw new NotYetImpementedException();
+                AsciiHexInterpreter asciiIn2 = new AsciiHexInterpreter();
+                byte[] jcbdataPart = asciiIn2.uninterpret(
+                        twoInput.getBytes(), 0,
+                        twoInput.length() / 2);
+                isoMsg.unpack(jcbdataPart);
+                
+                
+//                isoMsg.unpack(MsgUtils.getBytesFromTwoDataJCB(twoInput));
+//                isoMsg.unpack(twoInput.getBytes());
+                break;
 
             default:
                 throw new IllegalStateException(
@@ -105,7 +112,7 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
 
             }
             // logging
-            if (logger.isTraceEnabled()){
+            if (logger.isTraceEnabled()) {
                 isoMsg.dump(MsgUtils.createLoggingProxy(), "");
             }
             logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));

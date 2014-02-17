@@ -5,10 +5,18 @@ package com.wirecard.acqp.two;
  * @link http://en.wikipedia.org/wiki/Card_schemes
  */
 public enum CardScheme {
-    VISA("base1", 44), MASTERCARD("basic", 0), JCB("basicJCB", 0);
+//    VISA("base1", 44), MASTERCARD("basic", 0), JCB("basicJCB", 0);
+    VISA("base1", 44), MASTERCARD("basic", 0), JCB("JCB", 0);
 
     private final String path;
     private final int dataOffset;
+
+    /**
+     * @return dataOffset
+     */
+    public int getDataOffset() {
+        return dataOffset;
+    }
 
     CardScheme(final String cpath, final int coffset) {
         this.path = cpath;

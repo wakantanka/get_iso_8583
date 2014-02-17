@@ -24,7 +24,7 @@ public class ReadInterchangeMsgFieldJCBACTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        DOMConfigurator.configure("resources/log4j.xml");
+        DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
     }
 
     /**
@@ -52,7 +52,7 @@ public class ReadInterchangeMsgFieldJCBACTest {
 
     }
 
-    // @Test
+    @Test
     public void testAuthorizationReversalWithDE3shouldReturnValue()
             throws ISOException, IllegalStateException,
             IllegalArgumentException, UnsupportedEncodingException {
