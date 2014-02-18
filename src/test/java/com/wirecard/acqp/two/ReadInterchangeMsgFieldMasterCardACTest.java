@@ -67,7 +67,7 @@ public class ReadInterchangeMsgFieldMasterCardACTest {
 
         String fieldValue48_87 = MsgAccessoryImpl.readFieldValue(msg,
                 "MASTERCARD", "48.87");
-        assertEquals("SubField 48.43 was not read correctly.", "U",
+        assertEquals("SubField 48.87 was not read correctly.", "U",
                 fieldValue48_87);
     }
 

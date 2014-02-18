@@ -8,8 +8,6 @@
 # mvn Files
 target/
 
-# priv Files
-resources/testdata.ac
 
 # eclipse
 .classpath
@@ -18,5 +16,8 @@ resources/testdata.ac
 bin/
 logs/
 
-#testdata
+#testdata confidential
 src/test/resources/
+
+# Doc confidential
+resources/*-doc.xml
