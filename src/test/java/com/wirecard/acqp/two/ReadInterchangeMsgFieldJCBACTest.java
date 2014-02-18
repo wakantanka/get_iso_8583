@@ -4,6 +4,7 @@
 package com.wirecard.acqp.two;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.UnsupportedEncodingException;
 
@@ -26,8 +27,8 @@ public class ReadInterchangeMsgFieldJCBACTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
-//         DOMConfigurator.configure("resources/log4j.xml");
+//        DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
+         DOMConfigurator.configure("resources/log4j.xml");
     }
 
     /**
@@ -96,7 +97,18 @@ public class ReadInterchangeMsgFieldJCBACTest {
         assertEquals("SubField 22.2 was not read correctly.", "12", fieldValue);
 
     }
-
+    @Test
+    public void testDE48shouldReturnValue() throws ISOException,
+    IllegalStateException, IllegalArgumentException,
+    UnsupportedEncodingException {
+        
+        String fieldValue = MsgAccessoryImpl.readFieldValue(twoJCBMsg, "JCB",
+                "48");
+        assertNotNull(
+                "Field 48 was not read correctly.",  fieldValue);
+        
+    }
+    @Ignore
     @Test
     public void test3D_SecureDE48_2_3shouldReturnValue() throws ISOException,
             IllegalStateException, IllegalArgumentException,

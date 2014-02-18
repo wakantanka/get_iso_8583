@@ -24,7 +24,7 @@ public class ParserHardeningTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         DOMConfigurator.configure("resources/log4j.xml");
-//        DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
+        // DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
     }
 
     @Before
@@ -42,8 +42,8 @@ public class ParserHardeningTest {
         parseBulkFile(testdataFile, CardScheme.VISA);
 
     }
-    @Ignore
-    @Test 
+
+    @Test
     public void testParserHardeningJCB() throws IOException {
 
         File testdataFile = new File(
@@ -79,7 +79,7 @@ public class ParserHardeningTest {
                     continue;
                 }
                 // Logger.debug(twoData);
-System.out.println(twoData);
+                // System.out.println(twoData);
                 parseRow(twoData, scheme);
 
             }
@@ -100,8 +100,8 @@ System.out.println(twoData);
         try {
             String pan = MsgAccessoryImpl.readFieldValue(twoData,
                     scheme.toString(), "2");
-            assertNotNull("PAN is null" + pan);
-            System.out.println(pan);
+             assertNotNull("PAN is null" + pan);
+//            System.out.println(pan);
         } catch (IllegalStateException e) {
             fail(e.getMessage());
             e.printStackTrace();
