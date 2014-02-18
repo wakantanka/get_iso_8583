@@ -2,8 +2,9 @@ package com.wirecard.acqp.two;
 
 /**
  * @author Wirecard AG (c) 2014. All rights reserved.
- * @link http://en.wikipedia.org/wiki/Card_schemes
+ *  http://en.wikipedia.org/wiki/Card_schemes
  */
+@SuppressWarnings("javadoc")
 public enum CardScheme {
 //    VISA("base1", 44), MASTERCARD("basic", 0), JCB("basicJCB", 0);
     VISA("base1", 44), MASTERCARD("basic", 0), JCB("JCB", 0);

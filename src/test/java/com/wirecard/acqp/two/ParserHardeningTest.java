@@ -42,7 +42,7 @@ public class ParserHardeningTest {
         parseBulkFile(testdataFile, CardScheme.VISA);
 
     }
-
+    @Ignore
     @Test 
     public void testParserHardeningJCB() throws IOException {
 
@@ -79,7 +79,7 @@ public class ParserHardeningTest {
                     continue;
                 }
                 // Logger.debug(twoData);
-
+System.out.println(twoData);
                 parseRow(twoData, scheme);
 
             }
@@ -102,7 +102,6 @@ public class ParserHardeningTest {
                     scheme.toString(), "2");
             assertNotNull("PAN is null" + pan);
             System.out.println(pan);
-
         } catch (IllegalStateException e) {
             fail(e.getMessage());
             e.printStackTrace();

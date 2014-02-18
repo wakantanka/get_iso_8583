@@ -17,7 +17,7 @@ import org.junit.Test;
 /**
  * @author Wirecard AG (c) 2014. All rights reserved.
  */
-
+@SuppressWarnings("javadoc")
 public class ReadInterchangeMsgFieldVISAACTest {
 
     /**
@@ -29,11 +29,11 @@ public class ReadInterchangeMsgFieldVISAACTest {
     }
 
     /**
+     * https://jira.wirecard.sys/browse/AIP-947
      * @throws ISOException
      * @throws UnsupportedEncodingException
      * @throws IllegalArgumentException
      * @throws IllegalStateException
-     * @link https://jira.wirecard.sys/browse/AIP-947
      */
     @Test
     public void testAuthorizationReversalWithDE62shouldReturnValue()
@@ -48,6 +48,7 @@ public class ReadInterchangeMsgFieldVISAACTest {
                 "0414028593740596", fieldValue);
 
     }
+
 
     @Test
     public void testAuthorizationReversalWithDE3shouldReturnValue()

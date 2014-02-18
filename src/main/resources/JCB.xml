@@ -324,11 +324,53 @@
       length="99"
       name="ADDITIONAL DATA - NATIONAL"
       class="org.jpos.iso.IFB_LLHCHAR"/>
-  <isofield
+  <!-- <isofield
       id="48"
       length="99"
       name="ADDITIONAL DATA - PRIVATE"
       class="org.jpos.iso.IFB_LLHBINARY"/>
+   -->
+   <isofieldpackager 
+      id="48"
+      length="99"
+      name="ADITIONAL DATA - PRIVATE"
+      class="org.jpos.iso.IFB_LLHBINARY"
+      packager="org.jpos.iso.packager.GenericSubFieldPackager"
+      emitBitmap="false"> 
+        <isofield 
+        id="1" 
+        length="4"
+        name="CAV2" 
+        class="org.jpos.iso.IFE_NUMERIC"/>    
+        <isofieldpackager  
+        id="2" 
+        length="47"
+        name="3-D SECURE" 
+        class="org.jpos.iso.IFB_BINARY"
+        packager="org.jpos.iso.packager.GenericSubFieldPackager"
+        emitBitmap="false"> 
+            <isofield 
+            id="1" 
+            length="20"
+            name="XID" 
+            class="org.jpos.iso.IFB_BINARY"/>  
+            <isofield 
+            id="2" 
+            length="20"
+            name="CAVV" 
+            class="org.jpos.iso.IFB_BINARY"/>  
+            <isofield 
+            id="3" 
+            length="1"
+            name="ECI" 
+            class="org.jpos.iso.IFB_BINARY"/>  
+            <isofield 
+            id="4" 
+            length="6"
+            name="RESERVED" 
+            class="org.jpos.iso.IFB_BINARY"/>  
+        </isofieldpackager>
+    </isofieldpackager>
   <isofield
       id="49"
       length="3"
