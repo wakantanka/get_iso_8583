@@ -196,7 +196,7 @@ public class ReadInterchangeMsgFieldMasterCardACTest {
         @SuppressWarnings("unused")
         String fieldValue = MsgAccessoryImpl
         .readFieldValue(
-                "0F1F0F0723C440188E18008F1F9F5F4F0F5F6F2F0F0F0F0F0F0F0F0F0F0F0F1F4F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F5F0F5F0F1F2F0F1F3F0F3F0F9F5F8F9F2F7F8F1F3F0F3",
+                "0F1F0F0723C440188E18",
                 "VISA", "2");
     }
     @Test

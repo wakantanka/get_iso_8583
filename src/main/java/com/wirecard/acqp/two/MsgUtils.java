@@ -36,13 +36,7 @@ public final class MsgUtils {
 
     private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
 
-    static String getMCBitMap(final String input) {
-        if (input.substring(24, 40).contains("F")) {
-            return input.substring(8, 24);
-        } else {
-            return input.substring(8, 40);
-        }
-    }
+
 
     static byte[] decodeNibbleHex(final String input) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -212,30 +206,6 @@ public final class MsgUtils {
         return matcher.matches();
     }
 
-    static byte[] getBytesFromTwoDataMC(final String twoInput)
-            throws UnsupportedEncodingException, ISOException {
-        String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
-                8)), "Cp1047");
-        String bitmap = new String(MsgUtils.getMCBitMap(twoInput));
-        
-        int dataOfsset = 24;
-        if (bitmap.length() > 16) // secondary Bit Map is present
-        {
-            dataOfsset = 40;
-        }
-        
-        String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInput
-                .substring(dataOfsset, twoInput.length())), "Cp1047");
-        
-        StringBuilder sb = new StringBuilder();
-        sb.append(mti);
-        sb.append(bitmap);
-        sb.append(dataPartMC);
-        
-        String data = sb.toString();
-        return (data.getBytes());
-    }
-    
      
 
 }
