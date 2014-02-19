@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public final class MsgAccessoryImpl { // implements IMsgAccessory {
     private static Logger logger = LoggerFactory
             .getLogger(MsgAccessoryImpl.class);
-    static final int MIN_TWO_INPUT_LENGTH = 40; 
+    static final int MIN_TWO_INPUT_LENGTH = 40;
 
     private MsgAccessoryImpl() {
         // nothing - Utility classes should not have a public or default
@@ -96,14 +96,12 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
             case JCB:
                 // throw new NotYetImpementedException();
                 AsciiHexInterpreter asciiIn2 = new AsciiHexInterpreter();
-                byte[] jcbdataPart = asciiIn2.uninterpret(
-                        twoInput.getBytes(), 0,
-                        twoInput.length() / 2);
+                byte[] jcbdataPart = asciiIn2.uninterpret(twoInput.getBytes(),
+                        0, twoInput.length() / 2);
                 isoMsg.unpack(jcbdataPart);
-                
-                
-//                isoMsg.unpack(MsgUtils.getBytesFromTwoDataJCB(twoInput));
-//                isoMsg.unpack(twoInput.getBytes());
+
+                // isoMsg.unpack(MsgUtils.getBytesFromTwoDataJCB(twoInput));
+                // isoMsg.unpack(twoInput.getBytes());
                 break;
 
             default:
@@ -132,31 +130,51 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
 
     }
 
+    /**
+     * Utility AccessMethod to read MTI (Message Type Indicator). just for the
+     * requirement, MTI is FieldPath 0.
+     * 
+     * @param twoInput
+     *            the HexString of an ISO8583 InterchangeMsg
+     * @param cardSchemeType
+     *            the CardScheme allowed Values VISA, MASTERCARD, JCB
+     * @return the Message Type Indicator
+     * @throws ISOException
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws UnsupportedEncodingException
+     * 
+     */
+    public static String readMTI(final String twoInput,
+            final String cardSchemeType) throws ISOException,
+            UnsupportedEncodingException {
+        return readFieldValue(twoInput, cardSchemeType, "0");
+    }
+
     static byte[] getBytesFromTwoDataMC(final String twoInput)
             throws UnsupportedEncodingException, ISOException {
         String mti = new String(MsgUtils.decodeNibbleHex(twoInput.substring(0,
                 8)), "Cp1047");
         String bitmap = new String(getMCBitMap(twoInput));
-        
+
         int dataOfsset = 24;
         if (bitmap.length() > 16) // secondary Bit Map is present
         {
             dataOfsset = 40;
         }
-        
+
         String dataPartMC = new String(MsgUtils.decodeNibbleHex(twoInput
                 .substring(dataOfsset, twoInput.length())), "Cp1047");
-        
+
         StringBuilder sb = new StringBuilder();
         sb.append(mti);
         sb.append(bitmap);
         sb.append(dataPartMC);
-        
+
         String data = sb.toString();
         return (data.getBytes());
     }
-    
-    
+
     // MsgUtils.logISOMsgPlainText(isoMsg);
     static String getMCBitMap(final String input) {
         if (input.substring(24, 40).contains("F")) {

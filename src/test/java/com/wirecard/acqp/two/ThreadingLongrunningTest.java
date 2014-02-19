@@ -6,8 +6,10 @@ import static org.junit.Assert.assertFalse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 @SuppressWarnings("javadoc")
 public class ThreadingLongrunningTest {
     /**

@@ -19,6 +19,8 @@ import org.junit.Test;
  */
 @SuppressWarnings("javadoc")
 public class ReadInterchangeMsgFieldVISAACTest {
+    // TranID 18842255
+    private static final String msg = "16010200B300000079542500000000000000000000000100F224648108E08012000000000000000410412435FFFFFF0019000000000000033333012308265160121415111711035601200006450476F4F0F2F3F0F8F6F0F1F2F1F485F0F0F0F0F0F0F1F1F0F0F585F0F0F0F0F0F0F1404040C9D6C240E2889699A340D58194854040404040404040404040C9D6C240E2889699A340D39683C9D5097801090580000000000E0040000000000000F1F140C6C6C6";
 
     /**
      * @throws java.lang.Exception
@@ -67,12 +69,23 @@ public class ReadInterchangeMsgFieldVISAACTest {
     public void testAuthorizationWithDE126_10shouldReturnValue()
             throws ISOException, IllegalStateException,
             IllegalArgumentException, UnsupportedEncodingException {
-        String msg = "16010200B300000079542500000000000000000000000100F224648108E08012000000000000000410412435FFFFFF0019000000000000033333012308265160121415111711035601200006450476F4F0F2F3F0F8F6F0F1F2F1F485F0F0F0F0F0F0F1F1F0F0F585F0F0F0F0F0F0F1404040C9D6C240E2889699A340D58194854040404040404040404040C9D6C240E2889699A340D39683C9D5097801090580000000000E0040000000000000F1F140C6C6C6";
-
+        
         String fieldValue126_10 = MsgAccessoryImpl.readFieldValue(msg, "VISA",
                 "126.10");
         assertEquals("SubField 126.10 not read correct", "11 FFF",
                 fieldValue126_10);
+        
+    }
+    
+    @Test
+    public void testAuthorizationMTIShouldReturnValue()
+            throws ISOException, IllegalStateException,
+            IllegalArgumentException, UnsupportedEncodingException {
+       
+        String fieldValue = MsgAccessoryImpl.readFieldValue(msg, "VISA",
+                "0");
+        assertEquals("MTI not read correct", "0100",
+                fieldValue);
 
     }
 
@@ -104,24 +117,22 @@ public class ReadInterchangeMsgFieldVISAACTest {
     public void testAuthorizationRequestReturnValues() throws ISOException,
             IllegalStateException, IllegalArgumentException,
             UnsupportedEncodingException {
-        // TranID 18842255
-        String twoInput = "16010200B300000079542500000000000000000000000100F224648108E08012000000000000000410412435FFFFFF0019000000000000033333012308265160121415111711035601200006450476F4F0F2F3F0F8F6F0F1F2F1F485F0F0F0F0F0F0F1F1F0F0F585F0F0F0F0F0F0F1404040C9D6C240E2889699A340D58194854040404040404040404040C9D6C240E2889699A340D39683C9D5097801090580000000000E0040000000000000F1F140C6C6C6";
 
-        String fieldValue33 = MsgAccessoryImpl.readFieldValue(twoInput, "VISA",
+        String fieldValue33 = MsgAccessoryImpl.readFieldValue(msg, "VISA",
                 "3.3");
         assertEquals("SubField 3.3 was not read correctly.", "00", fieldValue33);
 
-        String fieldValue222 = MsgAccessoryImpl.readFieldValue(twoInput,
+        String fieldValue222 = MsgAccessoryImpl.readFieldValue(msg,
                 "VISA", "22.2");
         assertEquals("SubField 3.3 was not read correctly.", "12",
                 fieldValue222);
 
-        String fieldValue631 = MsgAccessoryImpl.readFieldValue(twoInput,
+        String fieldValue631 = MsgAccessoryImpl.readFieldValue(msg,
                 "VISA", "63.1");
         assertEquals("SubField 63.2 was not read correctly.", "0000",
                 fieldValue631);
 
-        String fieldValue601 = MsgAccessoryImpl.readFieldValue(twoInput,
+        String fieldValue601 = MsgAccessoryImpl.readFieldValue(msg,
                 "VISA", "60.1");
         assertEquals("SubField 60.1 was not read correctly.", "0",
                 fieldValue601);
@@ -131,12 +142,12 @@ public class ReadInterchangeMsgFieldVISAACTest {
         // assertEquals("SubField 60.1 was not read correctly.", "9",
         // fieldValue);
 
-        String fieldValue41 = MsgAccessoryImpl.readFieldValue(twoInput, "VISA",
+        String fieldValue41 = MsgAccessoryImpl.readFieldValue(msg, "VISA",
                 "41");
         assertEquals("Field 41 was not read correctly.", "e0000001",
                 fieldValue41);
 
-        String fieldValue126_10 = MsgAccessoryImpl.readFieldValue(twoInput,
+        String fieldValue126_10 = MsgAccessoryImpl.readFieldValue(msg,
                 "VISA", "126.10");
         assertEquals("SubField 63.2 was not read correctly.", "11 FFF",
                 fieldValue126_10);
