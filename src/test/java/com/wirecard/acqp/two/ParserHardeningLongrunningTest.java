@@ -19,7 +19,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")
-public class ParserHardeningTest {
+public class ParserHardeningLongrunningTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
