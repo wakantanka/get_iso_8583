@@ -959,18 +959,6 @@
           name="Merchant Cert Serial Number"
           pad="true"
           class="org.jpos.iso.IFB_LLNUM"/>
-      <!--isofield
-          id="8"
-          length="40"
-          name="Transaction ID"
-          pad="true"
-          class="org.jpos.iso.IFB_NUMERIC"/>
-      <isofield
-          id="9"
-          length="40"
-          name="TransStain"
-          pad="true"
-          class="org.jpos.iso.IFB_NUMERIC"/-->
       <isofield
           id="8"
           length="20"

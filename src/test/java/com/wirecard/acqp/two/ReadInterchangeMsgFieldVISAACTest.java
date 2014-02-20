@@ -162,7 +162,23 @@ public class ReadInterchangeMsgFieldVISAACTest {
                 fieldValue126_10);
 
     }
+    @Test
+    public void testAuthorization3D126_xShouldReturnValue()
+            throws ISOException, IllegalStateException,
+            IllegalArgumentException, UnsupportedEncodingException {
+        // TestData Tran ID:  19462777, 0100  Visa Private-Use Fields, 3D-Secure-Transaktion ( DE126.9)
+        String msg = "16010200FB00000079542500000000000000000000000100F224648108E08012000000000000002410426354FFFFFF8694000000000000260030020310214662425615100742027601205906466255F4F0F3F4F1F0F6F2F4F2F5F681F0F0F0F1F4F7F0F1F0F0F181F0F0F0F1F4F7F0404040E6C4D7999640F3C460E28583A49985404E40C184849985A2A2C1A28388888589944040404040C4C509780509000000050580000000002166001EC005F7F5F0F0F8CF15F2F440D9A48540848540938140C281A2A3899393853001800000000000006DC855BD1DC6415D8FA6EA3D217D2188000001040000020510896092221328286189600000000000";
 
+//        String fieldValue126_6 = MsgAccessoryImpl.readFieldValue(msg, "VISA",
+//                "126.6");
+//         assertEquals("SubField 126.6 was not read correctly.",
+//                 "xxx", fieldValue126_6);
+        
+        String fieldValue126_9 = MsgAccessoryImpl.readFieldValue(msg, "VISA",
+                "126.9");
+        assertEquals("SubField 126.9 was not read correctly.",
+                "0000020510896092221328286189600000000000", fieldValue126_9);
+    }
     @Test
     public void testAuthorizationRequestAvs() throws ISOException,
             IllegalStateException, IllegalArgumentException,
@@ -201,5 +217,5 @@ public class ReadInterchangeMsgFieldVISAACTest {
     // String headerDump = ISOUtil.hexString(isoHeader.pack());
     // System.out.println(("request header " + headerDump));
     // MsgUtils.logISOHeader(headerDump);
-
+   
 }

@@ -152,17 +152,14 @@ public class ReadInterchangeMsgFieldMasterCardACTest {
         // TestData Tran ID: 18749354 MTI 0100 Authorization MasterCard
 
         String fieldValue48_61_1 = MsgAccessoryImpl.readFieldValue(msg,
-                "MASTERCARD", "48.2.1");
+                "MASTERCARD", "48.61.1");
         assertEquals("SubField 48.61.1 was not read correctly.", "0",
                 fieldValue48_61_1);
-        fail("access should be over 48.61.1");
 
-        // TODO NotImplemented fieldlength not sure, subsubfield 48.61.5
-        // descoped
-        // String fieldValue48_61_5 = MsgAccessoryImpl.readFieldValue(msg,
-        // "MASTERCARD", "48.2.5");
-        // assertEquals("SubField 48.61.5 was not read correctly.",
-        // "1", fieldValue48_61_5);
+         String fieldValue48_61_5 = MsgAccessoryImpl.readFieldValue(msg,
+         "MASTERCARD", "48.61.5");
+         assertEquals("SubField 48.61.5 was not read correctly.",
+         "1", fieldValue48_61_5);
 
     }
 

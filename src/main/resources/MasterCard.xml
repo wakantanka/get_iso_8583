@@ -312,14 +312,14 @@
               length="1"
               name="PDS 1 Processing Indicator" 
               class="org.jpos.iso.IF_CHAR"/> 
-        <isofield 
+       <isofield 
               id="2"
               length="99"  
               name="PDS 61" 
-              class="org.jpos.iso.IFMC_LLCHAR"/> 
-         <!-- isofieldpackager 
+              class="org.jpos.iso.IFMC_LLCHAR"/>  
+   <!--      <isofieldpackager 
                  id="2" 
-              length="9" 
+              length="99" 
               name="PDS 61" 
               class="org.jpos.iso.IFMC_LLCHAR"
                 packager="org.jpos.iso.packager.GenericSubFieldPackager"
@@ -349,7 +349,7 @@
                      length="1"  
                      name="PDS 61 - Final Authorization Indicator" 
                      class="org.jpos.iso.IFA_NUMERIC" /> 
-           </isofieldpackager -->
+           </isofieldpackager> -->
         <isofield 
               id="3" 
               length="99" 
@@ -441,36 +441,36 @@
       class="org.jpos.iso.IFA_LLLCHAR"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
       emitBitmap="false"> 
-  <isofield
-      id="1"
-      length="1"
-      name="POS Terminal Attendance"
-      class="org.jpos.iso.IFA_NUMERIC"/>
-  <isofield
-      id="2"
-      length="1"
-      name="Reserved for Future Use"
-      class="org.jpos.iso.IFA_NUMERIC"/>
-  <isofield
-      id="3"
-      length="1"
-      name="POS Terminal Location"
-      class="org.jpos.iso.IFA_NUMERIC"/>
-  <isofield
-      id="4"
-      length="1"
-      name="POS Cardholder Presence"
-      class="org.jpos.iso.IF_CHAR"/>
-  <isofield
-      id="5"
-      length="1"
-      name="POS Card Presence"
-      class="org.jpos.iso.IFA_NUMERIC"/>
-  <isofield
-      id="6"
-      length="1"
-      name="POS Card Capture Capabilities"
-      class="org.jpos.iso.IFA_NUMERIC"/>
+	  <isofield
+	      id="1"
+	      length="1"
+	      name="POS Terminal Attendance"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+	  <isofield
+	      id="2"
+	      length="1"
+	      name="Reserved for Future Use"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+	  <isofield
+	      id="3"
+	      length="1"
+	      name="POS Terminal Location"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+	  <isofield
+	      id="4"
+	      length="1"
+	      name="POS Cardholder Presence"
+	      class="org.jpos.iso.IF_CHAR"/>
+	  <isofield
+	      id="5"
+	      length="1"
+	      name="POS Card Presence"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
+	  <isofield
+	      id="6"
+	      length="1"
+	      name="POS Card Capture Capabilities"
+	      class="org.jpos.iso.IFA_NUMERIC"/>
       <isofield
       id="7"
       length="1"
