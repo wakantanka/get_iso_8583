@@ -145,7 +145,7 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
      * @throws UnsupportedEncodingException
      * 
      */
-    public static String readMTI(final String twoInput,
+    public static String parseMTI(final String twoInput,
             final String cardSchemeType) throws ISOException,
             UnsupportedEncodingException {
         return readFieldValue(twoInput, cardSchemeType, "0");

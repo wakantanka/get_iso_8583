@@ -54,15 +54,24 @@ public class ReadInterchangeMsgFieldMasterCardACTest {
     }
     
     @Test
-    public void testAuthorizationMTIShouldReturnPAN() throws ISOException,
-            IllegalStateException, IllegalArgumentException,
-            UnsupportedEncodingException {
-    
+    public void testAuthorizationMTIShouldReturnMIT() throws ISOException,
+    IllegalStateException, IllegalArgumentException,
+    UnsupportedEncodingException {
+        
         String fieldValue = MsgAccessoryImpl.readFieldValue(msg, "MASTERCARD",
                 "0");
         assertEquals("MTI was not read correctly.",
                 "0100", fieldValue);
-
+    }
+    
+    @Test
+    public void testParseMTIShouldReturnMTI() throws ISOException,
+            IllegalStateException, IllegalArgumentException,
+            UnsupportedEncodingException {
+    
+        String fieldValue = MsgAccessoryImpl.parseMTI(msg, "MASTERCARD");
+        assertEquals("MTI was not read correctly.",
+                "0100", fieldValue);
     }
 
     @Test

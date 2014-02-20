@@ -81,12 +81,21 @@ public class ReadInterchangeMsgFieldVISAACTest {
     public void testAuthorizationMTIShouldReturnValue()
             throws ISOException, IllegalStateException,
             IllegalArgumentException, UnsupportedEncodingException {
-       
+        
         String fieldValue = MsgAccessoryImpl.readFieldValue(msg, "VISA",
                 "0");
         assertEquals("MTI not read correct", "0100",
                 fieldValue);
-
+    }
+    
+    @Test
+    public void testParseMTIShouldReturnValue()
+            throws ISOException, IllegalStateException,
+            IllegalArgumentException, UnsupportedEncodingException {
+       
+        String fieldValue = MsgAccessoryImpl.parseMTI(msg, "VISA");
+        assertEquals("MTI not read correct", "0100",
+                fieldValue);
     }
 
     @Test

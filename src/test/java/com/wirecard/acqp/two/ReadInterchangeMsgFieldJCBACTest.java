@@ -84,16 +84,27 @@ public class ReadInterchangeMsgFieldJCBACTest {
                 "61");
         System.out.println("/" + fieldValue + "/");
         assertEquals("Field 61 was not read correctly.", "222276",
-                fieldValue.substring(1)); // @TODO Why?
+                fieldValue.substring(1)); // @TODO Why first control character?
     }
     
     @Test
     public void testAuthorizationMTIshouldReturnValue()
             throws ISOException, IllegalStateException,
             IllegalArgumentException, UnsupportedEncodingException {
-
+        
         String fieldValue = MsgAccessoryImpl.readFieldValue(twoJCBMsg, "JCB",
                 "0");
+        System.out.println("/" + fieldValue + "/");
+        assertEquals("MTI was not read correctly.", "0100",
+                fieldValue);  
+    }
+    
+    @Test
+    public void testParseMTIshouldReturnValue()
+            throws ISOException, IllegalStateException,
+            IllegalArgumentException, UnsupportedEncodingException {
+
+        String fieldValue = MsgAccessoryImpl.parseMTI(twoJCBMsg, "JCB");
         System.out.println("/" + fieldValue + "/");
         assertEquals("MTI was not read correctly.", "0100",
                 fieldValue);  
