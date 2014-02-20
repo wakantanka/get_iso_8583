@@ -6,8 +6,7 @@ package com.wirecard.acqp.two;
  */
 @SuppressWarnings("javadoc")
 public enum CardScheme {
-//    VISA("base1", 44), MASTERCARD("basic", 0), JCB("basicJCB", 0);
-    VISA("base1", 44), MASTERCARD("basic", 0), JCB("JCB", 0);
+    VISA("VISA", 44), MASTERCARD("MasterCard", 0), JCB("JCB", 0);
 
     private final String path;
     private final int dataOffset;

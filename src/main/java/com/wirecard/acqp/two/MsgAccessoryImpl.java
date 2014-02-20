@@ -75,7 +75,6 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
                         MsgUtils.createLoggingProxy()));
                 ((org.jpos.util.LogSource) sPackager).setLogger(jPlogger,
                         "debug");
-
             }
 
             switch (CardScheme.getCardScheme(cardSchemeType)) {
@@ -94,14 +93,10 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
                 isoMsg.unpack(getBytesFromTwoDataMC(twoInput));
                 break;
             case JCB:
-                // throw new NotYetImpementedException();
                 AsciiHexInterpreter asciiIn2 = new AsciiHexInterpreter();
                 byte[] jcbdataPart = asciiIn2.uninterpret(twoInput.getBytes(),
                         0, twoInput.length() / 2);
                 isoMsg.unpack(jcbdataPart);
-
-                // isoMsg.unpack(MsgUtils.getBytesFromTwoDataJCB(twoInput));
-                // isoMsg.unpack(twoInput.getBytes());
                 break;
 
             default:

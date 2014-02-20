@@ -10,28 +10,28 @@
     </appender>
     <appender name="DebugAppender" class="org.apache.log4j.FileAppender">
         <param name="file" value="logs/interchange-msg-accessoryDebug.log" />
-        <param name="Append" value="false" />
+        <param name="Append" value="true" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] %c: %m%n" />
         </layout>
     </appender>
     <appender name="InfoAppender" class="org.apache.log4j.FileAppender">
         <param name="file" value="logs/interchange-msg-accessoryInfo.log" />
-        <param name="Append" value="false" />
+        <param name="Append" value="true" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] %c: %m%n" />
         </layout>
     </appender>
 
     <logger name="com.wirecard.acqp.two" additivity="false">
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="DebugAppender"/>
     </logger>
 
-    <!--logger name="com.wirecard.acqp" >
+    <logger name="com.wirecard.acqp" >
         <level value="info" />
         <appender-ref ref="InfoAppender"/>
-    </logger-->
+    </logger>
 
     <root>
         <priority value="TRACE"/>

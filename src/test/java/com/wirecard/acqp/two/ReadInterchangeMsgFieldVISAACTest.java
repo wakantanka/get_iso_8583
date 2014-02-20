@@ -176,10 +176,10 @@ public class ReadInterchangeMsgFieldVISAACTest {
         // value="Ã&#0;&#30;{&#9;75008õ&#10;24 Rue de la Bastille"/>
         // <isomsg
 
-        String fieldValue631 = MsgAccessoryImpl.readFieldValue(twoInput,
+        String fieldValue63_1 = MsgAccessoryImpl.readFieldValue(twoInput,
                 "VISA", "63.1");
         assertEquals("SubField 63.2 was not read correctly.", "0000",
-                fieldValue631);
+                fieldValue63_1);
 
         // String fieldValue123_66_c0 =
         // MsgAccessoryImpl.readFieldValue(twoInput, "VISA",

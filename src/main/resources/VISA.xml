@@ -875,15 +875,15 @@
       length="13"
       name="REMAINING OPEN-TO-USE"
       class="org.jpos.iso.IFB_LLHCHAR"/>
-  <isofield
+   <isofield
       id="123"
       length="33"
       name="ADDRESS VERIFICATION DATA"
       class="org.jpos.iso.IFB_LLHECHAR"/>
   
-<!--isofieldpackager
+ <!--<isofieldpackager
       id="123"
-      length="33"
+      length="99"
       name="ADDRESS VERIFICATION DATA"
       class="org.jpos.iso.IFB_LLHECHAR"
       packager="org.jpos.iso.packager.GenericSubFieldPackager">  
@@ -891,14 +891,14 @@
               id="2"
               length="9"
               name="POSTAL CODE"
-              class="org.jpos.iso.IFB_LLCHAR"/> 
+              class="org.jpos.iso.IFE_LLNUM"/> 
 
           <isofield
               id="4"
-              length="19"
+              length="99"
               name="CARDHOLDER STREET ADDRESS"
-              class="org.jpos.iso.IFB_LLCHAR"/> 
-  </isofieldpackager -->
+              class="org.jpos.iso.IFB_LLHCHAR"/> 
+  </isofieldpackager> -->
   
   <isofield
       id="124"

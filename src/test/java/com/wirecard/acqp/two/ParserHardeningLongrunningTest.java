@@ -17,14 +17,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("javadoc")
 public class ParserHardeningLongrunningTest {
+    private static Logger logger = LoggerFactory
+            .getLogger(ParserHardeningLongrunningTest.class);
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         DOMConfigurator.configure("resources/log4j.xml");
-        // DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
+//         DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
     }
 
     @Before
@@ -74,12 +78,11 @@ public class ParserHardeningLongrunningTest {
                 String twoData = segs[segs.length - 1].trim();
 
                 if (!MsgUtils.isHex(twoData)) {
-                    System.out.println("WARNING : " + twoData
+                    logger.warn("WARNING : " + twoData
                             + "is not a hexString");
                     continue;
                 }
-                // Logger.debug(twoData);
-                // System.out.println(twoData);
+                logger.debug(twoData);
                 parseRow(twoData, scheme);
 
             }
@@ -100,8 +103,9 @@ public class ParserHardeningLongrunningTest {
         try {
             String pan = MsgAccessoryImpl.readFieldValue(twoData,
                     scheme.toString(), "2");
-             assertNotNull("PAN is null" + pan);
-//            System.out.println(pan);
+            assertNotNull("PAN is null" + pan);
+            logger.debug(pan);
+//            logger.trace(MsgUtils.getISOMsgPlainText(twoData));
         } catch (IllegalStateException e) {
             fail(e.getMessage());
             e.printStackTrace();

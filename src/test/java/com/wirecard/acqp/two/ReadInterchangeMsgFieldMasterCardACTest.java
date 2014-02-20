@@ -31,7 +31,7 @@ public class ReadInterchangeMsgFieldMasterCardACTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        // DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
+//         DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
         DOMConfigurator.configure("resources/log4j.xml");
         assertNotEquals("Messages identical.", msgInitial, msgRecurr);
 
@@ -94,25 +94,38 @@ public class ReadInterchangeMsgFieldMasterCardACTest {
 
     @Test
     public void testReversalShouldReturnTerminalName() throws ISOException,
-            IllegalStateException, IllegalArgumentException,
-            UnsupportedEncodingException {
-        // 19484465 ,400, felder ...,61,90,95
+    IllegalStateException, IllegalArgumentException,
+    UnsupportedEncodingException {
+        // 19484465, 0400, felder ...,61,90,95
         final String msg = "F0F4F0F0F23C44018EE180080000004200000000F1F6F5F4F0F0F0F4F1F2F3F4F5F6F7F8F9F8F0F0F0F0F0F0F0F0F0F0F0F0F0F2F0F0F0F0F0F2F0F4F1F4F4F8F1F5F6F2F5F0F0F8F1F4F4F8F0F0F0F2F0F4F1F5F1F0F0F7F4F2F8F1F2F0F6F0F1F3F4F0F1F0F6F2F0F0F3F5F0F0F2F0F4F0F9F2F8F4F4F6F3F0F0F5F8F9F9F1F781F0F0F0F1F4F7F0F1F0F0F181F0F0F0F1F4F7F0404040D3A494A494828140404040404040404040404040404040D28995A28881A281404040404040C4C5E4F0F3F6E3F4F2F0F7F0F1F0F3F2F1F0F6F3F1F5D4C3C3F0F1F1F8F7F6F0F2F0F44040F2F0F0F1E2F9F7F8F0F2F1F1F0F2F5F1F0F0F0F0F6F0F0F0F2F8F0F8F5F6F0F9F0F1F0F0F6F2F5F0F0F6F0F2F0F4F1F4F4F8F0F1F0F0F0F0F0F0F1F3F4F0F1F0F0F0F0F0F2F0F0F3F5F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0";
-
+        
         String fieldValue = MsgAccessoryImpl.readFieldValue(msg, "MASTERCARD",
                 "2");
         assertEquals("PAN (Field 2) was not read correctly.",
                 "5400041234567898", fieldValue);
-
+        
         String fieldValue41 = MsgAccessoryImpl.readFieldValue(msg,
                 "MASTERCARD", "41");
         assertEquals("TerminalName (Field 41) was not read correctly.",
                 "a0001470", fieldValue41);
-
+        
         String fieldValue48_63 = MsgAccessoryImpl.readFieldValue(msg,
                 "MASTERCARD", "48.63");
         assertEquals("SubField 48.43 was not read correctly.",
                 "MCC0118760204  ", fieldValue48_63);
+    }
+    @Test
+    public void testDE48_82ShouldReturnValue() throws ISOException,
+            IllegalStateException, IllegalArgumentException,
+            UnsupportedEncodingException {
+        // 19485015, 0100, AVS-Daten 48.82
+        final String msg = "F0F1F0F0F23C440188E180080000000000000100F1F6F5F4F0F0F0F4F1F2F3F4F5F6F7F8F9F8F0F0F0F0F0F0F0F0F0F0F0F0F2F6F0F0F3F0F0F2F0F4F1F5F2F6F5F0F6F2F5F3F5F7F1F5F2F6F4F9F0F2F0F4F1F5F1F0F0F7F4F2F8F1F2F0F6F0F1F3F4F0F1F0F6F2F0F0F3F5F0F0F2F0F4F0F9F2F8F5F0F1F581F0F0F0F1F4F7F0F1F0F0F181F0F0F0F1F4F7F0404040E6C4D7999640F3C460E28583A49985404E40C184849940C1A2838888858994404040404040C4C5E4F0F5F9E3F6F1F0F5F0F0F0F0F1F8F2F0F2F5F2F4F2F0F7F0F1F0F3F2F1F2F4F3F2F891C982A884F6E38581889492C1C2C5C1C1C1C699D894A8E7A694F07EF9F7F8F0F2F1F1F0F2F5F1F0F0F0F0F6F0F0F0F2F8F0F8F5F6F0F9F0F3F3F0F1F2F9F7F5F0F0F840404040F2F440D9A48540848540938140C281A2A3899393";
+
+        String fieldValue = MsgAccessoryImpl.readFieldValue(msg, "MASTERCARD",
+                "48.82");
+        assertEquals("Address Verification Service Request Field 48.82 was not read correctly.",
+                "52", fieldValue);
+ 
     }
 
     @Test
