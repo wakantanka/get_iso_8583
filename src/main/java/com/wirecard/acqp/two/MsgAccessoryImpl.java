@@ -26,7 +26,7 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
         // nothing - Utility classes should not have a public or default
         // constructor.
     }
-
+    
     /**
      * Utility AccessMethod for requesting a specific FieldValue.
      * 
@@ -46,6 +46,78 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
      */
     public static String readFieldValue(final String twoInput,
             final String cardSchemeType, final String fieldPath)
+                    throws ISOException, UnsupportedEncodingException {
+        try {
+            ClassLoader classLoader = Thread.currentThread()
+                    .getContextClassLoader();
+            
+            if (classLoader == null) {
+                classLoader = Class.class.getClassLoader();
+            }
+            
+            if (twoInput == null || twoInput.length() < MIN_TWO_INPUT_LENGTH) {
+                throw new IllegalArgumentException("TwoInput to short");
+            }
+            GenericPackager sPackager = new GenericPackager(
+                    classLoader.getResourceAsStream(CardScheme.getCardScheme(
+                            cardSchemeType).getPath()));
+            
+            // logging
+            logger.debug("used TWOInput : " + twoInput);
+            
+            ISOMsg isoMsg = new ISOMsg();
+            
+            isoMsg.setPackager(sPackager);
+            
+            if (logger.isTraceEnabled()) {
+                org.jpos.util.Logger jPlogger = new org.jpos.util.Logger();
+                jPlogger.addListener(new org.jpos.util.SimpleLogListener(
+                        MsgUtils.createLoggingProxy()));
+                ((org.jpos.util.LogSource) sPackager).setLogger(jPlogger,
+                        "debug");
+            }
+            
+            injectDataToUnpack(twoInput, cardSchemeType, isoMsg);
+            
+            // logging
+            if (logger.isTraceEnabled()) {
+                isoMsg.dump(MsgUtils.createLoggingProxy(), "");
+            }
+            logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));
+            // MsgUtils.logISOMsgPlainText(isoMsg);
+            
+            if (isoMsg.getValue(fieldPath) instanceof byte[]) {
+                return Hex.encodeHexString(
+                        (byte[]) isoMsg.getComponent(fieldPath).getValue())
+                        .toString();
+            } else {
+                return isoMsg.getString(fieldPath);
+            }
+        } catch (UnsupportedEncodingException e) {
+            logger.error("UnsupportedEncodingException error in ", e);
+        }
+        return null;
+        
+    }
+
+    /**
+     * Utility AccessMethod read the hole interchange Msg.
+     * 
+     * @param twoInput
+     *            the HexString of an ISO8583 InterchangeMsg
+     * @param cardSchemeType
+     *            the CardScheme allowed Values VISA, MASTERCARD, JCB
+     * @param format
+     *           PlainText or xml
+     * @return the the hole Msg as String in choosen Format
+     * @throws ISOException
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws UnsupportedEncodingException
+     * 
+     */
+    public static String readMsg(final String twoInput,
+            final String cardSchemeType, final String format)
             throws ISOException, UnsupportedEncodingException {
         try {
             ClassLoader classLoader = Thread.currentThread()
@@ -77,52 +149,65 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
                         "debug");
             }
 
-            switch (CardScheme.getCardScheme(cardSchemeType)) {
-            case VISA:
-                int VISA_DATA_PART_OFFSET = CardScheme.VISA.getDataOffset();
-                String visaDataPartHex = twoInput.substring(
-                        VISA_DATA_PART_OFFSET, twoInput.length());
-                // convert Hex to ASCII
-                AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
-                byte[] dataPart = asciiIn.uninterpret(
-                        visaDataPartHex.getBytes(), 0,
-                        visaDataPartHex.length() / 2);
-                isoMsg.unpack(dataPart);
-                break;
-            case MASTERCARD:
-                isoMsg.unpack(getBytesFromTwoDataMC(twoInput));
-                break;
-            case JCB:
-                AsciiHexInterpreter asciiIn2 = new AsciiHexInterpreter();
-                byte[] jcbdataPart = asciiIn2.uninterpret(twoInput.getBytes(),
-                        0, twoInput.length() / 2);
-                isoMsg.unpack(jcbdataPart);
-                break;
-
-            default:
-                throw new IllegalStateException(
-                        "Can't determine CardScheme. You schould never see this. Sorry!");
-
-            }
+            injectDataToUnpack(twoInput, cardSchemeType, isoMsg);
+            
             // logging
             if (logger.isTraceEnabled()) {
                 isoMsg.dump(MsgUtils.createLoggingProxy(), "");
             }
-            logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));
-            // MsgUtils.logISOMsgPlainText(isoMsg);
-
-            if (isoMsg.getValue(fieldPath) instanceof byte[]) {
-                return Hex.encodeHexString(
-                        (byte[]) isoMsg.getComponent(fieldPath).getValue())
-                        .toString();
-            } else {
-                return isoMsg.getString(fieldPath);
+            if (format.trim().equalsIgnoreCase("txt")) {
+                
+                return MsgUtils.getISOMsgPlainText(isoMsg);
+                // MsgUtils.logISOMsgPlainText(isoMsg);
             }
+            else if (format.trim().equalsIgnoreCase("xml")) {
+                
+            return MsgUtils.getISOMsgPlainText(isoMsg);
+            // MsgUtils.logISOMsgPlainText(isoMsg);
+            }
+            else {
+                throw new IllegalArgumentException("invalid format");
+            }
+
+            
         } catch (UnsupportedEncodingException e) {
-            logger.error("error in ", e);
+            logger.error("UnsupportedEncodingException error in ", e);
         }
         return null;
 
+    }
+
+    private static void injectDataToUnpack(final String twoInput,
+            final String cardSchemeType, ISOMsg isoMsg) throws ISOException,
+            UnsupportedEncodingException {
+        switch (CardScheme.getCardScheme(cardSchemeType)) {
+        case VISA:
+            int VISA_DATA_PART_OFFSET = CardScheme.VISA.getDataOffset();
+            String visaDataPartHex = twoInput.substring(
+                    VISA_DATA_PART_OFFSET, twoInput.length());
+            // convert Hex to ASCII
+            AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
+            byte[] dataPart = asciiIn.uninterpret(
+                    visaDataPartHex.getBytes(), 0,
+                    visaDataPartHex.length() / 2);
+            isoMsg.unpack(dataPart);
+            break;
+        case MASTERCARD:
+            isoMsg.unpack(getBytesFromTwoDataMC(twoInput));
+            break;
+        case JCB:
+            AsciiHexInterpreter asciiIn2 = new AsciiHexInterpreter();
+            byte[] jcbdataPart = asciiIn2.uninterpret(twoInput.getBytes(),
+                    0, twoInput.length() / 2);
+            isoMsg.unpack(jcbdataPart);
+            break;
+
+        default:
+            logger.error("IllegalStateException");
+            throw new IllegalStateException(
+                    "Can't determine CardScheme. You schould never see this. Sorry!");
+
+        }
     }
 
     /**

@@ -4,6 +4,7 @@
 package com.wirecard.acqp.two;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.UnsupportedEncodingException;
 
@@ -18,7 +19,7 @@ import org.junit.Test;
  * @author Wirecard AG (c) 2014. All rights reserved.
  */
 @SuppressWarnings("javadoc")
-public class ReadInterchangeMsgFieldVISAACTest {
+public class ReadInterchangeMsgVISAACTest {
     // TranID 18842255
     private static final String msg = "16010200B300000079542500000000000000000000000100F224648108E08012000000000000000410412435FFFFFF0019000000000000033333012308265160121415111711035601200006450476F4F0F2F3F0F8F6F0F1F2F1F485F0F0F0F0F0F0F1F1F0F0F585F0F0F0F0F0F0F1404040C9D6C240E2889699A340D58194854040404040404040404040C9D6C240E2889699A340D39683C9D5097801090580000000000E0040000000000000F1F140C6C6C6";
 
@@ -217,5 +218,14 @@ public class ReadInterchangeMsgFieldVISAACTest {
     // String headerDump = ISOUtil.hexString(isoHeader.pack());
     // System.out.println(("request header " + headerDump));
     // MsgUtils.logISOHeader(headerDump);
-   
+    @Test
+    public void testReadMsgPlainText() throws ISOException,
+            IllegalStateException, IllegalArgumentException,
+            UnsupportedEncodingException {
+
+        String fieldValue = MsgAccessoryImpl.readMsg(msg, "VISA ", "txt");
+        assertTrue("Msg was not read correctly.", fieldValue.contains("MTI"));
+        assertTrue("Msg was not read correctly.", fieldValue.contains("Field-2"));
+
+    }
 }

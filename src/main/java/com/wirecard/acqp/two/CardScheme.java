@@ -40,11 +40,11 @@ public enum CardScheme {
      */
     public static CardScheme getCardScheme(final String cardSchemeType) {
 
-        if (cardSchemeType.equalsIgnoreCase("VISA")) {
+        if (cardSchemeType.trim().equalsIgnoreCase("VISA")) {
             return CardScheme.VISA;
-        } else if (cardSchemeType.equalsIgnoreCase("MASTERCARD")) {
+        } else if (cardSchemeType.trim().equalsIgnoreCase("MASTERCARD")) {
             return CardScheme.MASTERCARD;
-        } else if (cardSchemeType.equalsIgnoreCase("JCB")) {
+        } else if (cardSchemeType.trim().equalsIgnoreCase("JCB")) {
             return CardScheme.JCB;
         } else {
             throw new IllegalArgumentException("Can't determine CardScheme.");
