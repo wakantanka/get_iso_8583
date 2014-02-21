@@ -2,6 +2,7 @@ package com.wirecard.acqp.two;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,6 +10,8 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -23,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * @author Wirecard AG (c) 2014. All rights reserved.
@@ -35,8 +39,6 @@ public final class MsgUtils {
     }
 
     private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
-
-
 
     static byte[] decodeNibbleHex(final String input) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -151,50 +153,6 @@ public final class MsgUtils {
         };
     }
 
-    public static String logISOMsgXml() {
-
-        try {
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory
-                    .newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
-            // root elements
-            Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement("ISOMsg");
-            rootElement.setAttribute("mti", "0100");
-            doc.appendChild(rootElement);
-
-            Element field1 = doc.createElement("field-1");
-            rootElement.appendChild(field1);
-
-            Element field2 = doc.createElement("field-2");
-
-            Element subfield21 = doc.createElement("SubField-1");
-            // field2.appendChild(doc.createTextNode("yong"));
-            field2.appendChild(subfield21);
-
-            rootElement.appendChild(field2);
-            // write the content into xml file
-            TransformerFactory transformerFactory = TransformerFactory
-                    .newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-
-            // Output to console for testing
-            StreamResult result = new StreamResult(System.out);
-
-            transformer.transform(source, result);
-
-        } catch (ParserConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return "<Field-3></Field-3>";
-    }
-
     /**
      * @param hextwoData
      * @return true if inputparam is valid hex
@@ -206,6 +164,80 @@ public final class MsgUtils {
         return matcher.matches();
     }
 
-     
+    /**
+     * @param fieldPath
+     * @return true if fieldPath is valid FieldPath
+     */
+    public static boolean isFieldPath(final String fieldPath) {
+        String fieldPathPattern = "\\d\\d?.?\\d?\\d?.?\\d?\\d?";
+        Pattern pattern = Pattern.compile(fieldPathPattern,
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(fieldPath);
+        return matcher.matches();
+    }
 
+    /**
+     * @param isoMsg
+     * @return the Message in String xml-format
+     */
+    public static String getISOMsgXml(ISOMsg isoMsg) {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory
+                .newInstance();
+
+        try {
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = docBuilder.newDocument();
+            Element rootElement = doc.createElement("ISOMSG");
+            rootElement.setAttribute("mti", isoMsg.getMTI());
+            // root elements
+            doc.appendChild(rootElement);
+
+            for (int i = 1; i < isoMsg.getMaxField() + 1; i++) {
+                if (isoMsg.hasField(i)) {
+                    Element fieldElement = doc.createElement("FIELD"
+                            + isoMsg.getComponent(i).getKey().toString());
+
+                    if (isoMsg.getComponent(i).getValue() instanceof byte[]) {
+                        fieldElement.setTextContent(Hex.encodeHexString(
+                                (byte[]) isoMsg.getComponent(i).getValue())
+                                .toString());
+                    } else {
+                        fieldElement.setTextContent(isoMsg.getComponent(i)
+                                .getValue().toString());
+                    }
+                    // has Subfields
+                    if (isoMsg.getComponent(i).getMaxField() > 0) {
+                        // sb.append(logFields((ISOMsg) isoMsg.getComponent(i),
+                        // "\tSub"));
+                    }
+                    rootElement.appendChild(fieldElement);
+                }
+
+
+            }
+//                 Output to console for testing
+//                 StreamResult result = new StreamResult(System.out);
+            // write the content into xml
+            TransformerFactory transformerFactory = TransformerFactory
+                    .newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
+//            String output = writer.getBuffer().toString() ;
+            
+            
+            
+            return output;
+
+        } catch (ParserConfigurationException e) {
+            logger.error("ParserConfigurationException  ", e);
+        } catch (TransformerException e) {
+            logger.error("TransformerException  ", e);
+        } catch (ISOException e) {
+            logger.error("ISOException  ", e);
+        }
+        return null;
+    }
 }

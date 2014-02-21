@@ -1,6 +1,7 @@
 package com.wirecard.acqp.two;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.UnsupportedEncodingException;
@@ -21,22 +22,6 @@ public class SplitMsgPartsTest {
 
     }
 
-    // @Test WIP
-    public void testLogISOMsgXmlAC() {
-
-        assertTrue(MsgUtils.logISOMsgXml().startsWith("<ISOMsg", 0));
-        assertTrue(MsgUtils.logISOMsgXml().contains("</Field"));
-
-        // <ISOMsg mti="0100">
-        // <Field-1></Field-1>
-        // <Field-2>
-        // <SubField-1></SubField-1>
-        // <SubField-2></SubField-2>
-        // </Field-2>
-        // <Field-3></Field-3>
-        // </ISOMsg>
-
-    }
 
     @Test
     public void testSeperateBitMap() throws DecoderException {
@@ -74,12 +59,34 @@ public class SplitMsgPartsTest {
 
     @Test
     public void testDecodeEBCDIC() throws UnsupportedEncodingException {
-
+        
         assertEquals(new String(MsgUtils.decodeNibbleHex("82F0F0F0F0F0F0F1"),
                 "Cp1047"), "b0000001");
         assertEquals(
                 new String(
                         MsgUtils.decodeNibbleHex("D9C5E3D382F0F0F0F0F0F0F1"),
                         "Cp1047"), "RETLb0000001");
+    }
+    @Test
+    public void testIsHex() throws UnsupportedEncodingException {
+        
+        assertTrue(MsgUtils.isHex("82F0F0F0F0F0F0F1"));
+        assertFalse(MsgUtils.isHex("RETLb0000001"));
+    }
+    
+    @Test
+    public void testIsFieldPath() throws UnsupportedEncodingException {
+
+        assertTrue(MsgUtils.isFieldPath("82.44.3"));
+        assertTrue(MsgUtils.isFieldPath("82.4.33"));
+        assertTrue(MsgUtils.isFieldPath("4.4.33"));
+        assertTrue(MsgUtils.isFieldPath("8"));
+        assertTrue(MsgUtils.isFieldPath("48.1"));
+        assertTrue(MsgUtils.isFieldPath("126.10"));
+        assertTrue(MsgUtils.isFieldPath("123"));
+        assertFalse(MsgUtils.isFieldPath("txt"));
+        assertFalse(MsgUtils.isFieldPath("t.12.t"));
+        assertFalse(MsgUtils.isFieldPath("t12t"));
+        
     }
 }

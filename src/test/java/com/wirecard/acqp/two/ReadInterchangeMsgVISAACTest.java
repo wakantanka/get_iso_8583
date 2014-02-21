@@ -220,12 +220,24 @@ public class ReadInterchangeMsgVISAACTest {
     // MsgUtils.logISOHeader(headerDump);
     @Test
     public void testReadMsgPlainText() throws ISOException,
-            IllegalStateException, IllegalArgumentException,
-            UnsupportedEncodingException {
-
+    IllegalStateException, IllegalArgumentException,
+    UnsupportedEncodingException {
+        
         String fieldValue = MsgAccessoryImpl.readMsg(msg, "VISA ", "txt");
         assertTrue("Msg was not read correctly.", fieldValue.contains("MTI"));
         assertTrue("Msg was not read correctly.", fieldValue.contains("Field-2"));
+        
+    }
+    
+    @Test
+    public void testReadMsgXml() throws ISOException,
+            IllegalStateException, IllegalArgumentException,
+            UnsupportedEncodingException {
+
+        String fieldValue = MsgAccessoryImpl.readMsg(msg, "VISA ", "xml");
+        System.out.println(fieldValue);
+//        assertTrue("Msg was not read correctly.", fieldValue.contains("MTI"));
+//        assertTrue("Msg was not read correctly.", fieldValue.contains("Field-2"));
 
     }
 }

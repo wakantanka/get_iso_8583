@@ -26,7 +26,7 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
         // nothing - Utility classes should not have a public or default
         // constructor.
     }
-    
+
     /**
      * Utility AccessMethod for requesting a specific FieldValue.
      * 
@@ -46,46 +46,28 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
      */
     public static String readFieldValue(final String twoInput,
             final String cardSchemeType, final String fieldPath)
-                    throws ISOException, UnsupportedEncodingException {
+            throws ISOException, UnsupportedEncodingException {
+        // guardclause
+        if (!MsgUtils.isFieldPath(fieldPath)) {
+            throw new IllegalArgumentException("invalid FieldPath");
+        }
+        if (twoInput == null || twoInput.length() < MIN_TWO_INPUT_LENGTH) {
+            throw new IllegalArgumentException("TwoInput to short");
+        }
         try {
-            ClassLoader classLoader = Thread.currentThread()
-                    .getContextClassLoader();
-            
-            if (classLoader == null) {
-                classLoader = Class.class.getClassLoader();
-            }
-            
-            if (twoInput == null || twoInput.length() < MIN_TWO_INPUT_LENGTH) {
-                throw new IllegalArgumentException("TwoInput to short");
-            }
-            GenericPackager sPackager = new GenericPackager(
-                    classLoader.getResourceAsStream(CardScheme.getCardScheme(
-                            cardSchemeType).getPath()));
-            
-            // logging
-            logger.debug("used TWOInput : " + twoInput);
-            
+
             ISOMsg isoMsg = new ISOMsg();
-            
-            isoMsg.setPackager(sPackager);
-            
-            if (logger.isTraceEnabled()) {
-                org.jpos.util.Logger jPlogger = new org.jpos.util.Logger();
-                jPlogger.addListener(new org.jpos.util.SimpleLogListener(
-                        MsgUtils.createLoggingProxy()));
-                ((org.jpos.util.LogSource) sPackager).setLogger(jPlogger,
-                        "debug");
-            }
-            
+
+            injectPacker(twoInput, cardSchemeType, isoMsg);
             injectDataToUnpack(twoInput, cardSchemeType, isoMsg);
-            
+
             // logging
             if (logger.isTraceEnabled()) {
                 isoMsg.dump(MsgUtils.createLoggingProxy(), "");
             }
             logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));
             // MsgUtils.logISOMsgPlainText(isoMsg);
-            
+
             if (isoMsg.getValue(fieldPath) instanceof byte[]) {
                 return Hex.encodeHexString(
                         (byte[]) isoMsg.getComponent(fieldPath).getValue())
@@ -97,7 +79,39 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
             logger.error("UnsupportedEncodingException error in ", e);
         }
         return null;
-        
+
+    }
+
+    private static void injectPacker(String twoInput, String cardSchemeType,
+            ISOMsg isoMsg) {
+        ClassLoader classLoader = Thread.currentThread()
+                .getContextClassLoader();
+
+        if (classLoader == null) {
+            classLoader = Class.class.getClassLoader();
+        }
+
+        GenericPackager sPackager = null;
+        try {
+            sPackager = new GenericPackager(
+                    classLoader.getResourceAsStream(CardScheme.getCardScheme(
+                            cardSchemeType).getPath()));
+        } catch (ISOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        // logging
+        logger.debug("used TWOInput : " + twoInput);
+
+        isoMsg.setPackager(sPackager);
+
+        if (logger.isTraceEnabled()) {
+            org.jpos.util.Logger jPlogger = new org.jpos.util.Logger();
+            jPlogger.addListener(new org.jpos.util.SimpleLogListener(MsgUtils
+                    .createLoggingProxy()));
+            ((org.jpos.util.LogSource) sPackager).setLogger(jPlogger, "debug");
+        }
     }
 
     /**
@@ -108,7 +122,7 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
      * @param cardSchemeType
      *            the CardScheme allowed Values VISA, MASTERCARD, JCB
      * @param format
-     *           PlainText or xml
+     *            PlainText or xml
      * @return the the hole Msg as String in choosen Format
      * @throws ISOException
      * @throws IllegalArgumentException
@@ -120,56 +134,24 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
             final String cardSchemeType, final String format)
             throws ISOException, UnsupportedEncodingException {
         try {
-            ClassLoader classLoader = Thread.currentThread()
-                    .getContextClassLoader();
-
-            if (classLoader == null) {
-                classLoader = Class.class.getClassLoader();
-            }
-
-            if (twoInput == null || twoInput.length() < MIN_TWO_INPUT_LENGTH) {
-                throw new IllegalArgumentException("TwoInput to short");
-            }
-            GenericPackager sPackager = new GenericPackager(
-                    classLoader.getResourceAsStream(CardScheme.getCardScheme(
-                            cardSchemeType).getPath()));
-
-            // logging
-            logger.debug("used TWOInput : " + twoInput);
 
             ISOMsg isoMsg = new ISOMsg();
 
-            isoMsg.setPackager(sPackager);
-
-            if (logger.isTraceEnabled()) {
-                org.jpos.util.Logger jPlogger = new org.jpos.util.Logger();
-                jPlogger.addListener(new org.jpos.util.SimpleLogListener(
-                        MsgUtils.createLoggingProxy()));
-                ((org.jpos.util.LogSource) sPackager).setLogger(jPlogger,
-                        "debug");
-            }
-
+            injectPacker(twoInput, cardSchemeType, isoMsg);
             injectDataToUnpack(twoInput, cardSchemeType, isoMsg);
-            
+
             // logging
             if (logger.isTraceEnabled()) {
                 isoMsg.dump(MsgUtils.createLoggingProxy(), "");
             }
             if (format.trim().equalsIgnoreCase("txt")) {
-                
                 return MsgUtils.getISOMsgPlainText(isoMsg);
-                // MsgUtils.logISOMsgPlainText(isoMsg);
-            }
-            else if (format.trim().equalsIgnoreCase("xml")) {
-                
-            return MsgUtils.getISOMsgPlainText(isoMsg);
-            // MsgUtils.logISOMsgPlainText(isoMsg);
-            }
-            else {
+            } else if (format.trim().equalsIgnoreCase("xml")) {
+                return MsgUtils.getISOMsgXml(isoMsg);
+            } else {
                 throw new IllegalArgumentException("invalid format");
             }
 
-            
         } catch (UnsupportedEncodingException e) {
             logger.error("UnsupportedEncodingException error in ", e);
         }
@@ -183,13 +165,12 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
         switch (CardScheme.getCardScheme(cardSchemeType)) {
         case VISA:
             int VISA_DATA_PART_OFFSET = CardScheme.VISA.getDataOffset();
-            String visaDataPartHex = twoInput.substring(
-                    VISA_DATA_PART_OFFSET, twoInput.length());
+            String visaDataPartHex = twoInput.substring(VISA_DATA_PART_OFFSET,
+                    twoInput.length());
             // convert Hex to ASCII
             AsciiHexInterpreter asciiIn = new AsciiHexInterpreter();
-            byte[] dataPart = asciiIn.uninterpret(
-                    visaDataPartHex.getBytes(), 0,
-                    visaDataPartHex.length() / 2);
+            byte[] dataPart = asciiIn.uninterpret(visaDataPartHex.getBytes(),
+                    0, visaDataPartHex.length() / 2);
             isoMsg.unpack(dataPart);
             break;
         case MASTERCARD:
@@ -197,8 +178,8 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
             break;
         case JCB:
             AsciiHexInterpreter asciiIn2 = new AsciiHexInterpreter();
-            byte[] jcbdataPart = asciiIn2.uninterpret(twoInput.getBytes(),
-                    0, twoInput.length() / 2);
+            byte[] jcbdataPart = asciiIn2.uninterpret(twoInput.getBytes(), 0,
+                    twoInput.length() / 2);
             isoMsg.unpack(jcbdataPart);
             break;
 
