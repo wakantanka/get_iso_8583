@@ -40,7 +40,6 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
      * @return the requested fieldvalue as String
      * @throws ISOException
      * @throws IllegalArgumentException
-     * @throws IllegalStateException
      * @throws UnsupportedEncodingException
      * 
      */
@@ -121,12 +120,11 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
      *            the HexString of an ISO8583 InterchangeMsg
      * @param cardSchemeType
      *            the CardScheme allowed Values VISA, MASTERCARD, JCB
-     * @param format
-     *            PlainText or xml
+     * @param format PlainText or XML (txt, xml)
+     *            
      * @return the the hole Msg as String in choosen Format
      * @throws ISOException
      * @throws IllegalArgumentException
-     * @throws IllegalStateException
      * @throws UnsupportedEncodingException
      * 
      */
@@ -202,7 +200,6 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
      * @return the Message Type Indicator
      * @throws ISOException
      * @throws IllegalArgumentException
-     * @throws IllegalStateException
      * @throws UnsupportedEncodingException
      * 
      */
@@ -236,7 +233,6 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
         return (data.getBytes());
     }
 
-    // MsgUtils.logISOMsgPlainText(isoMsg);
     static String getMCBitMap(final String input) {
         if (input.substring(24, 40).contains("F")) {
             return input.substring(8, 24);

@@ -10,6 +10,7 @@ import org.apache.jmeter.samplers.SampleResult;
 import org.apache.jmeter.testbeans.TestBean;
 
 import com.wirecard.acqp.two.MsgAccessoryImpl;
+import com.wirecard.acqp.two.MsgUtils;
 
 /**
  * @author Wirecard AG (c) 2014. All rights reserved.
@@ -52,20 +53,25 @@ public final class InterchangeAccessorySampler extends AbstractSampler
 
         // responde data
         try {
+            if (MsgUtils.isFieldPath(fieldPath)) {
+                
             fieldValue = MsgAccessoryImpl.readFieldValue(twoInput, cardSchema,
                     fieldPath);
+            }
+
+            String msgXml = MsgAccessoryImpl.readMsg(twoInput, cardSchema,
+                    "xml");
+            // String msgTxt = MsgAccessoryImpl.readMsg(twoInput, cardSchema,
+            // "txt");
             // res.setResponseMessage("Value of Field : " + fieldPath);
             res.setResponseCode("200");
             res.setResponseOK();
-            res.setResponseData(fieldValue, null);
+            if (fieldPath.equalsIgnoreCase("xml")) {
+                res.setResponseData(msgXml, null);
+            } else {
+                res.setResponseData(fieldValue, null);
+            }
             setSuccessful(true);
-            // } catch (UnsupportedEncodingException e1) {
-            // e1.printStackTrace();
-            // return setSampleResultErrorState(res, e1);
-            //
-            // } catch (ISOException e2) {
-            // e2.printStackTrace();
-            // return setSampleResultErrorState(res, e2);
         } catch (Exception e3) {
             e3.printStackTrace();
             setSuccessful(false);

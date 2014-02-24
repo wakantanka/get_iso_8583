@@ -19,11 +19,12 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.codec.binary.Hex;
-import org.jpos.iso.AsciiHexInterpreter;
+import org.jpos.iso.ISOComponent;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -51,38 +52,6 @@ public final class MsgUtils {
             baos.write((byte) val);
         }
         return baos.toByteArray();
-    }
-
-    static String stripFs(final String input) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < input.length(); i++) {
-
-            if (i % 2 == 0 && input.charAt(i) != 'F') {
-                throw new NumberFormatException("Wrong Format for F-Nibbles");
-            }
-            if (i % 2 == 1) {
-                {
-                    result.append(input.charAt(i));
-                }
-            }
-        }
-        return result.toString();
-    }
-
-    static String stripAllFs(final String input) {
-        return stripAllFs(input, 0);
-    }
-
-    static String stripAllFs(final String input, final int offset) {
-        StringBuilder result = new StringBuilder();
-        result.append(input.substring(0, offset));
-        for (int i = offset; i < input.length(); i++) {
-
-            if (input.charAt(i) != 'F') {
-                result.append(input.charAt(i));
-            }
-        }
-        return result.toString();
     }
 
     static String getISOMsgPlainText(final ISOMsg msg) {
@@ -136,7 +105,7 @@ public final class MsgUtils {
      * 
      * @return PrintStream
      */
-    public static PrintStream createLoggingProxy() {
+    static PrintStream createLoggingProxy() {
         return new PrintStream(System.out) {
             public void print(final String string) {
                 logger.debug(string);
@@ -176,11 +145,46 @@ public final class MsgUtils {
         return matcher.matches();
     }
 
+    private static Element travers(ISOComponent isoComponent, Document doc) {
+      
+            Element fieldElement;
+            try {
+                fieldElement = doc.createElement("FIELD"
+                        + isoComponent.getKey().toString());
+         
+
+            if (isoComponent.getValue() instanceof byte[]) {
+                fieldElement.setTextContent(Hex.encodeHexString(
+                        (byte[]) isoComponent.getValue()).toString());
+            } else {
+                fieldElement.setTextContent(isoComponent.getValue().toString());
+            }
+            // has Subfields
+            if (isoComponent.getMaxField() > 0) {
+                for (int i = 1; i < isoComponent.getMaxField() + 1; i++) {
+                    if (((ISOMsg) isoComponent).hasField(i)) {
+                        fieldElement
+                                .appendChild(travers(((ISOMsg) isoComponent)
+                                        .getComponent(i), doc));
+                    }
+                }
+            }
+            return fieldElement;
+            } catch (DOMException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ISOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
+    }
+
     /**
      * @param isoMsg
      * @return the Message in String xml-format
      */
-    public static String getISOMsgXml(ISOMsg isoMsg) {
+    static String getISOMsgXml(ISOMsg isoMsg) {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory
                 .newInstance();
 
@@ -194,41 +198,24 @@ public final class MsgUtils {
 
             for (int i = 1; i < isoMsg.getMaxField() + 1; i++) {
                 if (isoMsg.hasField(i)) {
-                    Element fieldElement = doc.createElement("FIELD"
-                            + isoMsg.getComponent(i).getKey().toString());
 
-                    if (isoMsg.getComponent(i).getValue() instanceof byte[]) {
-                        fieldElement.setTextContent(Hex.encodeHexString(
-                                (byte[]) isoMsg.getComponent(i).getValue())
-                                .toString());
-                    } else {
-                        fieldElement.setTextContent(isoMsg.getComponent(i)
-                                .getValue().toString());
-                    }
-                    // has Subfields
-                    if (isoMsg.getComponent(i).getMaxField() > 0) {
-                        // sb.append(logFields((ISOMsg) isoMsg.getComponent(i),
-                        // "\tSub"));
-                    }
-                    rootElement.appendChild(fieldElement);
+                    rootElement.appendChild(travers(isoMsg.getComponent(i), doc));
+
                 }
 
-
             }
-//                 Output to console for testing
-//                 StreamResult result = new StreamResult(System.out);
+            // Output to console for testing
+            // StreamResult result = new StreamResult(System.out);
             // write the content into xml
             TransformerFactory transformerFactory = TransformerFactory
                     .newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             StringWriter writer = new StringWriter();
             transformer.transform(new DOMSource(doc), new StreamResult(writer));
-            String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
-//            String output = writer.getBuffer().toString() ;
-            
-            
-            
+            String output = writer.getBuffer().toString();
+
             return output;
 
         } catch (ParserConfigurationException e) {
