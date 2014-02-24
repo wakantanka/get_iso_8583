@@ -312,12 +312,12 @@
               length="1"
               name="PDS 1 Processing Indicator" 
               class="org.jpos.iso.IF_CHAR"/> 
-       <isofield 
+          <isofield 
               id="2"
               length="99"  
               name="PDS 61" 
-              class="org.jpos.iso.IFMC_LLCHAR"/>  
-   <!--      <isofieldpackager 
+              class="org.jpos.iso.IFMC_LLCHAR"/>
+    <!--  <isofieldpackager 
                  id="2" 
               length="99" 
               name="PDS 61" 
@@ -349,7 +349,7 @@
                      length="1"  
                      name="PDS 61 - Final Authorization Indicator" 
                      class="org.jpos.iso.IFA_NUMERIC" /> 
-           </isofieldpackager> -->
+           </isofieldpackager>   -->
         <isofield 
               id="3" 
               length="99" 
@@ -364,12 +364,12 @@
               id="5" 
               length="99" 
               name="PDS 43 Universal Cardholder Authentication Field (UCAF)" 
-              class="org.jpos.iso.IFMC_LLCHAR"/> 
+              class="org.jpos.iso.IFMC_LLCHAR"/>
         <isofield 
               id="6" 
               length="99" 
               name="PDS 87 Card Validation Code Result" 
-              class="org.jpos.iso.IFMC_LLCHAR"/> 
+              class="org.jpos.iso.IFMC_LLCHAR"/>   
 </isofieldpackager>
               
 
