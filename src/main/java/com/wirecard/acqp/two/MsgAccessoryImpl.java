@@ -3,9 +3,11 @@
  */
 package com.wirecard.acqp.two;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.AsciiHexInterpreter;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
@@ -17,10 +19,31 @@ import org.slf4j.LoggerFactory;
  * @author Wirecard AG (c) 2014. All rights reserved.
  * 
  */
-public final class MsgAccessoryImpl { // implements IMsgAccessory {
+public final class MsgAccessoryImpl {
+    private static ClassLoader classLoader;
+    static {
+        classLoader = Thread.currentThread().getContextClassLoader();
+
+        if (classLoader == null) {
+            classLoader = Class.class.getClassLoader();
+        }
+        try {
+            DOMConfigurator.configureAndWatch(classLoader.getResources(
+                    "log4j.xml").toString());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+    
     private static Logger logger = LoggerFactory
             .getLogger(MsgAccessoryImpl.class);
+   
     static final int MIN_TWO_INPUT_LENGTH = 40;
+    static {
+        DOMConfigurator.configure("resources/log4j.xml");
+    }
 
     private MsgAccessoryImpl() {
         // nothing - Utility classes should not have a public or default
@@ -64,7 +87,7 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
             if (logger.isTraceEnabled()) {
                 isoMsg.dump(MsgUtils.createLoggingProxy(), "");
             }
-            logger.debug(MsgUtils.getISOMsgPlainText(isoMsg));
+            logger.debug( MsgUtils.getISOMsgPlainText(isoMsg));
             // MsgUtils.logISOMsgPlainText(isoMsg);
 
             if (isoMsg.getValue(fieldPath) instanceof byte[]) {
@@ -83,12 +106,7 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
 
     private static void injectPacker(String twoInput, String cardSchemeType,
             ISOMsg isoMsg) {
-        ClassLoader classLoader = Thread.currentThread()
-                .getContextClassLoader();
-
-        if (classLoader == null) {
-            classLoader = Class.class.getClassLoader();
-        }
+     
 
         GenericPackager sPackager = null;
         try {
@@ -120,8 +138,9 @@ public final class MsgAccessoryImpl { // implements IMsgAccessory {
      *            the HexString of an ISO8583 InterchangeMsg
      * @param cardSchemeType
      *            the CardScheme allowed Values VISA, MASTERCARD, JCB
-     * @param format PlainText or XML (txt, xml)
-     *            
+     * @param format
+     *            PlainText or XML (txt, xml)
+     * 
      * @return the the hole Msg as String in choosen Format
      * @throws ISOException
      * @throws IllegalArgumentException

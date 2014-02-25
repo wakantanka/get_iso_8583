@@ -1,6 +1,7 @@
 package com.wirecard.acqp.two;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -19,6 +20,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.jpos.iso.ISOComponent;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
@@ -33,13 +35,31 @@ import org.w3c.dom.Node;
  * @author Wirecard AG (c) 2014. All rights reserved.
  */
 public final class MsgUtils {
+    private static ClassLoader classLoader;
+    private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
 
+    static {
+        classLoader = Thread.currentThread().getContextClassLoader();
+        if (classLoader == null) {
+            classLoader = Class.class.getClassLoader();
+        }
+        try {
+            DOMConfigurator.configureAndWatch(classLoader.getResources(
+                    "log4j.xml").toString());
+          
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+//        logger.info("log4j configured" );
+
+    }
+    
     private MsgUtils() {
         // nothing - Utility classes should not have a public or default
         // constructor.
     }
 
-    private static Logger logger = LoggerFactory.getLogger(MsgUtils.class);
 
     static byte[] decodeNibbleHex(final String input) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -61,7 +81,7 @@ public final class MsgUtils {
             sb.append("  MTI : " + msg.getMTI() + "\n");
             sb.append(logFields(msg, ""));
         } catch (ISOException e) {
-            e.printStackTrace();
+            logger.error("" + e);
         } finally {
             sb.append("--------------------");
         }
@@ -171,11 +191,9 @@ public final class MsgUtils {
             }
             return fieldElement;
             } catch (DOMException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                logger.error("" + e);
             } catch (ISOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                logger.error("" + e);
             }
             return null;
     }

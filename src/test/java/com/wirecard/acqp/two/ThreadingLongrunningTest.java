@@ -37,6 +37,11 @@ public class ThreadingLongrunningTest {
                     assertEquals("PAN (Field 2) was not read correctly.",
                             "5405620000000000014", fieldValue);
                     
+                    String mti = MsgAccessoryImpl.readFieldValue(msg, "MASTERCARD",
+                            "0");
+                    assertEquals("mti was not read correctly.",
+                            "0100", mti);
+                    
                     pt.testParserHardeningVisa();
                 } catch (Exception e) {
                     failed = true;
