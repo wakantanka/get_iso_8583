@@ -28,7 +28,6 @@ public class ReadInterchangeMsgJCBACTest {
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-//        DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
          DOMConfigurator.configure("resources/log4j.xml");
     }
 

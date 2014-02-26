@@ -154,7 +154,6 @@
       name="FORWARDING INSTITUTION COUNTRY CODE"
       pad="true"
       class="org.jpos.iso.IFB_NUMERIC"/>
-
   <isofieldpackager
       id="22"
       length="4"
@@ -178,7 +177,6 @@
           name="unused"
           class="org.jpos.iso.IFA_NUMERIC"/>
   </isofieldpackager>  
-
   <isofield
       id="23"
       length="3"
@@ -299,11 +297,29 @@
       length="15"
       name="CARD ACCEPTOR IDENTIFICATION CODE"
       class="org.jpos.iso.IFE_CHAR"/>
-  <isofield
+  <isofieldpackager
       id="43"
       length="40"
       name="CARD ACCEPTOR NAME/LOCATION"
-      class="org.jpos.iso.IFE_CHAR"/>
+      class="org.jpos.iso.IFE_CHAR"
+	  packager="org.jpos.iso.packager.GenericSubFieldPackager"
+      emitBitmap="false"> 
+        <isofield 
+              id="1" 
+              length="25" 
+              name="Merchant Name" 
+              class="org.jpos.iso.IF_CHAR"/> 
+        <isofield 
+              id="2" 
+              length="13" 
+              name="Merchant City" 
+              class="org.jpos.iso.IF_CHAR"/> 
+        <isofield 
+              id="3" 
+              length="2" 
+              name="Merchant State" 
+              class="org.jpos.iso.IF_CHAR"/> 
+  </isofieldpackager>
   <isofield
       id="44"
       length="25"
@@ -388,14 +404,19 @@
       length="14"
       name="NATIONAL POS GEOGRAPHIC DATA"
       class="org.jpos.iso.IFB_LLHECHAR"/>
-   <isofieldpackager
+  <isofield
+      id="60"
+      length="99"
+      name="NATIONAL POS GEOGRAPHIC DATA"
+      class="org.jpos.iso.IFB_LLHBINARY"/>  
+<!--   <isofieldpackager
        id="60"
-      length="12"
+      length="99"
       name="ADDITIONAL POS INFORMATION"
       class="org.jpos.iso.IFB_LLHBINARY"
       packager="org.jpos.iso.packager.GenericSubFieldPackager"
       emitBitmap="false">
-            <isofield
+          <isofield
               id="1"
               length="1"
               name="TERMINAL TYPE"
@@ -410,7 +431,7 @@
               length="1"
               name="CHIP CONDITION CODE"
               class="org.jpos.iso.IFB_NUMERIC"/>
-            <isofield
+             <isofield
               id="4"
               length="1"
               name="SPECIAL CONDITION INDICATOR"
@@ -445,7 +466,7 @@
               length="1"
               name="PARTIAL AUTHORIZATION INDICATOR"
               class="org.jpos.iso.IFB_NUMERIC"/>
-      </isofieldpackager>
+      </isofieldpackager>-->
   <isofield
       id="61"
       length="36"
@@ -521,7 +542,7 @@
  </isofieldpackager>
   <isofieldpackager
       id="63"
-      length="255"
+      length="99"
       name="SMS PRIVATE-USE FIELDS"
       class="org.jpos.iso.IFB_LLHBINARY"
       packager="org.jpos.iso.packager.Base1SubFieldPackager">

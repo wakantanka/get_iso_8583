@@ -28,7 +28,6 @@ public class ParserHardeningLongrunningTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         DOMConfigurator.configure("resources/log4j.xml");
-//         DOMConfigurator.configure("src/test/resources/log4j_trace.xml");
     }
 
     @Before
