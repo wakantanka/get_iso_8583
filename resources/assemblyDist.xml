@@ -9,7 +9,8 @@
         ~/dev/apache-jmeter-2.9/
         -->
     <formats>
-        <format>dir</format>
+        <format>tar.gz</format>
+        <format>dir</format> 
     </formats>
     <dependencySets>
         <dependencySet>
